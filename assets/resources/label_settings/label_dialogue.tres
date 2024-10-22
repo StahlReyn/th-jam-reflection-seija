@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://fxsflib1sm3p"]
+
+[ext_resource type="FontFile" uid="uid://cgat1phnbct83" path="res://assets/fonts/Seagull-Bold.otf" id="1_7sw1w"]
+
+[resource]
+line_spacing = 5.0
+font = ExtResource("1_7sw1w")
+font_size = 22
+font_color = Color(0, 0, 0, 1)

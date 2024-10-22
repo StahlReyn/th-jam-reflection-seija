@@ -1,0 +1,335 @@
+[gd_scene load_steps=18 format=3 uid="uid://chg817g0wf0ij"]
+
+[ext_resource type="Script" path="res://scripts/gamestate/gamehud.gd" id="1_ovxsb"]
+[ext_resource type="Texture2D" uid="uid://c7cx5yj4h5drb" path="res://assets/img/system/hud-test.png" id="1_tnihf"]
+[ext_resource type="Script" path="res://scripts/gamestate/debug-label.gd" id="2_hgmoc"]
+[ext_resource type="LabelSettings" uid="uid://bkay61kan2hfv" path="res://assets/resources/label_settings/label_score.tres" id="4_w0ro3"]
+[ext_resource type="Texture2D" uid="uid://ba2ttc5hf8t30" path="res://assets/img/system/divider_stat.png" id="5_7bs50"]
+[ext_resource type="LabelSettings" uid="uid://buvvmef2syqrg" path="res://assets/resources/label_settings/label_score_title.tres" id="5_tyrlp"]
+[ext_resource type="Script" path="res://ui/gameplay/label_score.gd" id="7_0im4f"]
+[ext_resource type="Texture2D" uid="uid://yipm4qncoxvx" path="res://assets/img/system/point_items.png" id="7_03ov1"]
+[ext_resource type="Script" path="res://ui/gameplay/life_display.gd" id="8_2bgxr"]
+[ext_resource type="LabelSettings" uid="uid://cn3hc1ibtcc1w" path="res://assets/resources/label_settings/label_score_smaller.tres" id="9_c5ru6"]
+[ext_resource type="LabelSettings" uid="uid://dcg8dq8lly56i" path="res://assets/resources/label_settings/label_score_title_smaller.tres" id="9_xfdch"]
+[ext_resource type="Script" path="res://ui/gameplay/label_life_piece.gd" id="11_3opu6"]
+[ext_resource type="Script" path="res://ui/gameplay/label_bomb_piece.gd" id="12_6a4rf"]
+[ext_resource type="Script" path="res://ui/gameplay/label_power.gd" id="14_5ov4r"]
+[ext_resource type="Script" path="res://ui/gameplay/label_point_value.gd" id="15_dakvi"]
+[ext_resource type="Script" path="res://ui/gameplay/label_graze.gd" id="16_w272q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k5vxq"]
+font_size = 14
+
+[node name="Gamehud" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ovxsb")
+
+[node name="Hud-test" type="Sprite2D" parent="."]
+z_index = 10
+texture = ExtResource("1_tnihf")
+centered = false
+
+[node name="DebugLabel" type="Label" parent="."]
+z_index = 20
+layout_mode = 2
+offset_left = 868.0
+offset_top = 604.0
+offset_right = 1236.0
+offset_bottom = 811.0
+text = "DEBUG TEXT
+"
+label_settings = SubResource("LabelSettings_k5vxq")
+script = ExtResource("2_hgmoc")
+
+[node name="Stats" type="VBoxContainer" parent="."]
+z_index = 20
+layout_mode = 0
+offset_left = 871.0
+offset_top = 55.0
+offset_right = 1239.0
+offset_bottom = 546.0
+
+[node name="Difficulty" type="Label" parent="Stats"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "DIFFICULTY"
+label_settings = ExtResource("5_tyrlp")
+horizontal_alignment = 1
+
+[node name="HiScoreContainer" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/HiScoreContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+text = "SYS_HIGHSCORE"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="Value" type="Label" parent="Stats/HiScoreContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "000,000,000"
+label_settings = ExtResource("4_w0ro3")
+horizontal_alignment = 2
+
+[node name="Divider" type="Control" parent="Stats"]
+z_index = -1
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/Divider"]
+position = Vector2(0, -10)
+scale = Vector2(2, 2)
+texture = ExtResource("5_7bs50")
+centered = false
+
+[node name="ScoreContainer" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/ScoreContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+text = "SYS_SCORE"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="Value" type="Label" parent="Stats/ScoreContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "000,000,000"
+label_settings = ExtResource("4_w0ro3")
+horizontal_alignment = 2
+script = ExtResource("7_0im4f")
+
+[node name="Divider2" type="Control" parent="Stats"]
+z_index = -1
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/Divider2"]
+position = Vector2(0, -10)
+scale = Vector2(2, 2)
+texture = ExtResource("5_7bs50")
+centered = false
+
+[node name="LifeContainer" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="MainContainer" type="HBoxContainer" parent="Stats/LifeContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/LifeContainer/MainContainer"]
+modulate = Color(1, 0.537255, 1, 1)
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "SYS_LIVES"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="LifeDisplay" type="HBoxContainer" parent="Stats/LifeContainer/MainContainer"]
+custom_minimum_size = Vector2(210, 50)
+layout_mode = 2
+script = ExtResource("8_2bgxr")
+
+[node name="PieceContainer" type="HBoxContainer" parent="Stats/LifeContainer"]
+layout_mode = 2
+
+[node name="Space" type="Control" parent="Stats/LifeContainer/PieceContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/LifeContainer/PieceContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "SYS_PIECES"
+label_settings = ExtResource("9_xfdch")
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="Stats/LifeContainer/PieceContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "(0/0)"
+label_settings = ExtResource("9_c5ru6")
+horizontal_alignment = 2
+script = ExtResource("11_3opu6")
+
+[node name="DividerMid" type="Control" parent="Stats"]
+z_index = -1
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/DividerMid"]
+modulate = Color(1, 0.415686, 1, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("5_7bs50")
+centered = false
+
+[node name="BombContainer" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="MainContainer" type="HBoxContainer" parent="Stats/BombContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/BombContainer/MainContainer"]
+modulate = Color(0.496, 0.8, 0.5112, 1)
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "SYS_SPELLCARD"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="LifeDisplay" type="HBoxContainer" parent="Stats/BombContainer/MainContainer"]
+custom_minimum_size = Vector2(210, 50)
+layout_mode = 2
+script = ExtResource("8_2bgxr")
+type = 1
+
+[node name="PieceContainer" type="HBoxContainer" parent="Stats/BombContainer"]
+layout_mode = 2
+
+[node name="Space" type="Control" parent="Stats/BombContainer/PieceContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/BombContainer/PieceContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "SYS_PIECES"
+label_settings = ExtResource("9_xfdch")
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="Stats/BombContainer/PieceContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "(0/0)"
+label_settings = ExtResource("9_c5ru6")
+horizontal_alignment = 2
+script = ExtResource("12_6a4rf")
+
+[node name="DividerMid2" type="Control" parent="Stats"]
+modulate = Color(0.496, 0.8, 0.5112, 1)
+z_index = -1
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/DividerMid2"]
+scale = Vector2(2, 2)
+texture = ExtResource("5_7bs50")
+centered = false
+
+[node name="PowerContainer" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Icon" type="Control" parent="Stats/PowerContainer"]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/PowerContainer/Icon"]
+position = Vector2(30, 8)
+scale = Vector2(2, 2)
+texture = ExtResource("7_03ov1")
+centered = false
+hframes = 8
+
+[node name="Label" type="Label" parent="Stats/PowerContainer"]
+modulate = Color(1, 0.439216, 0.439216, 1)
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "SYS_POWER"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="Value" type="Label" parent="Stats/PowerContainer"]
+modulate = Color(1, 0.439216, 0.439216, 1)
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+text = "0.00/0.00"
+label_settings = ExtResource("4_w0ro3")
+horizontal_alignment = 2
+script = ExtResource("14_5ov4r")
+
+[node name="DividerRight" type="Control" parent="Stats"]
+modulate = Color(1, 0.439216, 0.439216, 1)
+z_index = -1
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/DividerRight"]
+position = Vector2(80, -15)
+scale = Vector2(1.5, 2)
+texture = ExtResource("5_7bs50")
+centered = false
+
+[node name="ValueContainer" type="HBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Icon" type="Control" parent="Stats/ValueContainer"]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/ValueContainer/Icon"]
+position = Vector2(30, 8)
+scale = Vector2(2, 2)
+texture = ExtResource("7_03ov1")
+centered = false
+hframes = 8
+frame = 1
+
+[node name="Label" type="Label" parent="Stats/ValueContainer"]
+modulate = Color(0.381352, 0.645355, 1, 1)
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "SYS_VALUE"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="Value" type="Label" parent="Stats/ValueContainer"]
+modulate = Color(0.381352, 0.645355, 1, 1)
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+text = "000,000"
+label_settings = ExtResource("4_w0ro3")
+horizontal_alignment = 2
+script = ExtResource("15_dakvi")
+
+[node name="DividerRight2" type="Control" parent="Stats"]
+modulate = Color(0.381352, 0.645355, 1, 1)
+z_index = -1
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/DividerRight2"]
+position = Vector2(80, -15)
+scale = Vector2(1.5, 2)
+texture = ExtResource("5_7bs50")
+centered = false
+
+[node name="GrazeContainer" type="HBoxContainer" parent="Stats"]
+modulate = Color(0.730913, 0.730913, 0.730913, 1)
+layout_mode = 2
+
+[node name="Icon" type="Control" parent="Stats/GrazeContainer"]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Stats/GrazeContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "SYS_GRAZE"
+label_settings = ExtResource("5_tyrlp")
+
+[node name="Value" type="Label" parent="Stats/GrazeContainer"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+text = "00,000"
+label_settings = ExtResource("4_w0ro3")
+horizontal_alignment = 2
+script = ExtResource("16_w272q")
+
+[node name="DividerRight3" type="Control" parent="Stats"]
+modulate = Color(0.730913, 0.730913, 0.730913, 1)
+z_index = -1
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Stats/DividerRight3"]
+position = Vector2(80, -15)
+scale = Vector2(1.5, 2)
+texture = ExtResource("5_7bs50")
+centered = false

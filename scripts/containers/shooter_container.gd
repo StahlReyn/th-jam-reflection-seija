@@ -1,0 +1,2 @@
+class_name ShooterContainer
+extends Node2D

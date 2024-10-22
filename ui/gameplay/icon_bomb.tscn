@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://blpt8f88vfvad"]
+
+[ext_resource type="Script" path="res://ui/gameplay/icon_pieces.gd" id="1_ld1mn"]
+[ext_resource type="Texture2D" uid="uid://85iwmq4bx3l2" path="res://assets/img/system/bomb.png" id="2_5mhqw"]
+
+[node name="IconHeart" type="Control" node_paths=PackedStringArray("sprite_icon")]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ld1mn")
+sprite_icon = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 10)
+scale = Vector2(2, 2)
+texture = ExtResource("2_5mhqw")
+centered = false
+hframes = 7

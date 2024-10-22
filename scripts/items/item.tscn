@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3vvpd13843s4"]
+
+[ext_resource type="SpriteFrames" uid="uid://xmhho1bpave7" path="res://scripts/items/item_sprite_frames.tres" id="1_3tgvo"]
+[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_fagwi"]
+
+[node name="Item" type="AnimatedSprite2D" groups=["item"]]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_3tgvo")
+animation = &"bomb_piece"
+script = ExtResource("1_fagwi")

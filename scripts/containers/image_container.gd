@@ -1,0 +1,2 @@
+class_name ImageContainer
+extends Node2D

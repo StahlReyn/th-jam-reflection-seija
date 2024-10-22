@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://djh1d5tgxtxjj"]
+
+[ext_resource type="Script" path="res://scenes/background/path3d_camera.gd" id="1_81vh5"]
+[ext_resource type="Material" uid="uid://bw1bv32em7t1g" path="res://data/textures/material_3d_placeholder.tres" id="1_isv44"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oy4px"]
+material = ExtResource("1_isv44")
+size = Vector2(2, 50)
+
+[sub_resource type="Curve3D" id="Curve3D_xgtpb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0.350035, 0, 0, 0, 0, 0, 0, 0, -0.0164019, 0.279705, -7.75046, 0, 0, 0, 0, 0, 0, 0.117865, 0.126636, -21.0003),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Environment" id="Environment_7pxra"]
+fog_enabled = true
+fog_mode = 1
+fog_density = 1.0
+fog_depth_curve = 0.447625
+fog_depth_begin = 2.0
+volumetric_fog_density = 1.0
+
+[node name="Background-test" type="Node3D"]
+
+[node name="Stage" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.7518)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stage"]
+mesh = SubResource("PlaneMesh_oy4px")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1, 1, 0)
+mesh = SubResource("PlaneMesh_oy4px")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1, 1, 0)
+mesh = SubResource("PlaneMesh_oy4px")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.720708, 1.30252)
+curve = SubResource("Curve3D_xgtpb")
+script = ExtResource("1_81vh5")
+speed = 0.1
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.99999, -1.92023e-05, 0.00211613, -9.09488e-13, 0.999945, 0.00907379, -0.00211623, -0.00907377, 0.999943, 0, 0.350035, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1.00001, 0, 0, 0, 1.00001, 0, 0, 0, 1.00001, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7pxra")

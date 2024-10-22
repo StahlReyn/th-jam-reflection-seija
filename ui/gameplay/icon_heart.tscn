@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3nsrmnpgafwt"]
+
+[ext_resource type="Script" path="res://ui/gameplay/icon_pieces.gd" id="1_2e4f7"]
+[ext_resource type="Texture2D" uid="uid://beypwk68ep872" path="res://assets/img/system/life.png" id="1_fwx2n"]
+
+[node name="IconHeart" type="Control" node_paths=PackedStringArray("sprite_icon")]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_2e4f7")
+sprite_icon = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 10)
+scale = Vector2(2, 2)
+texture = ExtResource("1_fwx2n")
+centered = false
+hframes = 5

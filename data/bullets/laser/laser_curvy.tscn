@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4bglxhhjskxe"]
+
+[ext_resource type="Script" path="res://data/bullets/laser/bullet_chain.gd" id="1_twkdw"]
+[ext_resource type="Texture2D" uid="uid://cm0i64a6jer1g" path="res://assets/img/bullets/laser_basic.png" id="2_gmsw6"]
+[ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_lxchx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywisj"]
+resource_local_to_scene = true
+
+[node name="LaserCurvy" type="Area2D" groups=["bullet"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_twkdw")
+rotation_based_on_velocity = false
+delay_time = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ywisj")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_gmsw6")
+hframes = 10
+vframes = 4
+frame = 1
+script = ExtResource("3_lxchx")

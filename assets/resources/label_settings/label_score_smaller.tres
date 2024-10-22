@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cn3hc1ibtcc1w"]
+
+[ext_resource type="FontFile" uid="uid://bwtfr15faybdl" path="res://assets/fonts/Teko/static/Teko-Medium.ttf" id="1_bx3io"]
+
+[resource]
+font = ExtResource("1_bx3io")
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)

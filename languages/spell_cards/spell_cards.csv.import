@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://em5h0yt23iif"
+
+[deps]
+
+files=["res://languages/spell_cards/spell_cards.en.translation", "res://languages/spell_cards/spell_cards.jp.translation"]
+
+source_file="res://languages/spell_cards/spell_cards.csv"
+dest_files=["res://languages/spell_cards/spell_cards.en.translation", "res://languages/spell_cards/spell_cards.jp.translation"]
+
+[params]
+
+compress=true
+delimiter=0

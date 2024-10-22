@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://e00na8n7nsfn"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_wcle7"]
+[ext_resource type="Texture2D" uid="uid://47qgd8f36w0j" path="res://assets/img/bullets/circle_small_cross.png" id="2_g5txu"]
+[ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_bw6yh"]
+[ext_resource type="Script" path="res://data/movement/common/rotation_constant.gd" id="4_fi1nu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tuqlv"]
+radius = 6.0
+
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("main_sprite") groups=["bullet"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_wcle7")
+main_sprite = NodePath("Sprite")
+rotation_based_on_velocity = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tuqlv")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_g5txu")
+hframes = 10
+vframes = 4
+frame = 1
+script = ExtResource("3_bw6yh")
+
+[node name="Rotation" type="Node" parent="Sprite" node_paths=PackedStringArray("parent")]
+script = ExtResource("4_fi1nu")
+parent = NodePath("..")

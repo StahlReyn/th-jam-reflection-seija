@@ -1,0 +1,2 @@
+class_name EnemyContainer
+extends Node2D

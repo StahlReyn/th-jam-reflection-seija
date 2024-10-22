@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://icd748p18cgv"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_iuydp"]
+[ext_resource type="Texture2D" uid="uid://clnl18fndfi38" path="res://assets/img/bullets/talisman.png" id="2_bp2ow"]
+[ext_resource type="PackedScene" uid="uid://djohlf5howpr" path="res://data/after_effects/bullet_hit_basic.tscn" id="2_k5ix7"]
+[ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_hs2fv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eyqfo"]
+radius = 6.0
+
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("main_sprite") groups=["bullet"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_iuydp")
+main_sprite = NodePath("Sprite")
+bullet_hit_effect_scene = ExtResource("2_k5ix7")
+damage = 2
+velocity = Vector2(0, -2000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eyqfo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_bp2ow")
+hframes = 10
+vframes = 4
+frame = 9
+script = ExtResource("3_hs2fv")

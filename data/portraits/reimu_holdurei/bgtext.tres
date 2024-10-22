@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://vu30x87heeip"]
+
+[ext_resource type="Texture2D" uid="uid://dwdyyvqsum34k" path="res://assets/img/portraits/reimu_holdurei.png" id="1_yirb0"]
+
+[resource]
+atlas = ExtResource("1_yirb0")
+region = Rect2(1160, 280, 240, 240)

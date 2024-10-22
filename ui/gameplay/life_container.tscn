@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://n0hdyxbn6h0s"]
+
+[ext_resource type="LabelSettings" uid="uid://bkay61kan2hfv" path="res://assets/resources/label_settings/label_score.tres" id="1_usf24"]
+[ext_resource type="LabelSettings" uid="uid://cn3hc1ibtcc1w" path="res://assets/resources/label_settings/label_score_smaller.tres" id="2_awohy"]
+
+[sub_resource type="GDScript" id="GDScript_i2ukc"]
+
+[node name="LifeContainer" type="VBoxContainer"]
+offset_right = 476.0
+offset_bottom = 90.0
+script = SubResource("GDScript_i2ukc")
+
+[node name="SymbolContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SymbolContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Life
+"
+label_settings = ExtResource("1_usf24")
+
+[node name="Life" type="Label" parent="SymbolContainer"]
+layout_mode = 2
+text = "X X X X X X X X"
+label_settings = ExtResource("1_usf24")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SymbolContainer"]
+layout_mode = 2
+
+[node name="SubtextContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="SubtextContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Life" type="Label" parent="SubtextContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "(Part)"
+label_settings = ExtResource("2_awohy")
+horizontal_alignment = 1
+
+[node name="Life2" type="Label" parent="SubtextContainer"]
+layout_mode = 2
+text = "(0/0)"
+label_settings = ExtResource("2_awohy")
+horizontal_alignment = 2

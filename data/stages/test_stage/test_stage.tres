@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=7 format=3 uid="uid://crggihiex84to"]
+
+[ext_resource type="Script" path="res://resources/stage_data.gd" id="1_by85a"]
+[ext_resource type="Script" path="res://data/stages/test_stage/test_section_1.gd" id="2_l62ex"]
+[ext_resource type="Script" path="res://data/stages/test_stage/test_section_2.gd" id="3_veexd"]
+[ext_resource type="Script" path="res://data/stages/test_stage/test_dialogue_section.gd" id="4_0hmch"]
+[ext_resource type="Script" path="res://data/stages/test_stage/gorgeous_sweet_flower.gd" id="5_jov0i"]
+[ext_resource type="Script" path="res://data/stages/test_stage/danmaku_chimera.gd" id="6_0vt0i"]
+
+[resource]
+script = ExtResource("1_by85a")
+stage_number = 0
+stage_difficulty = 0
+section_list = Array[GDScript]([ExtResource("6_0vt0i"), ExtResource("2_l62ex"), ExtResource("3_veexd"), ExtResource("4_0hmch"), ExtResource("5_jov0i"), ExtResource("3_veexd")])

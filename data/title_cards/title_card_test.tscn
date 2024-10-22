@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://07ms8pouruju"]
+
+[ext_resource type="Script" path="res://scripts/mod_scripts/title_card.gd" id="1_raul3"]
+[ext_resource type="Texture2D" uid="uid://blinc05e4w5wb" path="res://assets/img/titlecards/titlecard_placeholder.png" id="2_jlmvv"]
+
+[node name="TitleCardTest" type="Sprite2D"]
+script = ExtResource("1_raul3")
+
+[node name="TitlecardPlaceholder" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jlmvv")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cufkxcespppc2"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_5jhiq"]
+[ext_resource type="Texture2D" uid="uid://dmv7ghsv6afw" path="res://assets/img/bullets/ellipse_small.png" id="2_11b1o"]
+[ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_mq2dt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rm5dy"]
+radius = 6.0
+
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("main_sprite") groups=["bullet"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_5jhiq")
+main_sprite = NodePath("Sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rm5dy")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_11b1o")
+hframes = 10
+vframes = 4
+frame = 1
+script = ExtResource("3_mq2dt")

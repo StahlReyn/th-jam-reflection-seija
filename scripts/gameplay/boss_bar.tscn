@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://w54qs2iq7b0n"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/boss_bar.gd" id="1_er6ca"]
+[ext_resource type="Texture2D" uid="uid://d4cf6gw8ms8x2" path="res://assets/img/system/hpbar_under.png" id="1_v23ha"]
+[ext_resource type="Texture2D" uid="uid://srxnrpnindf" path="res://assets/img/system/hpbar_progress.png" id="2_k87w5"]
+
+[node name="BossBar" type="TextureProgressBar"]
+offset_left = -128.0
+offset_top = -128.0
+step = 0.0
+value = 70.0
+fill_mode = 5
+texture_under = ExtResource("1_v23ha")
+texture_progress = ExtResource("2_k87w5")
+script = ExtResource("1_er6ca")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://djohlf5howpr"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/after_effect.gd" id="1_5bcog"]
+[ext_resource type="AudioStream" uid="uid://c7r4fudpm8xph" path="res://assets/audio/sfx/bullet_hit.mp3" id="2_74mmg"]
+[ext_resource type="Texture2D" uid="uid://ygylgymb073n" path="res://assets/img/effects/cloud_smaller.png" id="3_85efk"]
+[ext_resource type="Script" path="res://scripts/sprite_effects/particle_oneshot.gd" id="4_reyup"]
+
+[sub_resource type="Curve" id="Curve_y6q7d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.839607, 0.486889), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.03561, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xi8jg"]
+curve = SubResource("Curve_y6q7d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c3gkl"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+initial_velocity_max = 104.9
+gravity = Vector3(0, 0, 0)
+damping_min = 70.0
+damping_max = 70.0
+scale_min = 2.0
+scale_max = 2.0
+alpha_curve = SubResource("CurveTexture_xi8jg")
+
+[node name="BulletHitBasic" type="Node2D" node_paths=PackedStringArray("audio_start")]
+script = ExtResource("1_5bcog")
+audio_start = NodePath("BulletHit")
+
+[node name="BulletHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_74mmg")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_c3gkl")
+texture = ExtResource("3_85efk")
+script = ExtResource("4_reyup")
