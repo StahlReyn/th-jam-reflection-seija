@@ -8,7 +8,7 @@ var timer1_count : int = 0
 
 func _init() -> void:
 	timer1 = timer_setup(2.0, timeout_1)
-	timer1_1 = timer_setup(0.4, timeout_1_1)
+	timer1_1 = timer_setup(1.0, timeout_1_1)
 	timer1_1.paused = true
 
 func timer_setup(wait_time: float, function: Callable) -> Timer:
@@ -43,18 +43,27 @@ func timeout_1_1():
 		
 	for pos in positions:
 		var enemy = spawn_enemy(enemy_fairy, pos)
-		enemy.delay_time = count * 0.05
 		enemy.velocity = velocity
-		enemy.add_movement_node(
+		enemy.add_script_node(
 			MSAcceleration.new(acceleration)
 		)
-		for i in range(5):
-			enemy.add_movement_node(
-				MSShootCircle.new(3.0, 300, 16, i * 0.03)
-			)
-		enemy.main_sprite.set_type(count % 3)
+		enemy.add_script_node(
+			MSShootCircleGroup.new(3.0, Vector2(0,300), 16, 0, 50, 5, TAU/32)
+		)
 		count += 1
-
-func mirror_x(x: float) -> float:
-	return -(x - GameUtils.game_area.x)
 	
+func entity_flower_pattern(entity : Entity):
+	# Circle occasionally
+	entity.add_script_node(
+		MSShootCircle.new(1.0, 400, 25, 0)
+	)
+	# Spiral Arm, set of forward and backward
+	for i in range(5):
+		entity.add_script_node(
+			MSShootSpiral.new(0.05, 400, TAU/50, i * TAU/5)
+		)
+		entity.add_script_node(
+			MSShootSpiral.new(0.05, 400, -TAU/50, i * TAU/5)
+		)
+
+#enemy.main_sprite.set_type(count % 3)

@@ -20,7 +20,7 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 	# Placeholder spawn effect
-	AfterEffect.add_effect(bullet_spawn_effect, global_position)
+	# AfterEffect.add_effect(bullet_spawn_effect, global_position)
 
 func _physics_process(delta: float) -> void:
 	super(delta)

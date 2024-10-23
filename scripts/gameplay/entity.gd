@@ -83,11 +83,11 @@ func do_remove():
 
 func add_entity_script(script : GDScript) -> Node:
 	var node_script = script.new()
-	add_movement_node(node_script)
+	add_script_node(node_script)
 	return node_script
 
 ## No return values as a node is already passed in
-func add_movement_node(node : EntityScript) -> void:
+func add_script_node(node : EntityScript) -> void:
 	node.set_parent(self)
 	node.name = "EntityScript"
 	script_handler.add_child(node)

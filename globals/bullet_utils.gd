@@ -29,16 +29,34 @@ enum CollisionMask {
 func base_func(bullet: Bullet, i: int):
 	return
 	
-func spawn_circle(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, offset: float = 0) -> Array[Bullet]:
+func spawn_circle(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_offset: float = 0) -> Array[Bullet]:
 	var direction : Vector2 = Vector2.ZERO
 	var bullet : Bullet
 	var bullet_list : Array[Bullet]
 	for i in range(count):
-		direction.x = cos(TAU * i/count + offset)
-		direction.y = sin(TAU * i/count + offset)
+		direction.x = cos(TAU * i/count + angle_offset)
+		direction.y = sin(TAU * i/count + angle_offset)
 		bullet = ModScript.spawn_bullet(bullet_scene, pos)
 		bullet.velocity = direction * speed
 		bullet_list.append(bullet)
+	return bullet_list
+
+func spawn_circle_packed(bullet_scene: PackedScene, pos: Vector2, velocity: Vector2, count: int, radius : int, angle_offset: float = 0, layer : int = 1, offset_per_layer : float = 0.0):
+	var bullet_list : Array[Bullet]
+	for i in range(layer):
+		var bullet_list_ring = BulletUtils.spawn_circle(
+			bullet_scene, # Bullet to spawn
+			pos, # Position
+			1, # Speed - Set to 1 which is just normalized direction
+			count, # Count
+			angle_offset + (i * offset_per_layer), # Offset rad
+		)
+		for bullet in bullet_list_ring:
+			# Velocity is direction initially due to 1
+			var ratio = float(i+1)/float(layer)
+			bullet.position += bullet.velocity * radius * ratio
+			bullet.velocity = velocity
+			bullet_list.append(bullet)
 	return bullet_list
 
 func clear_bullets() -> void:
