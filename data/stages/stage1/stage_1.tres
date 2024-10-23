@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=4 format=3 uid="uid://d160n3bdn3ewr"]
+
+[ext_resource type="Script" path="res://resources/stage_data.gd" id="1_mqonp"]
+[ext_resource type="Script" path="res://data/stages/stage1/dialogue_section_1.gd" id="2_e42bk"]
+[ext_resource type="Script" path="res://data/stages/stage1/section_1.gd" id="3_w2g32"]
+
+[resource]
+script = ExtResource("1_mqonp")
+stage_number = 0
+stage_difficulty = 0
+section_list = Array[GDScript]([ExtResource("2_e42bk"), ExtResource("3_w2g32")])

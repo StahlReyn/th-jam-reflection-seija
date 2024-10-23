@@ -26,6 +26,12 @@ func _iter_get(arg): # Returns entity in the list
 func add_entity(entity: Entity) -> void:
 	entity_list.append(entity)
 
+func remove_entity(entity: Entity) -> void:
+	entity_list.erase(entity)
+	
+func entity_count() -> int:
+	return entity_list.size()
+
 func clean_list() -> void:
 	var old_list = entity_list
 	entity_list = []

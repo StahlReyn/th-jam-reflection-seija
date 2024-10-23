@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=7 format=3 uid="uid://btnjtfgcpejyw"]
+
+[ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_wobq7"]
+[ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_xl0nv"]
+[ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_s5lyv"]
+[ext_resource type="Script" path="res://resources/dialogue_set.gd" id="4_sq3ia"]
+
+[sub_resource type="Resource" id="Resource_26rq7"]
+script = ExtResource("3_s5lyv")
+id = "A"
+auto = false
+portrait = ExtResource("2_xl0nv")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 0
+text = "They call me \"The Drink\""
+
+[sub_resource type="Resource" id="Resource_h6uyo"]
+script = ExtResource("3_s5lyv")
+id = "A"
+auto = false
+face_anim = ""
+body_anim = ""
+position_type = 0
+text = "I love arson!"
+
+[resource]
+script = ExtResource("4_sq3ia")
+dialogue_actions = Array[ExtResource("1_wobq7")]([SubResource("Resource_26rq7"), SubResource("Resource_h6uyo")])

@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://btg4d8khha007"]
 
 [ext_resource type="Script" path="res://scripts/gamestate/gameview.gd" id="1_dyv06"]
-[ext_resource type="PackedScene" uid="uid://dopo8g5mkyblm" path="res://data/character/player.tscn" id="1_u7skv"]
 [ext_resource type="Script" path="res://scripts/containers/image_container.gd" id="3_r12md"]
 [ext_resource type="Script" path="res://scripts/containers/bullet_container.gd" id="4_q2e0v"]
 [ext_resource type="Script" path="res://scripts/containers/effect_container.gd" id="5_fx8wi"]
 [ext_resource type="Script" path="res://scripts/containers/enemy_container.gd" id="5_rfhvy"]
 [ext_resource type="Script" path="res://scripts/containers/item_container.gd" id="6_0wgp6"]
+[ext_resource type="PackedScene" uid="uid://bstkesf6qp7fw" path="res://data/character/player_seija.tscn" id="7_3h4w4"]
 [ext_resource type="Script" path="res://scripts/containers/stage_handler.gd" id="8_e6ddu"]
 [ext_resource type="Texture2D" uid="uid://cb0p73frtui6m" path="res://assets/img/system/item_get_line.png" id="9_gyqvd"]
 [ext_resource type="Script" path="res://scripts/gamestate/area_collection.gd" id="10_w4su3"]
@@ -33,9 +33,8 @@ scale = Vector2(2, 2)
 texture = ExtResource("9_gyqvd")
 script = ExtResource("10_w4su3")
 
-[node name="Player" parent="." instance=ExtResource("1_u7skv")]
-z_index = 2
-position = Vector2(351, 620)
+[node name="PlayerSeija" parent="." instance=ExtResource("7_3h4w4")]
+position = Vector2(580, 752)
 
 [node name="EnemyContainer" type="Node2D" parent="." groups=["enemy_container"]]
 z_index = 1
@@ -51,4 +50,3 @@ script = ExtResource("8_e6ddu")
 [node name="SpellCardDisplayer" parent="." groups=["spell_card_displayer"] instance=ExtResource("12_eoofb")]
 
 [connection signal="game_start" from="." to="AreaCollection" method="_on_gameview_game_start"]
-[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]

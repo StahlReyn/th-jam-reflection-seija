@@ -48,8 +48,9 @@ func process_movement_input() -> void:
 		velocity.y = -get_speed()
 
 func process_shoot_input() -> void:
-	if Input.is_action_pressed("shoot") and can_shoot() and not audio_shoot.playing:
-		audio_shoot.play()
+	pass
+	#if Input.is_action_pressed("shoot") and can_shoot() and not audio_shoot.playing:
+	#	audio_shoot.play()
 
 func process_movement(delta) -> void:
 	if state == State.NORMAL or state == State.GRACE:

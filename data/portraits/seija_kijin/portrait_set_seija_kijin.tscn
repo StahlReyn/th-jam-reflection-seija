@@ -1,0 +1,117 @@
+[gd_scene load_steps=12 format=3 uid="uid://dysnc27pd05m4"]
+
+[ext_resource type="Script" path="res://ui/dialogue/portrait_set.gd" id="1_qbqgd"]
+[ext_resource type="Texture2D" uid="uid://5f5kc0ayc102" path="res://data/portraits/seija_kijin/body_defeated.tres" id="2_ff77u"]
+[ext_resource type="Texture2D" uid="uid://dj2qetowf05hy" path="res://data/portraits/seija_kijin/body_main.tres" id="3_d1o07"]
+[ext_resource type="Texture2D" uid="uid://dgb6x8cqdedmt" path="res://data/portraits/seija_kijin/face_neutral.tres" id="4_0mlst"]
+[ext_resource type="LabelSettings" uid="uid://baxanrvsxf4vv" path="res://assets/resources/label_settings/label_name_title.tres" id="7_swoh0"]
+[ext_resource type="LabelSettings" uid="uid://bjjl7v2ai34v2" path="res://assets/resources/label_settings/label_name_ruby.tres" id="8_vrkx5"]
+[ext_resource type="LabelSettings" uid="uid://magrn7v6vmcj" path="res://assets/resources/label_settings/label_name_main.tres" id="9_gaopb"]
+[ext_resource type="LabelSettings" uid="uid://c6wx3igo44q2q" path="res://assets/resources/label_settings/label_name_alt.tres" id="10_es3m4"]
+[ext_resource type="Texture2D" uid="uid://vu30x87heeip" path="res://data/portraits/reimu_holdurei/bgtext.tres" id="11_nkusl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ya4ge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ff77u")
+}],
+"loop": true,
+"name": &"defeated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_d1o07")
+}],
+"loop": true,
+"name": &"main",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_quvdx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_0mlst")
+}],
+"loop": true,
+"name": &"neutral",
+"speed": 5.0
+}]
+
+[node name="PortraitSetReimuHoldurei" type="Node2D" node_paths=PackedStringArray("sprite_body", "sprite_face", "speech_position")]
+script = ExtResource("1_qbqgd")
+id = "holder_1"
+sprite_body = NodePath("Body")
+sprite_face = NodePath("Face")
+speech_position = NodePath("SpeechPosition")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 11)
+sprite_frames = SubResource("SpriteFrames_ya4ge")
+animation = &"main"
+
+[node name="Face" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(76, -289)
+sprite_frames = SubResource("SpriteFrames_quvdx")
+animation = &"neutral"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -445.0
+offset_top = 15.0
+offset_right = -38.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="NameBox" type="VBoxContainer" parent="MarginContainer"]
+z_index = 5
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_TITLE"
+label_settings = ExtResource("7_swoh0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ruby" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_RUBY"
+label_settings = ExtResource("8_vrkx5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_MAIN"
+label_settings = ExtResource("9_gaopb")
+horizontal_alignment = 1
+
+[node name="Alt" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_ALT"
+label_settings = ExtResource("10_es3m4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/CenterContainer"]
+texture = ExtResource("11_nkusl")
+
+[node name="SpeechPosition" type="Node2D" parent="."]
+position = Vector2(143, -76)

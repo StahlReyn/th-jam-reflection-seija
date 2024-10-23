@@ -1,7 +1,7 @@
 class_name StageHandler
 extends Node
 
-var stage_data : StageData = preload("res://data/stages/test_stage/test_stage.tres")
+var stage_data : StageData = preload("res://data/stages/stage1/stage_1.tres")
 
 var cur_stage_script : StageScript
 

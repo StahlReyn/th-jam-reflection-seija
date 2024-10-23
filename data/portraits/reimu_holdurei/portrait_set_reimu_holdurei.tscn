@@ -73,7 +73,7 @@ animation = &"main"
 [node name="Face" type="AnimatedSprite2D" parent="."]
 position = Vector2(17, -208)
 sprite_frames = SubResource("SpriteFrames_5w0k5")
-animation = &"annoyed"
+animation = &"neutral"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

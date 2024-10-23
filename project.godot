@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="th-bullet-test"
+config/name="th-jam-reflection-seija"
 run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
