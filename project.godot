@@ -44,6 +44,7 @@ window/stretch/scale_mode="integer"
 folder_colors={
 "res://assets/": "red",
 "res://data/": "yellow",
+"res://data/movement/common/": "gray",
 "res://data/stages/": "red",
 "res://globals/": "green",
 "res://languages/": "teal",

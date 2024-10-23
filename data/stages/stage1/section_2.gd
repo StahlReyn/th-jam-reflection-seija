@@ -20,7 +20,7 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 
 func _ready() -> void:
 	super()
-	duration = 1.0
+	duration = 60.0
 	timer1.start()
 	timer1_1.start()
 
@@ -34,31 +34,24 @@ func timeout_1():
 
 func timeout_1_1():
 	var positions : PackedVector2Array = [
-		Vector2(850, -40),
-		Vector2(800, -60),
-		Vector2(750, -80)
+		Vector2(600, -80),
+		Vector2(200, -80),
 	]
 	var count = 0
-	var velocity = Vector2(-150, 200)
-	var acceleration = Vector2(0, -80)
-	
-	if timer1_count % 2 == 0:
-		velocity.x = -velocity.x
-		acceleration.x = -acceleration.x
+	var velocity = Vector2(0, 300)
+	var acceleration = Vector2(0, -120)
 		
 	for pos in positions:
-		if timer1_count % 2 == 0:
-			pos.x = mirror_x(pos.x)
-		
 		var enemy = spawn_enemy(enemy_fairy, pos)
 		enemy.delay_time = count * 0.05
 		enemy.velocity = velocity
 		enemy.add_movement_script_node(
 			MSAcceleration.new(acceleration)
 		)
-		enemy.add_movement_script_node(
-			MSShootAtPlayer.new(2.0, 300)
-		)
+		for i in range(5):
+			enemy.add_movement_script_node(
+				MSShootCircle.new(3.0, 300, 16, i * 0.03)
+			)
 		enemy.main_sprite.set_type(count % 3)
 		count += 1
 

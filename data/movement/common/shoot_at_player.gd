@@ -1,7 +1,7 @@
 class_name MSShootAtPlayer
 extends MovementScript
 
-@onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
+@onready var bullet_scene : PackedScene = BulletUtils.scene_dict["circle_medium"]
 @export var shoot_cooldown : float = 3.0
 @export var bullet_speed : float = 300
 
@@ -17,7 +17,7 @@ func _ready() -> void:
 func process_movement(delta: float) -> void:
 	time_since_shot += delta
 	if time_since_shot >= shoot_cooldown:
-		var bullet = spawn_bullet(bullet_circle, parent.position)
+		var bullet = spawn_bullet(bullet_scene, parent.position)
 		var direction : Vector2 = bullet.global_position.direction_to(GameUtils.get_player().global_position)
 		bullet.velocity = direction * bullet_speed
 		time_since_shot = 0

@@ -35,6 +35,7 @@ damping_max = 70.0
 alpha_curve = SubResource("CurveTexture_x56n6")
 
 [node name="BulletRemove" type="Node2D"]
+z_index = 10
 script = ExtResource("1_ri8w8")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
