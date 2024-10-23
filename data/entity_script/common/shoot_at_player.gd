@@ -3,13 +3,15 @@ extends EntityScript
 
 @onready var bullet_scene : PackedScene = BulletUtils.scene_dict["circle_medium"]
 @export var shoot_cooldown : float = 3.0
-@export var bullet_speed : float = 300
+@export var bullet_speed : float = 300.0
+@export var angle_offset : float = 0.0
 
 var time_since_shot : float = 0.0
 
-func _init(shoot_cooldown: float, bullet_speed: float) -> void:
+func _init(shoot_cooldown: float, bullet_speed: float, angle_offset: float = 0.0) -> void:
 	self.shoot_cooldown = shoot_cooldown
 	self.bullet_speed = bullet_speed
+	self.angle_offset = angle_offset
 
 func _ready() -> void:
 	pass
@@ -19,5 +21,5 @@ func physics_process_active(delta: float) -> void:
 	if time_since_shot >= shoot_cooldown:
 		var bullet = spawn_bullet(bullet_scene, parent.position)
 		var direction : Vector2 = bullet.global_position.direction_to(GameUtils.get_player().global_position)
-		bullet.velocity = direction * bullet_speed
+		bullet.velocity = direction.rotated(angle_offset) * bullet_speed
 		time_since_shot = 0

@@ -10,6 +10,7 @@ extends EntityScript
 @export var offset : float = 0
 
 var time_since_shot : float = 0.0
+var bullet_list_function : Callable
 
 func _init(shoot_cooldown: float, speed: float, count: float, offset: float, bullet_scene: PackedScene = null) -> void:
 	if bullet_scene != null:
@@ -32,9 +33,8 @@ func physics_process_active(delta: float) -> void:
 			count, # Count
 			offset, # Offset rad
 		)
-		for i in bullet_list.size():
-			var bullet = bullet_list[i]
-			bullet.set_color((i % 2) * 3 + 2) # Swapping color every 2 index
+		if bullet_list_function != null:
+			bullet_list_function.call(bullet_list)
 		if audio_shoot:
 			AudioManager.play_audio(audio_shoot)
 		time_since_shot = 0.0

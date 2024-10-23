@@ -13,7 +13,10 @@ extends EntityScript
 @export var layer : int = 1
 @export var offset_per_layer : float = 0.0
 
+@export var target_player : bool = false
+
 var time_since_shot : float = 0.0
+var bullet_list_function : Callable
 
 func _init(shoot_cooldown: float, bullet_velocity: Vector2, count: float, angle_offset: float, radius : float, layer : int = 1, offset_per_layer : float = 0.0, bullet_scene: PackedScene = null) -> void:
 	if bullet_scene != null:
@@ -32,7 +35,10 @@ func _ready() -> void:
 func physics_process_active(delta: float) -> void:
 	time_since_shot += delta
 	if time_since_shot >= shoot_cooldown:
-		BulletUtils.spawn_circle_packed(
+		if target_player:
+			var rotation = GameUtils.get_player().position.angle_to_point(parent.position) + PI/2
+			bullet_velocity = bullet_velocity.rotated(rotation)
+		var bullet_list = BulletUtils.spawn_circle_packed(
 			bullet_scene, 
 			parent.position, 
 			bullet_velocity,
@@ -42,7 +48,8 @@ func physics_process_active(delta: float) -> void:
 			layer,
 			offset_per_layer
 		)
-			
+		if bullet_list_function != null:
+			bullet_list_function.call(bullet_list)
 		if audio_shoot:
 			AudioManager.play_audio(audio_shoot)
 		time_since_shot = 0.0

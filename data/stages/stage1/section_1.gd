@@ -20,7 +20,7 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 
 func _ready() -> void:
 	super()
-	duration = 1.0
+	duration = 16.0
 	timer1.start()
 	timer1_1.start()
 
@@ -53,12 +53,13 @@ func timeout_1_1():
 		var enemy = spawn_enemy(enemy_fairy, pos)
 		enemy.delay_time = count * 0.05
 		enemy.velocity = velocity
-		enemy.add_entity_script_node(
+		enemy.add_script_node(
 			MSAcceleration.new(acceleration)
 		)
-		enemy.add_entity_script_node(
-			MSShootAtPlayer.new(2.0, 300)
-		)
+		for i in range(5):
+			enemy.add_script_node(
+				MSShootAtPlayer.new(2.0, 350, (i-2) * TAU/256)
+			)
 		enemy.main_sprite.set_type(count % 3)
 		count += 1
 
