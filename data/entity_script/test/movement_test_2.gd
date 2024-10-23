@@ -10,7 +10,7 @@ func _ready() -> void:
 	player = GameUtils.get_player()
 	cd_shoot = 1.0
 
-func process_movement(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	cd_shoot -= delta
 	parent.velocity.x = cos(parent.total_time * 3) * 300
 	parent.velocity.y = sin(parent.total_time * 3) * 300 + 100

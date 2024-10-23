@@ -1,3 +1,4 @@
+class_name MSVelocitySine
 extends EntityScript
 ## For sine wave movement, for both x and y
 
@@ -5,6 +6,12 @@ extends EntityScript
 @export var amplitude : Vector2 = Vector2(100,100) ##(of velocity)
 @export var phase_offset : Vector2 = Vector2(0,0) ##rad
 @export var base_velocity : Vector2 = Vector2(0,0)
+
+func _init(frequency : Vector2, amplitude : Vector2, phase_offset : Vector2, base_velocity : Vector2) -> void:
+	self.frequency = frequency
+	self.amplitude = amplitude
+	self.phase_offset = phase_offset
+	self.base_velocity = base_velocity
 
 func _ready() -> void:
 	pass

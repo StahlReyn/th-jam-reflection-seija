@@ -9,7 +9,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	pass
 
-func process_movement(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	pass
 
 func set_parent(parent : Node) -> void:

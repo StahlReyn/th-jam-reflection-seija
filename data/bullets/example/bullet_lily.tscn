@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_pm3h0"]
 [ext_resource type="Texture2D" uid="uid://bdjd4tqywr2xo" path="res://assets/img/bullets/circle_medium.png" id="2_gddl1"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_7yyw5"]
-[ext_resource type="Script" path="res://data/movement/example/murderous_lilies.gd" id="4_dxuqa"]
+[ext_resource type="Script" path="res://data/entity_script/example/murderous_lilies.gd" id="4_dxuqa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rmofr"]
 radius = 27.0185

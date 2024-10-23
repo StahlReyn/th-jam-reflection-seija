@@ -1,7 +1,12 @@
+class_name MSVelocityToPlayer
 extends EntityScript
 
 @export var offset : Vector2 = Vector2(0,0)
 @export var invert : bool = false
+
+func _init(offset : Vector2, invert : bool = false) -> void:
+	self.offset = offset
+	self.invert = invert
 
 func _ready() -> void:
 	set_direction()

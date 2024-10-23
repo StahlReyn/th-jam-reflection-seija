@@ -38,7 +38,7 @@ func setup_enemy():
 	audio_node.set_stream(audio_shoot)
 	parent.add_child(audio_node)
 
-func process_movement(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	elapsed_time += delta
 	section_time += delta
 	cd_shoot -= delta

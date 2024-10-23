@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://clnl18fndfi38" path="res://assets/img/bullets/talisman.png" id="2_fm1xn"]
 [ext_resource type="PackedScene" uid="uid://djohlf5howpr" path="res://data/after_effects/bullet_hit_basic.tscn" id="2_vyf3f"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_ft8tb"]
-[ext_resource type="Script" path="res://data/movement/common/homing_enemy.gd" id="4_vyet6"]
-[ext_resource type="Script" path="res://data/movement/common/direction_to_player.gd" id="5_wtav2"]
+[ext_resource type="Script" path="res://data/entity_script/common/homing_lowest_enemy.gd" id="4_vyet6"]
+[ext_resource type="Script" path="res://data/entity_script/common/direction_to_player.gd" id="5_wtav2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyqfo"]
 radius = 6.0

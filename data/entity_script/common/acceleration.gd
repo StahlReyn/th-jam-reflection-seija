@@ -6,7 +6,7 @@ extends EntityScript
 func _init(acceleration) -> void:
 	self.acceleration = acceleration
 
-func process_movement(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	parent.velocity += acceleration * delta
 
 #func _physics_process(delta: float) -> void:

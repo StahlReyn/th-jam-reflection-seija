@@ -22,7 +22,7 @@ func _init(shoot_cooldown: float, speed: float, count: float, offset: float, bul
 func _ready() -> void:
 	pass
 
-func process_movement(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	time_since_shot += delta
 	if time_since_shot >= shoot_cooldown:
 		var bullet_list = BulletUtils.spawn_circle(

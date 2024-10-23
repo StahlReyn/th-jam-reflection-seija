@@ -1,3 +1,4 @@
+class_name MSHomingLowestEnemy
 extends EntityScript
 
 @export var bullet_speed : float = 1000.0
@@ -20,7 +21,7 @@ func _physics_process(delta: float) -> void:
 			var result_angle = lerp_angle(prev_angle, target_angle, delta * rotation_speed)
 			parent.velocity = Vector2.from_angle(result_angle) * bullet_speed
 
-func process_movement(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	pass
 
 func get_enemy_target() -> Enemy:
