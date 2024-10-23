@@ -35,7 +35,8 @@ func process_movement(delta: float) -> void:
 		for i in bullet_list.size():
 			var bullet = bullet_list[i]
 			bullet.set_color((i % 2) * 3 + 2) # Swapping color every 2 index
-		AudioManager.play_audio(audio_shoot)
+		if audio_shoot:
+			AudioManager.play_audio(audio_shoot)
 		time_since_shot = 0.0
 
 # bullet.global_position.direction_to(player.global_position)

@@ -80,15 +80,14 @@ func on_hit():
 # in base entity do_remove isnt called automatically, let the child class or external handle it
 func do_remove():
 	call_deferred("queue_free")
-	
-func add_movement_script(script : GDScript) -> Node:
-	if movement_handler == null:
-		printerr(self, " / Entity: Movement Handler is Nil")
-		return null
-	return movement_handler.add_movement_script(self, script)
 
-func add_movement_script_node(node : Node) -> Node:
-	if movement_handler == null:
-		printerr(self, " / Entity: Movement Handler is Nil")
-		return null
-	return movement_handler.add_movement_script_node(self, node)
+func add_movement_script(script : GDScript) -> Node:
+	var node_script = script.new()
+	add_movement_node(node_script)
+	return node_script
+
+## No return values as a node is already passed in
+func add_movement_node(node : MovementScript) -> void:
+	node.set_parent(self)
+	node.name = "EntityScript"
+	movement_handler.add_child(node)

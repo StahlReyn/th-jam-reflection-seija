@@ -1,7 +1,11 @@
+class_name MSWallReflect
 extends MovementScript
 
 @export var bounce_count : int = 1
 var cur_bounce_count : int = 0
+
+func _init(bounce_count : int) -> void:
+	self.bounce_count = bounce_count
 
 func _ready() -> void:
 	super()
