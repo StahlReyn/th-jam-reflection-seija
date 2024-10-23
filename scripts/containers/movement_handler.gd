@@ -11,3 +11,8 @@ func add_movement_script(parent : Node, script : GDScript) -> Node:
 	add_child(node_script)
 	node_script.set_parent(parent)
 	return node_script
+
+func add_movement_script_node(parent : Node, node : Node) -> Node:
+	add_child(node)
+	node.set_parent(parent)
+	return node

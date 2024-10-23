@@ -255,7 +255,7 @@ frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitter"]
-position = Vector2(0, -40)
+position = Vector2(0, -30)
 shape = SubResource("RectangleShape2D_hubqc")
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="BulletHitter"]

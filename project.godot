@@ -24,6 +24,7 @@ MathUtils="*res://globals/math_utils.gd"
 AudioManager="*res://globals/audio_manager.gd"
 BulletUtils="*res://globals/bullet_utils.gd"
 SaveManager="*res://globals/save_manager.gd"
+EnemyUtils="*res://globals/enemy_utils.gd"
 
 [debug]
 
@@ -43,6 +44,7 @@ window/stretch/scale_mode="integer"
 folder_colors={
 "res://assets/": "red",
 "res://data/": "yellow",
+"res://data/stages/": "red",
 "res://globals/": "green",
 "res://languages/": "teal",
 "res://resources/": "blue",

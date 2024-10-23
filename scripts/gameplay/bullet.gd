@@ -2,6 +2,7 @@ class_name Bullet
 extends Entity
 
 static var bullet_remove_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
+static var bullet_spawn_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
 
 @export_group("Visuals")
 @export var main_sprite : Sprite2D
@@ -18,6 +19,8 @@ func _init() -> void:
 	
 func _ready() -> void:
 	super()
+	# Placeholder spawn effect
+	AfterEffect.add_effect(bullet_spawn_effect, global_position)
 
 func _physics_process(delta: float) -> void:
 	super(delta)

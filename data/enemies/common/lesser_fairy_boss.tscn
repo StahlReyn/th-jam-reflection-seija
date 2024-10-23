@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/gameplay/enemy.gd" id="1_e5i3h"]
 [ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_g1dqk"]
 [ext_resource type="Texture2D" uid="uid://dd8tet8s1inyg" path="res://assets/img/enemies/lesser_fairy.png" id="3_pcub4"]
-[ext_resource type="Script" path="res://data/enemies/sprite_group_fairy.gd" id="4_knyfc"]
+[ext_resource type="Script" path="res://data/enemies/common/sprite_group_fairy.gd" id="4_knyfc"]
 [ext_resource type="PackedScene" uid="uid://w54qs2iq7b0n" path="res://scripts/gameplay/boss_bar.tscn" id="5_qktlc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t7bub"]

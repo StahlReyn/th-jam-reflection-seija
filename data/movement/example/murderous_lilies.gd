@@ -7,7 +7,7 @@ extends MovementScript
 @onready var bullet = BulletUtils.scene_dict["circle_medium"]
 @onready var stream = BulletUtils.scene_dict["partial_laser_medium_subtle"]
 @onready var stream_movement = preload("res://data/movement/common/movement_sine.gd")
-@onready var accel_movement = preload("res://data/movement/common/acceleration_constant.gd")
+@onready var accel_movement = preload("res://data/movement/common/acceleration.gd")
 
 @onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 @onready var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")

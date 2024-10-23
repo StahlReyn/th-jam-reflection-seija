@@ -3,7 +3,7 @@ extends SectionScript
 var cd1 : float = 1.0
 var cd_script : float = 20.0
 
-@onready var enemy_fairy : PackedScene = preload("res://data/enemies/enemy_lesser_fairy.tscn")
+@onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
 
 func _ready() -> void:
 	super()

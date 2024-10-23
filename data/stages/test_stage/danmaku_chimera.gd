@@ -14,7 +14,7 @@ enum State {
 	ENDED,
 }
 
-@onready var enemy_boss : PackedScene = preload("res://data/enemies/enemy_lesser_fairy_boss.tscn")
+@onready var enemy_boss : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
 
 @onready var bullet_line : PackedScene = BulletUtils.scene_dict["partial_laser_small"]
 @onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]

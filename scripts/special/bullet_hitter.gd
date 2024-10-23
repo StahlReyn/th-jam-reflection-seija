@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 		charge_time += delta
 		charge_time = minf(charge_time, max_charge)
 	if Input.is_action_just_released("shoot"):
-		prints("released, charge time:", charge_time)
+		#prints("released, charge time:", charge_time)
 		do_hit()
 		charge_time = 0
 	
@@ -54,12 +54,14 @@ func do_hit() -> void:
 	entity_in_area.clean_list()
 	if entity_in_area.entity_count() > 0:
 		audio_hit.play()
-		var center_pos = get_parent().position + Vector2(0, 300)
+		var center_pos = get_parent().position #+ Vector2(0, 300)
 		for entity : Entity in entity_in_area:
 			if entity is Bullet:
 				var distance_vector = center_pos - entity.position
-				var direction = entity.velocity.bounce(distance_vector.normalized())
-				entity.velocity = direction * (charge_time + 1)
+				#var direction = entity.velocity.bounce(distance_vector.normalized())
+				#entity.velocity = direction * (charge_time + 1)
+				entity.velocity = -distance_vector.normalized() * 500 * (charge_time + 1)
+				# Fancy hit change attributes
 				entity.velocity.y = -abs(entity.velocity.y) # Go upward
 				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
 				entity.modulate.a = 0.5

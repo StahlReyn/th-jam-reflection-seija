@@ -86,3 +86,9 @@ func add_movement_script(script : GDScript) -> Node:
 		printerr(self, " / Entity: Movement Handler is Nil")
 		return null
 	return movement_handler.add_movement_script(self, script)
+
+func add_movement_script_node(node : Node) -> Node:
+	if movement_handler == null:
+		printerr(self, " / Entity: Movement Handler is Nil")
+		return null
+	return movement_handler.add_movement_script_node(self, node)

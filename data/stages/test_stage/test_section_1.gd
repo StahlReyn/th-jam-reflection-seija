@@ -1,7 +1,7 @@
 extends SectionScript
 
-@onready var enemy_fairy : PackedScene = preload("res://data/enemies/enemy_lesser_fairy.tscn")
-@onready var enemy_fairy_boss : PackedScene = preload("res://data/enemies/enemy_lesser_fairy_boss.tscn")
+@onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+@onready var enemy_fairy_boss : PackedScene = EnemyUtils.scene_dict["lesser_fairy_boss"]
 @onready var bullet_circle_small : PackedScene = BulletUtils.scene_dict["circle_small"]
 
 @onready var movement_script_1 : GDScript = preload("res://data/movement/movement_test.gd")
