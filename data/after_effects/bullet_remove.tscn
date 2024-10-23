@@ -9,7 +9,7 @@
 _data = [Vector2(0, 0.253698), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.952974, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_du4pi"]
+[sub_resource type="CurveTexture" id="CurveTexture_x56n6"]
 curve = SubResource("Curve_da21x")
 
 [sub_resource type="Curve" id="Curve_mo1la"]
@@ -17,7 +17,7 @@ max_value = 2.0
 _data = [Vector2(0, 0), 0.0, 4.96335, 0, 0, Vector2(1, 1.75028), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_lsx8d"]
+[sub_resource type="CurveTexture" id="CurveTexture_dec5o"]
 curve = SubResource("Curve_mo1la")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cxee4"]
@@ -25,18 +25,17 @@ lifetime_randomness = 0.5
 particle_flag_disable_z = true
 angle_min = 1.07288e-05
 angle_max = 360.0
-angle_curve = SubResource("CurveTexture_lsx8d")
+angle_curve = SubResource("CurveTexture_dec5o")
 spread = 180.0
 initial_velocity_min = 70.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 damping_min = 70.0
 damping_max = 70.0
-alpha_curve = SubResource("CurveTexture_du4pi")
+alpha_curve = SubResource("CurveTexture_x56n6")
 
-[node name="BulletRemove" type="Node2D" node_paths=PackedStringArray("audio_start")]
+[node name="BulletRemove" type="Node2D"]
 script = ExtResource("1_ri8w8")
-audio_start = NodePath("")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = ExtResource("2_ym0b2")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bstkesf6qp7fw"]
+[gd_scene load_steps=48 format=3 uid="uid://bstkesf6qp7fw"]
 
 [ext_resource type="Script" path="res://scripts/gameplay/player.gd" id="1_s2rpu"]
 [ext_resource type="PackedScene" uid="uid://d2eem28mf01vm" path="res://data/after_effects/player_death.tscn" id="2_x02xu"]
@@ -9,11 +9,16 @@
 [ext_resource type="AudioStream" uid="uid://cdhevsxixrc4p" path="res://assets/audio/sfx/bullet_big_noisy.wav" id="5_dhwaf"]
 [ext_resource type="AudioStream" uid="uid://dq30caahnggrl" path="res://assets/audio/sfx/pichuun_processed.wav" id="5_qrn1r"]
 [ext_resource type="AudioStream" uid="uid://d3yv5rebyk5hw" path="res://assets/audio/sfx/swing_whoosh.mp3" id="6_7b0us"]
+[ext_resource type="Texture2D" uid="uid://wvfou1s5yw25" path="res://assets/img/character/hit_swing_large.png" id="6_facvt"]
 [ext_resource type="AudioStream" uid="uid://d2xwmw785vew0" path="res://assets/audio/sfx/bullet_player.wav" id="6_t3jot"]
 [ext_resource type="AudioStream" uid="uid://cdcqm4htide61" path="res://assets/audio/sfx/click_collect.wav" id="7_icqmt"]
+[ext_resource type="Material" uid="uid://b00awa5xgvt7g" path="res://data/canvas_material/blend_additive.tres" id="7_v6ub3"]
+[ext_resource type="Texture2D" uid="uid://cln7nfxe8xhy2" path="res://assets/img/system/charge_progress.png" id="8_0a5y1"]
 [ext_resource type="Script" path="res://scripts/gameplay/area_graze.gd" id="8_3w082"]
 [ext_resource type="Texture2D" uid="uid://c0wruv71j8ich" path="res://assets/img/character/graze_circle.png" id="9_yfk5v"]
 [ext_resource type="Texture2D" uid="uid://dqdl2bwkkx363" path="res://assets/img/character/focus_dot.png" id="10_6oa7s"]
+[ext_resource type="Texture2D" uid="uid://ivtjquqivrl7" path="res://assets/img/effects/bullet_disappear.png" id="10_esweu"]
+[ext_resource type="Script" path="res://scripts/sprite_effects/particle_oneshot.gd" id="11_u0gj8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_46g0w"]
 atlas = ExtResource("3_irfnf")
@@ -57,8 +62,79 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pg5p"]
+atlas = ExtResource("6_facvt")
+region = Rect2(0, 0, 128, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nypxg"]
+atlas = ExtResource("6_facvt")
+region = Rect2(0, 32, 128, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81m5x"]
+atlas = ExtResource("6_facvt")
+region = Rect2(0, 64, 128, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okk7o"]
+atlas = ExtResource("6_facvt")
+region = Rect2(0, 96, 128, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1v6ts"]
+animations = [{
+"frames": [{
+"duration": 0.01,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pg5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nypxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81m5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okk7o")
+}, {
+"duration": 0.01,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hubqc"]
 size = Vector2(130, 100)
+
+[sub_resource type="Curve" id="Curve_64hfy"]
+_data = [Vector2(0, 0.253698), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.952974, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_du4pi"]
+curve = SubResource("Curve_64hfy")
+
+[sub_resource type="Curve" id="Curve_6bf76"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 4.96335, 0, 0, Vector2(1, 1.75028), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lsx8d"]
+curve = SubResource("Curve_6bf76")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6ypm5"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+angle_curve = SubResource("CurveTexture_lsx8d")
+spread = 180.0
+initial_velocity_min = 70.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+damping_min = 70.0
+damping_max = 70.0
+alpha_curve = SubResource("CurveTexture_du4pi")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ikdrt"]
 atlas = ExtResource("3_lqj6h")
@@ -159,14 +235,24 @@ death_effect_scene = ExtResource("2_x02xu")
 
 [node name="BulletHitter" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 12
 script = ExtResource("3_wnykv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BulletHitter"]
+[node name="SpriteHitSmall" type="AnimatedSprite2D" parent="BulletHitter"]
 z_index = 5
+material = ExtResource("7_v6ub3")
 position = Vector2(0, -50)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bd0qc")
+
+[node name="SpriteHitLarge" type="AnimatedSprite2D" parent="BulletHitter"]
+z_index = 5
+material = ExtResource("7_v6ub3")
+position = Vector2(0, -100)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1v6ts")
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitter"]
 position = Vector2(0, -40)
@@ -177,6 +263,35 @@ stream = ExtResource("5_dhwaf")
 
 [node name="AudioSwing" type="AudioStreamPlayer2D" parent="BulletHitter"]
 stream = ExtResource("6_7b0us")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="BulletHitter"]
+modulate = Color(1, 1, 1, 0.619608)
+material = ExtResource("7_v6ub3")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 2.0
+step = 0.0
+value = 2.0
+fill_mode = 5
+texture_progress = ExtResource("8_0a5y1")
+
+[node name="ChargeParticles" type="GPUParticles2D" parent="BulletHitter"]
+z_index = 10
+material = ExtResource("7_v6ub3")
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_6ypm5")
+texture = ExtResource("10_esweu")
+lifetime = 0.7
+script = ExtResource("11_u0gj8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)

@@ -17,7 +17,6 @@ drop_point = 2
 main_sprite = NodePath("SpriteFairy")
 main_collision = NodePath("CollisionShape2D")
 death_effect_scene = ExtResource("2_85fke")
-mhp = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_t7bub")
