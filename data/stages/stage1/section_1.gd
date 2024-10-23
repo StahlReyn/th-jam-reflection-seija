@@ -53,10 +53,10 @@ func timeout_1_1():
 		var enemy = spawn_enemy(enemy_fairy, pos)
 		enemy.delay_time = count * 0.05
 		enemy.velocity = velocity
-		enemy.add_movement_script_node(
+		enemy.add_entity_script_node(
 			MSAcceleration.new(acceleration)
 		)
-		enemy.add_movement_script_node(
+		enemy.add_entity_script_node(
 			MSShootAtPlayer.new(2.0, 300)
 		)
 		enemy.main_sprite.set_type(count % 3)

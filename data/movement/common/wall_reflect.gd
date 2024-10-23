@@ -1,5 +1,5 @@
 class_name MSWallReflect
-extends MovementScript
+extends EntityScript
 
 @export var bounce_count : int = 1
 var cur_bounce_count : int = 0

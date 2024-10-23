@@ -1,5 +1,5 @@
 class_name MSAcceleration
-extends MovementScript
+extends EntityScript
 
 @export var acceleration : Vector2 = Vector2.ZERO ## pixel / s^2
 

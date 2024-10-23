@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 
 @export var bullet_speed : float = 1000.0
 @export var rotation_speed : float = 10.0

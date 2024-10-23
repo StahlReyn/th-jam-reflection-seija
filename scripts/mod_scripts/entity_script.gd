@@ -1,4 +1,4 @@
-class_name MovementScript
+class_name EntityScript
 extends ModScript
 
 @export var parent : Entity

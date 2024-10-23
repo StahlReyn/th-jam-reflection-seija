@@ -11,7 +11,7 @@ signal exit_wall
 @export var delay_time : float = 0.0
 @export var velocity : Vector2 = Vector2.ZERO
 @export var do_check_despawn : bool = true
-@export var movement_handler : MovementHandler ## Movement Handler is auto created if empty
+@export var script_handler : EntityScriptHandler ## Movement Handler is auto created if empty
 
 var total_time : float = 0.0
 var active_time : float = 0.0
@@ -21,10 +21,10 @@ var despawn_padding : float = 100
 
 func _init() -> void:
 	# Auto create Movement Handler
-	if movement_handler == null:
-		movement_handler = MovementHandler.new()
-		movement_handler.name = "MovementHandlerAuto"
-		add_child(movement_handler)
+	if script_handler == null:
+		script_handler = EntityScriptHandler.new()
+		script_handler.name = "EntityScriptHandlerAuto"
+		add_child(script_handler)
 
 func _ready() -> void:
 	pass
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 
 func physics_process_active(delta: float) -> void:
 	active_time += delta
-	movement_handler.process_script(delta)
+	script_handler.process_script(delta)
 	process_movement(delta)
 	check_hit_wall()
 	if do_check_despawn:
@@ -81,13 +81,13 @@ func on_hit():
 func do_remove():
 	call_deferred("queue_free")
 
-func add_movement_script(script : GDScript) -> Node:
+func add_entity_script(script : GDScript) -> Node:
 	var node_script = script.new()
 	add_movement_node(node_script)
 	return node_script
 
 ## No return values as a node is already passed in
-func add_movement_node(node : MovementScript) -> void:
+func add_movement_node(node : EntityScript) -> void:
 	node.set_parent(self)
 	node.name = "EntityScript"
-	movement_handler.add_child(node)
+	script_handler.add_child(node)

@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 
 @onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_small_cross"]
 @onready var scene_laser : PackedScene = BulletUtils.scene_dict["laser_basic"]
@@ -90,6 +90,6 @@ func spawn_lily() -> void:
 		SpriteGroupBasicBullet.ColorType.RED, 
 		SpriteGroupBasicBullet.ColorVariant.LIGHT
 	)
-	#cur_lily.add_movement_script(script_lily)
+	#cur_lily.add_entity_script(script_lily)
 
 # bullet.global_position.direction_to(player.global_position)

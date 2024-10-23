@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 
 @onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_small"]
 

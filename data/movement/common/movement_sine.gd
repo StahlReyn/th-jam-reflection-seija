@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 ## For sine wave movement, for both x and y
 
 @export var frequency : Vector2 = Vector2(1,1) ##rad / sec

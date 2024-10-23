@@ -1,5 +1,5 @@
 class_name MSShootAtPlayer
-extends MovementScript
+extends EntityScript
 
 @onready var bullet_scene : PackedScene = BulletUtils.scene_dict["circle_medium"]
 @export var shoot_cooldown : float = 3.0

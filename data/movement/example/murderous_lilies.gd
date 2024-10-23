@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 ## On collide with wall, spawns a large laser
 ## Spawns 4 curvy lasers (stream of bullets)
 ## Many Circle bullets accelerating upwards (opposite) spread side
@@ -92,7 +92,7 @@ func part_stream(angle_rotated : float) -> void:
 			cur_bullet.modulate.a = 0.3
 			cur_bullet.delay_time = i * 0.02 + 0.1
 			
-			var cur_script = cur_bullet.add_movement_script(stream_movement)
+			var cur_script = cur_bullet.add_entity_script(stream_movement)
 			cur_script.frequency = frequency
 			cur_script.amplitude = amplitude
 			cur_script.phase_offset = phase_offset
@@ -111,7 +111,7 @@ func part_spray(angle_rotated : float) -> void:
 		cur_bullet.delay_time = i * 0.02
 		cur_bullet.velocity.y = randf_range(spray_min.x, spray_max.x)
 		cur_bullet.velocity.x = randf_range(spray_min.y, spray_max.y)
-		var cur_script = cur_bullet.add_movement_script(accel_movement)
+		var cur_script = cur_bullet.add_entity_script(accel_movement)
 		cur_script.acceleration = spray_accel
 
 func basic_copy(to_copy: Entity, base: Entity) -> void:

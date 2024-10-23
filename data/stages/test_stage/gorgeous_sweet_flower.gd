@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	
 	if boss.hp <= 0 and not start_ending:
 		start_ending = true
-		var expire_node = boss.add_movement_script(script_expiry)
+		var expire_node = boss.add_entity_script(script_expiry)
 		expire_node.duration = 3.0
 		expire_node.active = true
 	if start_ending:

@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 
 @export var rotation_speed : float = 10 ## deg/s
 

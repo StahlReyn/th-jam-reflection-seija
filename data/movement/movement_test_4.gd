@@ -1,4 +1,4 @@
-extends MovementScript
+extends EntityScript
 
 @onready var bullet_circle : PackedScene = BulletUtils.scene_dict["knife"]
 @onready var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")

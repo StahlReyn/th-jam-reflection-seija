@@ -1,5 +1,5 @@
 class_name MSExpiryTimer
-extends MovementScript
+extends EntityScript
 
 @export var active : bool = true
 @export var duration : float = 3.0
