@@ -89,7 +89,7 @@ func do_hit() -> void:
 				# Fancy hit change attributes
 				entity.velocity.y = -abs(entity.velocity.y) # Go upward
 				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
-				entity.modulate.a = 0.5
+				entity.modulate.a = 0.4
 				entity.z_index = -10
 				entity.damage += floori(charge_time * 5)
 				entity.penetration += floori(charge_time * 3)

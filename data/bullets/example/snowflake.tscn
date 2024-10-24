@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk8s6ljckxil4"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_xqp4i"]
+[ext_resource type="Texture2D" uid="uid://qyo8fimm0j7f" path="res://assets/img/bullets/snowflake.png" id="2_i836e"]
+[ext_resource type="Script" path="res://data/bullets/example/snowflake.gd" id="3_375jf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rmofr"]
+radius = 27.0185
+
+[node name="BulletIce" type="Area2D" node_paths=PackedStringArray("main_sprite") groups=["bullet"]]
+z_index = 5
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_xqp4i")
+main_sprite = NodePath("Sprite")
+rotation_based_on_velocity = false
+damage = 100
+penetration = 100
+velocity = Vector2(500, -500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rmofr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_i836e")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("3_375jf")
+parent = NodePath("..")

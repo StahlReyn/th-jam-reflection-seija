@@ -1,0 +1,58 @@
+extends EntityScript
+## On collide with wall, spawns a large laser
+## Spawns 4 curvy lasers (stream of bullets)
+## Many Circle bullets accelerating upwards (opposite) spread side
+
+@onready var bullet_splinter = BulletUtils.scene_dict["crystal_small"]
+@onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
+@onready var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
+
+@export var remove_on_hit_wall = true
+@export var rotation_speed = 1.0
+
+func _ready() -> void:
+	super()
+	call_deferred("setup")
+
+func _physics_process(delta: float) -> void:
+	super(delta)
+	parent.rotation += rotation_speed * delta
+
+func setup() -> void:
+	parent.connect("hit_wall", _on_hit_wall)
+	if parent is Bullet: # Main bullet
+		parent.damage = 10
+		parent.penetration = 5
+
+func _on_hit_wall() -> void:
+	# The direction of bullets, Default up (as if hit bottom)
+	var angle_rotated = parent.rotation
+	# Major components
+	part_splinter(angle_rotated)
+	# Remove self
+	if remove_on_hit_wall:
+		parent.call_deferred("queue_free")
+
+func part_splinter(angle_rotated : float) -> void:
+	var count = 3
+	var mid = floor(count/2)
+	var angle_interval = 0.02
+	var multiplier = (parent.damage / 10)
+	for i in range(3):
+		var angle = ((i-mid) * angle_interval) + angle_rotated
+		var bullet_list = BulletUtils.spawn_circle(bullet_splinter, parent.position, 300, 6, angle)
+		for bullet in bullet_list:
+			basic_copy(bullet, parent)
+			set_bullet_style(bullet)
+			bullet.velocity *= multiplier
+			bullet.damage *= multiplier
+			bullet.penetration *= multiplier
+
+func basic_copy(to_copy: Entity, base: Entity) -> void:
+	to_copy.collision_layer = base.collision_layer
+	to_copy.collision_mask = base.collision_mask
+	to_copy.modulate = base.modulate
+
+func set_bullet_style(bullet: Entity) -> void:
+	#bullet.material = blend_add
+	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)

@@ -2,7 +2,7 @@ class_name MSShootRandomAngle
 extends EntityScript
 # Shoots Multiple bullet in one direction in circle formation
 
-@onready var bullet_scene: PackedScene = BulletUtils.scene_dict["circle_medium"]
+@onready var bullet_scene: PackedScene
 @onready var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
 
 @export var shoot_cooldown : float = 3.0
@@ -20,6 +20,8 @@ var final_shot_angle : float = 0.0
 func _init(shoot_cooldown: float, bullet_speed: float, min_angle: float, max_angle: float = 0.0, bullet_scene: PackedScene = null) -> void:
 	if bullet_scene != null:
 		self.bullet_scene = bullet_scene
+	else:
+		self.bullet_scene = BulletUtils.scene_dict["circle_medium"]
 	self.shoot_cooldown = shoot_cooldown
 	self.bullet_speed = bullet_speed
 	self.count = count
@@ -32,6 +34,7 @@ func physics_process_active(delta: float) -> void:
 		final_shot_angle = randf_range(min_angle,max_angle)
 		if target_player:
 			final_shot_angle += parent.position.angle_to_point(GameUtils.get_player().position)
+		
 		var bullet = ModScript.spawn_bullet(bullet_scene, parent.position)
 		bullet.velocity = Vector2.from_angle(final_shot_angle) * bullet_speed
 		if bullet_function != null:

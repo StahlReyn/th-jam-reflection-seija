@@ -2,7 +2,7 @@ class_name MSShootCircleGroup
 extends EntityScript
 # Shoots Multiple bullet in one direction in circle formation
 
-@onready var bullet_scene: PackedScene = BulletUtils.scene_dict["circle_medium"]
+@onready var bullet_scene: PackedScene
 @onready var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
 
 @export var shoot_cooldown : float = 3.0
@@ -21,6 +21,8 @@ var bullet_list_function : Callable
 func _init(shoot_cooldown: float, bullet_velocity: Vector2, count: float, angle_offset: float, radius : float, layer : int = 1, offset_per_layer : float = 0.0, bullet_scene: PackedScene = null) -> void:
 	if bullet_scene != null:
 		self.bullet_scene = bullet_scene
+	else:
+		self.bullet_scene = BulletUtils.scene_dict["circle_medium"]
 	self.shoot_cooldown = shoot_cooldown
 	self.bullet_velocity = bullet_velocity
 	self.count = count
