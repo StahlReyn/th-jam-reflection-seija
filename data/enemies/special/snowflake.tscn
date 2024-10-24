@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/gameplay/enemy.gd" id="1_srh06"]
 [ext_resource type="Texture2D" uid="uid://qyo8fimm0j7f" path="res://assets/img/bullets/snowflake.png" id="2_i836e"]
-[ext_resource type="Script" path="res://data/bullets/example/snowflake.gd" id="3_375jf"]
+[ext_resource type="Script" path="res://data/enemies/special/snowflake.gd" id="3_375jf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7vb1y"]
 radius = 27.0

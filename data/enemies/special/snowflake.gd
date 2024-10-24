@@ -24,7 +24,7 @@ func setup() -> void:
 
 func _on_hit_wall() -> void:
 	# The direction of bullets, Default up (as if hit bottom)
-	var angle_rotated = parent.rotation
+	var angle_rotated = parent.rotation + TAU/12
 	# Major components
 	part_splinter(angle_rotated)
 	# Remove self

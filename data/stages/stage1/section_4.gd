@@ -4,7 +4,7 @@ static var material_additive = preload("res://data/canvas_material/blend_additiv
 @onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
 @onready var bullet_small : PackedScene = BulletUtils.scene_dict["circle_small"]
 @onready var bullet_crystal : PackedScene = BulletUtils.scene_dict["crystal_small"]
-@onready var bullet_ice : PackedScene = preload("res://data/bullets/example/snowflake.tscn")
+@onready var enemy_ice : PackedScene = preload("res://data/enemies/special/snowflake.tscn")
 
 var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
@@ -89,8 +89,8 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 		MSAcceleration.new(acceleration)
 	)
 	
-	var shoot_script = MSShootRandomAngle.new(2.0, 150, -3 * PI/8, -PI/8)
-	shoot_script.bullet_scene = bullet_ice
+	var shoot_script = MSShootRandomAngle.new(2.5, 150, -3 * PI/8, -PI/8)
+	shoot_script.bullet_scene = enemy_ice
 	#print(bullet_ice, bullet_crystal)
 	shoot_script.bullet_function = bullet_weeping_style
 	enemy.add_script_node(shoot_script)
@@ -115,7 +115,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 		MSAcceleration.new(acceleration)
 	)
 	
-	var shoot_script = MSShootCircleGroup.new(2.0, Vector2(0,200), 6, 0, 60, 6, TAU/12)
+	var shoot_script = MSShootCircleGroup.new(2.5, Vector2(0,200), 6, 0, 60, 6, TAU/12)
 	shoot_script.bullet_scene = bullet_crystal #bullet_small
 	shoot_script.target_player = true
 	shoot_script.bullet_list_function = bullet_shot_style
