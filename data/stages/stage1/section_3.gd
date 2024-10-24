@@ -19,14 +19,16 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 
 func _ready() -> void:
 	super()
-	duration = 40.0
+	duration = 25.0
 	timer1.start()
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 
 func timeout_1():
-	if timer1_count % 3 == 0:
+	if time_active > 20.0:
+		timer1.start(100.0)
+	elif timer1_count % 3 == 0:
 		timer1.start(1.0)
 		spawn_side_fairy_set(timer1_count % 2 == 0)
 	elif timer1_count <= 1000:

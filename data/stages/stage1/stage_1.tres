@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="StageData" load_steps=6 format=3 uid="uid://d160n3bdn3ewr"]
+[gd_resource type="Resource" script_class="StageData" load_steps=8 format=3 uid="uid://d160n3bdn3ewr"]
 
 [ext_resource type="Script" path="res://resources/stage_data.gd" id="1_mqonp"]
 [ext_resource type="Script" path="res://data/stages/stage1/dialogue_section_1.gd" id="2_e42bk"]
 [ext_resource type="Script" path="res://data/stages/stage1/section_3.gd" id="3_1f6kk"]
+[ext_resource type="Script" path="res://data/stages/stage1/spell_card_chimera.gd" id="3_5fqjb"]
 [ext_resource type="Script" path="res://data/stages/stage1/section_1.gd" id="3_w2g32"]
 [ext_resource type="Script" path="res://data/stages/stage1/section_2.gd" id="4_uwllk"]
+[ext_resource type="Script" path="res://data/stages/stage1/dialogue_section_nue.gd" id="5_wm0yi"]
 
 [resource]
 script = ExtResource("1_mqonp")
 stage_number = 0
 stage_difficulty = 0
-section_list = Array[GDScript]([ExtResource("2_e42bk"), ExtResource("3_1f6kk"), ExtResource("3_w2g32"), ExtResource("4_uwllk")])
+section_list = Array[GDScript]([ExtResource("2_e42bk"), ExtResource("3_w2g32"), ExtResource("4_uwllk"), ExtResource("3_1f6kk"), ExtResource("3_5fqjb"), ExtResource("5_wm0yi"), ExtResource("4_uwllk")])

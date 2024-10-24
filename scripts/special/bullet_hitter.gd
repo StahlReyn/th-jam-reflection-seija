@@ -91,8 +91,8 @@ func do_hit() -> void:
 				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
 				entity.modulate.a = 0.5
 				entity.z_index = -10
-				entity.damage += floori(charge_time * 10)
-				entity.penetration += floori(charge_time * 5)
+				entity.damage += floori(charge_time * 5)
+				entity.penetration += floori(charge_time * 3)
 				if is_max_charge():
 					entity.damage *= 2
 					entity.penetration *= 2

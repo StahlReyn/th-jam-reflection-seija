@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=7 format=3 uid="uid://co5r6a4gmpfa1"]
+
+[ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_ad6xq"]
+[ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_10gnj"]
+[ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_27xcc"]
+[ext_resource type="Script" path="res://resources/dialogue_set.gd" id="4_1ujyu"]
+
+[sub_resource type="Resource" id="Resource_smvod"]
+script = ExtResource("3_27xcc")
+id = "A"
+auto = false
+portrait = ExtResource("2_10gnj")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 0
+text = "Huh? What is Nue's pattern doing here?"
+
+[sub_resource type="Resource" id="Resource_fckqh"]
+script = ExtResource("3_27xcc")
+id = "A"
+auto = false
+face_anim = ""
+body_anim = ""
+position_type = 0
+text = "Regardless, uhhhhhh yeah 
+my wife Nuemaxxing or something"
+
+[resource]
+script = ExtResource("4_1ujyu")
+dialogue_actions = Array[ExtResource("1_ad6xq")]([SubResource("Resource_smvod"), SubResource("Resource_fckqh")])

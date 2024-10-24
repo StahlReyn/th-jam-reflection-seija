@@ -43,6 +43,8 @@ func spawn_circle_shot_fairy(position):
 	enemy.velocity = velocity
 	enemy.drop_power = 0
 	enemy.drop_point = 15
+	enemy.mhp = 20
+	enemy.reset_hp()
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
 	)
@@ -62,7 +64,7 @@ func spawn_big_shot_fairy(position):
 	enemy.velocity = velocity
 	enemy.drop_power = 15
 	enemy.drop_point = 0
-	enemy.mhp = 50
+	enemy.mhp = 100
 	enemy.reset_hp()
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
