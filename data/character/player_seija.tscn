@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bstkesf6qp7fw"]
+[gd_scene load_steps=49 format=3 uid="uid://bstkesf6qp7fw"]
 
 [ext_resource type="Script" path="res://scripts/gameplay/player.gd" id="1_s2rpu"]
 [ext_resource type="PackedScene" uid="uid://d2eem28mf01vm" path="res://data/after_effects/player_death.tscn" id="2_x02xu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://data/character/sprite_player.gd" id="4_ausop"]
 [ext_resource type="AudioStream" uid="uid://cdhevsxixrc4p" path="res://assets/audio/sfx/bullet_big_noisy.wav" id="5_dhwaf"]
 [ext_resource type="AudioStream" uid="uid://dq30caahnggrl" path="res://assets/audio/sfx/pichuun_processed.wav" id="5_qrn1r"]
+[ext_resource type="Texture2D" uid="uid://bqidpawr42u4f" path="res://assets/img/system/hit_range.png" id="5_v0a1e"]
 [ext_resource type="AudioStream" uid="uid://d3yv5rebyk5hw" path="res://assets/audio/sfx/swing_whoosh.mp3" id="6_7b0us"]
 [ext_resource type="Texture2D" uid="uid://wvfou1s5yw25" path="res://assets/img/character/hit_swing_large.png" id="6_facvt"]
 [ext_resource type="AudioStream" uid="uid://d2xwmw785vew0" path="res://assets/audio/sfx/bullet_player.wav" id="6_t3jot"]
@@ -104,8 +105,8 @@ animations = [{
 "speed": 30.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hubqc"]
-size = Vector2(130, 100)
+[sub_resource type="CircleShape2D" id="CircleShape2D_bttlw"]
+radius = 90.0
 
 [sub_resource type="Curve" id="Curve_64hfy"]
 _data = [Vector2(0, 0.253698), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.952974, 0.0, 0, 0]
@@ -238,6 +239,29 @@ collision_layer = 0
 collision_mask = 12
 script = ExtResource("3_wnykv")
 
+[node name="HitRange" type="TextureProgressBar" parent="BulletHitter"]
+modulate = Color(1, 1, 1, 0.113725)
+z_index = -1
+material = ExtResource("7_v6ub3")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.955, 0.955)
+pivot_offset = Vector2(128, 128)
+max_value = 3.141
+step = 0.0
+value = 1.0
+fill_mode = 8
+texture_progress = ExtResource("5_v0a1e")
+
 [node name="SpriteHitSmall" type="AnimatedSprite2D" parent="BulletHitter"]
 z_index = 5
 material = ExtResource("7_v6ub3")
@@ -248,15 +272,14 @@ sprite_frames = SubResource("SpriteFrames_bd0qc")
 [node name="SpriteHitLarge" type="AnimatedSprite2D" parent="BulletHitter"]
 z_index = 5
 material = ExtResource("7_v6ub3")
-position = Vector2(0, -100)
+position = Vector2(0, -80)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1v6ts")
 frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitter"]
-position = Vector2(0, -30)
-shape = SubResource("RectangleShape2D_hubqc")
+shape = SubResource("CircleShape2D_bttlw")
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="BulletHitter"]
 stream = ExtResource("5_dhwaf")
@@ -266,6 +289,7 @@ stream = ExtResource("6_7b0us")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="BulletHitter"]
 modulate = Color(1, 1, 1, 0.619608)
+z_index = 1
 material = ExtResource("7_v6ub3")
 anchors_preset = 8
 anchor_left = 0.5
