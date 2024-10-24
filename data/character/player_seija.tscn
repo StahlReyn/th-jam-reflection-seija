@@ -225,7 +225,7 @@ radius = 3.0
 radius = 40.0
 
 [node name="PlayerSeija" type="Area2D" node_paths=PackedStringArray("area_graze", "audio_shoot", "audio_item", "main_sprite", "main_collision") groups=["player"]]
-collision_mask = 20
+collision_mask = 6
 script = ExtResource("1_s2rpu")
 area_graze = NodePath("AreaGraze")
 audio_shoot = NodePath("BulletPlayer")
@@ -236,7 +236,7 @@ death_effect_scene = ExtResource("2_x02xu")
 
 [node name="BulletHitter" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 12
+collision_mask = 14
 script = ExtResource("3_wnykv")
 
 [node name="HitRange" type="TextureProgressBar" parent="BulletHitter"]

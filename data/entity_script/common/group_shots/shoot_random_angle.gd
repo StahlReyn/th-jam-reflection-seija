@@ -35,7 +35,7 @@ func physics_process_active(delta: float) -> void:
 		if target_player:
 			final_shot_angle += parent.position.angle_to_point(GameUtils.get_player().position)
 		
-		var bullet = ModScript.spawn_bullet(bullet_scene, parent.position)
+		var bullet = ModScript.spawn_entity(bullet_scene, parent.position)
 		bullet.velocity = Vector2.from_angle(final_shot_angle) * bullet_speed
 		if bullet_function != null:
 			bullet_function.call(bullet)

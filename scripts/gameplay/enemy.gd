@@ -30,6 +30,7 @@ func update_animation():
 func do_death():
 	super()
 	drop_items()
+	death.emit()
 	if remove_on_death:
 		do_remove()
 

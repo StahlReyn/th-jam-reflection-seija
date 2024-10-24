@@ -2,6 +2,8 @@ class_name Character
 extends Entity
 ## Parent class for Player and Enemy
 
+signal death
+
 @export_group("Nodes")
 @export var main_sprite : Node2D
 @export var main_collision : CollisionShape2D
@@ -9,14 +11,14 @@ extends Entity
 @export var death_effect_scene : PackedScene
 @export_group("Stat")
 @export var mhp : int = 1
+@export var collision_damage : int = 10
+@export var can_be_parried : bool = false
 
 var hp : int
 var is_dead : bool = false
 
 func _init() -> void:
 	super()
-	monitorable = false
-	monitoring = true
 	
 func _ready() -> void:
 	super()
@@ -55,4 +57,8 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		hit.emit()
 		take_damage(area.damage)
+		area.on_hit()
+	elif area is Character:
+		hit.emit()
+		take_damage(area.collision_damage)
 		area.on_hit()

@@ -20,9 +20,7 @@ func _physics_process(delta: float) -> void:
 
 func setup() -> void:
 	parent.connect("hit_wall", _on_hit_wall)
-	if parent is Bullet: # Main bullet
-		parent.damage = 10
-		parent.penetration = 5
+	parent.connect("death", _on_hit_wall)
 
 func _on_hit_wall() -> void:
 	# The direction of bullets, Default up (as if hit bottom)
@@ -36,11 +34,13 @@ func _on_hit_wall() -> void:
 func part_splinter(angle_rotated : float) -> void:
 	var count = 3
 	var mid = floor(count/2)
-	var angle_interval = 0.02
-	var multiplier = (parent.damage / 10)
-	for i in range(3):
+	var angle_interval = TAU/6
+	parent = parent as Character
+	var multiplier = (parent.collision_damage / parent.mhp)
+	for i in range(6):
 		var angle = ((i-mid) * angle_interval) + angle_rotated
-		var bullet_list = BulletUtils.spawn_circle(bullet_splinter, parent.position, 300, 6, angle)
+		#var bullet_list = BulletUtils.spawn_circle(bullet_splinter, parent.position, 300, 6, angle)
+		var bullet_list = BulletUtils.spawn_arc_arrow(bullet_splinter, parent.position, 300, 6, TAU/240, angle, 0.2)
 		for bullet in bullet_list:
 			basic_copy(bullet, parent)
 			set_bullet_style(bullet)

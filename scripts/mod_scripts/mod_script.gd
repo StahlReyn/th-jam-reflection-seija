@@ -32,30 +32,30 @@ static func get_container_for_entity(entity: Entity):
 
 static func spawn_entity(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Entity:
 	var entity : Entity = scene.instantiate()
-	var entity_container = get_container_for_entity(entity)
+	var container = get_container_for_entity(entity)
 	entity.global_position = pos
-	entity_container.add_child(entity)
+	container.call_deferred("add_child", entity)
 	return entity
 
 static func spawn_enemy(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Enemy:
-	var enemy_container = GameUtils.get_enemy_container()
+	var container = GameUtils.get_enemy_container()
 	var enemy : Enemy = scene.instantiate()
 	enemy.global_position = pos
-	enemy_container.add_child(enemy)
+	container.call_deferred("add_child", enemy)
 	return enemy
 
 static func spawn_bullet(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Bullet:
 	var container = GameUtils.get_bullet_container()
 	var bullet : Bullet = scene.instantiate()
 	bullet.global_position = pos
-	container.add_child(bullet)
+	container.call_deferred("add_child", bullet)
 	return bullet
 
 static func spawn_laser(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Laser:
 	var container = GameUtils.get_bullet_container()
 	var bullet : Laser = scene.instantiate()
 	bullet.global_position = pos
-	container.add_child(bullet)
+	container.call_deferred("add_child", bullet)
 	return bullet
 
 static func spawn_image(image : Texture2D, pos : Vector2 = Vector2(0,0)) -> Sprite2D:
@@ -64,13 +64,13 @@ static func spawn_image(image : Texture2D, pos : Vector2 = Vector2(0,0)) -> Spri
 	sprite.texture = image
 	sprite.top_level = true
 	sprite.global_position = pos
-	container.add_child(sprite)
+	container.call_deferred("add_child", sprite)
 	return sprite
 
 static func spawn_title_card(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> TitleCard:
-	var image_container = GameUtils.get_image_container()
+	var container = GameUtils.get_image_container()
 	var image : TitleCard = scene.instantiate()
 	image.top_level = true
 	image.global_position = pos
-	image_container.add_child(image)
+	container.call_deferred("add_child", image)
 	return image

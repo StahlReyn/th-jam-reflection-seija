@@ -69,7 +69,7 @@ static func spawn_arc(bullet_scene: PackedScene, pos: Vector2, speed: float, cou
 		bullet_list.append(bullet)
 	return bullet_list
 
-## Initial distance is as if the bullet travelled how many seconds already
+## Initial distance is as if the bullet travelled how many seconds already, tip of triangle
 static func spawn_arc_triangle(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_per_shot: float, main_angle: float, init_distance_mult: float) -> Array[Bullet]:
 	var bullet_list : Array[Bullet] = []
 	var bullet_list_part : Array[Bullet] = []
@@ -82,6 +82,22 @@ static func spawn_arc_triangle(bullet_scene: PackedScene, pos: Vector2, speed: f
 		for bullet in bullet_list_part:
 			bullet.position += bullet.velocity * init_distance_mult * dist_mult_interval
 			bullet_list.append(bullet)
+	return bullet_list
+
+## Initial distance is as if the bullet travelled how many seconds already, tip of arrow
+static func spawn_arc_arrow(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_per_shot: float, main_angle: float, max_mult: float) -> Array[Bullet]:
+	var bullet : Bullet
+	var bullet_list : Array[Bullet] = []
+	var direction : Vector2
+	var mid : float = float(count) / 2.0
+	var dist_mult_interval : float = 0.0
+	for i in range(count):
+		direction = Vector2.from_angle(angle_per_shot * (i-mid) + main_angle)
+		bullet = ModScript.spawn_bullet(bullet_scene, pos)
+		bullet.velocity = direction * speed
+		dist_mult_interval = 1.0 - ((abs((float(i) + 0.5 - mid)) / float(count)) * max_mult)
+		bullet.velocity *=  dist_mult_interval #* init_distance_mult
+		bullet_list.append(bullet)
 	return bullet_list
 
 static func clear_bullets() -> void:

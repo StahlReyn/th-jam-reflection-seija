@@ -15,8 +15,6 @@ static var bullet_spawn_effect : PackedScene = preload("res://data/after_effects
 
 func _init() -> void:
 	super()
-	monitorable = true
-	monitoring = false
 	
 func _ready() -> void:
 	super()

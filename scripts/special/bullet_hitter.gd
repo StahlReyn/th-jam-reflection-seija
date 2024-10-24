@@ -75,39 +75,48 @@ func do_hit() -> void:
 		audio_hit.play()
 		var center_pos = get_parent().position #+ Vector2(0, 300)
 		for entity : Entity in entity_in_area:
+			var distance_vector = entity.position - center_pos
+			# If out of arc length, consider it out of range and skip
+			var angle_to_center = abs(Vector2.UP.angle_to(distance_vector))
+			if angle_to_center > hit_angle:
+				continue
+			
+			#var direction = entity.velocity.bounce(distance_vector.normalized())
+			#entity.velocity = direction * (charge_time + 1)
+			entity.velocity = distance_vector.normalized() * 500 * (charge_time + 1)
+			
+			# Fancy hit change attributes
+			entity.velocity.y = -abs(entity.velocity.y) # Go upward
+			entity.modulate.a = 0.4
+			entity.z_index = -10
+			
 			if entity is Bullet:
-				var distance_vector = entity.position - center_pos
-				# If out of arc length, consider it out of range and skip
-				var angle_to_center = abs(Vector2.UP.angle_to(distance_vector))
-				if angle_to_center > hit_angle:
-					continue
-				
-				#var direction = entity.velocity.bounce(distance_vector.normalized())
-				#entity.velocity = direction * (charge_time + 1)
-				entity.velocity = distance_vector.normalized() * 500 * (charge_time + 1)
-				
-				# Fancy hit change attributes
-				entity.velocity.y = -abs(entity.velocity.y) # Go upward
 				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
-				entity.modulate.a = 0.4
-				entity.z_index = -10
 				entity.damage += floori(charge_time * 5)
 				entity.penetration += floori(charge_time * 3)
 				if is_max_charge():
 					entity.damage *= 2
 					entity.penetration *= 2
+			elif entity is Character:
+				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
+				entity.collision_mask = BulletUtils.CollisionMask.TARGET_PLAYER
+				entity.collision_damage += floori(charge_time * 5)
+				if is_max_charge():
+					entity.collision_damage *= 2
 
 func is_max_charge() -> bool:
 	return charge_time >= max_charge
-	
+
+func area_can_parry(area: Area2D) -> bool:
+	return (
+		(area is Bullet and not area is Laser) 
+		or (area is Enemy)#and area.can_be_parried)
+	)
+
 func _on_area_entered(area: Area2D) -> void:
-	if area is Laser:
-		return # Dont parry laser
-	if area is Bullet:
-		#print("Bullet Entered")
+	if area_can_parry(area):
 		entity_in_area.add_entity(area)
 
 func _on_area_exited(area: Area2D) -> void:
-	if area is Bullet:
-		#print("Bullet Exited")
+	if area_can_parry(area):
 		entity_in_area.remove_entity(area)

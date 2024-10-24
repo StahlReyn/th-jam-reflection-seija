@@ -19,7 +19,7 @@ var cur_frame : int
 var cur_type : int
 var frame_timer : float
 
-func _ready() -> void:
+func _init() -> void:
 	cur_anim = 0
 	cur_frame = 0
 	cur_type = 0
