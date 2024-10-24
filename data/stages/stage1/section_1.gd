@@ -1,6 +1,7 @@
 extends SectionScript
 
 @onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+@onready var bullet_scene : PackedScene = BulletUtils.scene_dict["bullet"]
 
 var timer1 : Timer = Timer.new()
 var timer1_1 : Timer = Timer.new()
@@ -56,12 +57,19 @@ func timeout_1_1():
 		enemy.add_script_node(
 			MSAcceleration.new(acceleration)
 		)
-		for i in range(5):
-			enemy.add_script_node(
-				MSShootAtPlayer.new(2.0, 350, (i-2) * TAU/256)
-			)
+		#var shoot_script = MSShootArc.new(2.0, 350, 5, TAU/256)
+		var shoot_script = MSShootArcTriangle.new(2.0, 450, 5, TAU/160)
+		shoot_script.bullet_scene = bullet_scene
+		shoot_script.target_player = true
+		shoot_script.bullet_list_function = bullet_shot_style
+		enemy.add_script_node(shoot_script)
 		enemy.main_sprite.set_type(count % 3)
 		count += 1
+
+static func bullet_shot_style(bullet_list):
+	print("DID STYLE")
+	for bullet : Bullet in bullet_list:
+		bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
 
 func mirror_x(x: float) -> float:
 	return -(x - GameUtils.game_area.x)

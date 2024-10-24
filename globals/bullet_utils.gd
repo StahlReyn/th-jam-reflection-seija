@@ -1,6 +1,6 @@
 extends Node
 
-var scene_dict : Dictionary = {
+static var scene_dict : Dictionary = {
 	# Bullets
 	"circle_small" = preload("res://data/bullets/basic/circle_small.tscn"),
 	"circle_medium" = preload("res://data/bullets/basic/circle_medium.tscn"),
@@ -13,6 +13,7 @@ var scene_dict : Dictionary = {
 	"arrow" = preload("res://data/bullets/basic/arrow.tscn"),
 	"spike" = preload("res://data/bullets/basic/spike.tscn"),
 	"knife" = preload("res://data/bullets/basic/knife.tscn"),
+	"bullet" = preload("res://data/bullets/basic/bullet.tscn"),
 	# Partial Lasers
 	"partial_laser_small" = preload("res://data/bullets/basic/partial_laser_small.tscn"),
 	"partial_laser_medium" = preload("res://data/bullets/basic/partial_laser_medium.tscn"),
@@ -25,24 +26,21 @@ enum CollisionMask {
 	TARGET_PLAYER = 4,
 	TARGET_ENEMY = 8,
 }
-
-func base_func(bullet: Bullet, i: int):
-	return
 	
-func spawn_circle(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_offset: float = 0) -> Array[Bullet]:
+static func spawn_circle(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_offset: float = 0) -> Array[Bullet]:
 	var direction : Vector2 = Vector2.ZERO
 	var bullet : Bullet
-	var bullet_list : Array[Bullet]
+	var bullet_list : Array[Bullet] = []
+	var angle_per_shot : float = TAU / count
 	for i in range(count):
-		direction.x = cos(TAU * i/count + angle_offset)
-		direction.y = sin(TAU * i/count + angle_offset)
+		direction = Vector2.from_angle(angle_per_shot * i + angle_offset)
 		bullet = ModScript.spawn_bullet(bullet_scene, pos)
 		bullet.velocity = direction * speed
 		bullet_list.append(bullet)
 	return bullet_list
 
-func spawn_circle_packed(bullet_scene: PackedScene, pos: Vector2, velocity: Vector2, count: int, radius : int, angle_offset: float = 0, layer : int = 1, offset_per_layer : float = 0.0):
-	var bullet_list : Array[Bullet]
+static func spawn_circle_packed(bullet_scene: PackedScene, pos: Vector2, velocity: Vector2, count: int, radius : int, angle_offset: float = 0, layer : int = 1, offset_per_layer : float = 0.0):
+	var bullet_list : Array[Bullet] = []
 	for i in range(layer):
 		var bullet_list_ring = BulletUtils.spawn_circle(
 			bullet_scene, # Bullet to spawn
@@ -59,6 +57,33 @@ func spawn_circle_packed(bullet_scene: PackedScene, pos: Vector2, velocity: Vect
 			bullet_list.append(bullet)
 	return bullet_list
 
-func clear_bullets() -> void:
+static func spawn_arc(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_per_shot: float, main_angle: float) -> Array[Bullet]:
+	var bullet : Bullet
+	var bullet_list : Array[Bullet] = []
+	var direction : Vector2
+	var mid : float = float(count) / 2.0
+	for i in range(count):
+		direction = Vector2.from_angle(angle_per_shot * (i-mid) + main_angle)
+		bullet = ModScript.spawn_bullet(bullet_scene, pos)
+		bullet.velocity = direction * speed
+		bullet_list.append(bullet)
+	return bullet_list
+
+## Initial distance is as if the bullet travelled how many seconds already
+static func spawn_arc_triangle(bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_per_shot: float, main_angle: float, init_distance_mult: float) -> Array[Bullet]:
+	var bullet_list : Array[Bullet] = []
+	var bullet_list_part : Array[Bullet] = []
+	var dist_mult_interval : float = 0.0
+	# This case count is the base of triangle width
+	# i starts at 0, so the tip
+	for i in range(count):
+		bullet_list_part = BulletUtils.spawn_arc(bullet_scene, pos, speed, i+1, angle_per_shot, main_angle)
+		dist_mult_interval = 1.0 - (float(i) / float(count))
+		for bullet in bullet_list_part:
+			bullet.position += bullet.velocity * init_distance_mult * dist_mult_interval
+			bullet_list.append(bullet)
+	return bullet_list
+
+static func clear_bullets() -> void:
 	for bullet in GameUtils.get_bullet_list():
 		bullet.do_remove()
