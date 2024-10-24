@@ -80,10 +80,7 @@ func set_bullet_style(bullet: Entity) -> void:
 	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
 
 func timeout_1():
-	#if time_active > 20.0:
-		#timer1.start(100.0)
 	if not enabled:
-		print("TIMEOUT EARLY END SECTION")
 		can_end = true
 		return
 	if doing_end:
