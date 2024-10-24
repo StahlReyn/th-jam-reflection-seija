@@ -19,7 +19,7 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 
 func _ready() -> void:
 	super()
-	duration = 30.0
+	duration = 25.0
 	timer1.start(1.0)
 
 func _physics_process(delta: float) -> void:
@@ -41,6 +41,8 @@ func spawn_circle_shot_fairy(position):
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.main_sprite.set_type(SpriteGroupFairy.Type.GREEN)
 	enemy.velocity = velocity
+	enemy.drop_power = 0
+	enemy.drop_point = 15
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
 	)
@@ -58,6 +60,8 @@ func spawn_big_shot_fairy(position):
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.main_sprite.set_type(SpriteGroupFairy.Type.RED)
 	enemy.velocity = velocity
+	enemy.drop_power = 15
+	enemy.drop_point = 0
 	enemy.mhp = 50
 	enemy.reset_hp()
 	enemy.add_script_node(

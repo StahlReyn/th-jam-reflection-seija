@@ -29,8 +29,6 @@ func _init(shoot_cooldown: float, speed: float, count: float, angle_per_shot: fl
 	self.main_angle = main_angle
 	self.init_distance_mult = init_distance_mult
 
-# bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_per_shot: float, main_angle: float
-
 func physics_process_active(delta: float) -> void:
 	time_since_shot += delta
 	if time_since_shot >= shoot_cooldown:

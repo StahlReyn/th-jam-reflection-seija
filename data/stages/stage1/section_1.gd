@@ -47,24 +47,28 @@ func timeout_1_1():
 		velocity.x = -velocity.x
 		acceleration.x = -acceleration.x
 		
-	for pos in positions:
+	for position in positions:
 		if timer1_count % 2 == 0:
-			pos.x = mirror_x(pos.x)
+			position.x = mirror_x(position.x)
 		
-		var enemy = spawn_enemy(enemy_fairy, pos)
-		enemy.delay_time = count * 0.05
-		enemy.velocity = velocity
-		enemy.add_script_node(
-			MSAcceleration.new(acceleration)
-		)
-		#var shoot_script = MSShootArc.new(2.0, 350, 5, TAU/256)
-		var shoot_script = MSShootArcTriangle.new(2.0, 450, 5, TAU/160, 0, 0.1)
-		shoot_script.bullet_scene = bullet_scene
-		shoot_script.target_player = true
-		shoot_script.bullet_list_function = bullet_shot_style
-		enemy.add_script_node(shoot_script)
+		var enemy = spawn_side_fairy(position, velocity, acceleration)
 		enemy.main_sprite.set_type(count % 3)
+		enemy.delay_time = count * 0.05
 		count += 1
+
+func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
+	var enemy = spawn_enemy(enemy_fairy, position)
+	enemy.velocity = velocity
+	enemy.add_script_node(
+		MSAcceleration.new(acceleration)
+	)
+	#var shoot_script = MSShootArc.new(2.0, 350, 5, TAU/256)
+	var shoot_script = MSShootArcTriangle.new(2.0, 450, 5, TAU/160, 0, 0.1)
+	shoot_script.bullet_scene = bullet_scene
+	shoot_script.target_player = true
+	shoot_script.bullet_list_function = bullet_shot_style
+	enemy.add_script_node(shoot_script)
+	return enemy
 
 static func bullet_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:

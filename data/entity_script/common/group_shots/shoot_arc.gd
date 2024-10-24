@@ -25,8 +25,6 @@ func _init(shoot_cooldown: float, speed: float, count: float, angle_per_shot: fl
 	self.angle_per_shot = angle_per_shot
 	self.main_angle = main_angle
 
-# bullet_scene: PackedScene, pos: Vector2, speed: float, count: int, angle_per_shot: float, main_angle: float
-
 func physics_process_active(delta: float) -> void:
 	time_since_shot += delta
 	if time_since_shot >= shoot_cooldown:
@@ -40,8 +38,7 @@ func physics_process_active(delta: float) -> void:
 			angle_per_shot,
 			main_angle
 		)
-		if is_instance_valid(bullet_list_function):
-			print(bullet_list_function)
+		if bullet_list_function != null:
 			bullet_list_function.call(bullet_list)
 		if audio_shoot:
 			AudioManager.play_audio(audio_shoot)
