@@ -8,7 +8,7 @@ var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
 
 func _init() -> void:
-	timer1 = timer_setup(2.0, timeout_1)
+	timer1 = timer_setup(3.0, timeout_1)
 
 func timer_setup(wait_time: float, function: Callable) -> Timer:
 	var timer = Timer.new()
@@ -29,10 +29,10 @@ func timeout_1():
 	if time_active > 20.0:
 		timer1.start(100.0)
 	elif timer1_count % 3 == 0:
-		timer1.start(1.0)
+		timer1.start(0.8)
 		spawn_side_fairy_set(timer1_count % 2 == 0)
 	elif timer1_count <= 1000:
-		timer1.start(1.0)
+		timer1.start(0.8)
 		spawn_weeping_fairy_set(timer1_count % 2 == 1)
 		
 	timer1_count += 1

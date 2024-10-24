@@ -1,7 +1,7 @@
 extends SpellCard
 # 
 
-@onready var enemy_boss : PackedScene = EnemyUtils.scene_dict["lesser_fairy_boss"]
+@onready var enemy_boss : PackedScene = preload("res://data/enemies/bosses/boss_letty_whiterock.tscn")
 
 @onready var bullet_line : PackedScene = BulletUtils.scene_dict["partial_laser_small"]
 @onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
@@ -39,7 +39,7 @@ func _ready() -> void:
 	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
 	boss.do_check_despawn = false
 	boss.remove_on_death = false
-	boss.mhp = 500;
+	boss.mhp = 700;
 	boss.reset_hp()
 	boss.drop_power = 40
 	boss.drop_point = 20

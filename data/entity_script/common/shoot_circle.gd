@@ -1,7 +1,7 @@
 class_name MSShootCircle
 extends EntityScript
 
-@onready var bullet_scene: PackedScene = BulletUtils.scene_dict["spike"]
+@onready var bullet_scene: PackedScene
 @onready var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
 
 @export var shoot_cooldown : float = 3.0
@@ -15,6 +15,8 @@ var bullet_list_function : Callable
 func _init(shoot_cooldown: float, speed: float, count: float, offset: float, bullet_scene: PackedScene = null) -> void:
 	if bullet_scene != null:
 		self.bullet_scene = bullet_scene
+	else:
+		self.bullet_scene = BulletUtils.scene_dict["spike"]
 	self.shoot_cooldown = shoot_cooldown
 	self.speed = speed
 	self.count = count

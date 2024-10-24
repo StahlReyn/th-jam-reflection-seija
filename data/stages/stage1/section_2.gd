@@ -19,18 +19,20 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 
 func _ready() -> void:
 	super()
-	duration = 25.0
+	duration = 30.0
 	timer1.start(1.0)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 
 func timeout_1():
+	if time_active > 25.0:
+		timer1.start(100.0)
 	if timer1_count % 3 == 0:
 		timer1.start(2.0)
 		spawn_big_shot_fairy(Vector2(GameUtils.game_area.x/2, -80))
 	elif timer1_count <= 1000:
-		timer1.start(1.0)
+		timer1.start(1.5)
 		for i in range(5):
 			spawn_circle_shot_fairy(Vector2(140 * i + 100, -80))
 	timer1_count += 1

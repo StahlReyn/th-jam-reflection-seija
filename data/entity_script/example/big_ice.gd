@@ -5,7 +5,7 @@ extends EntityScript
 
 @onready var laser = BulletUtils.scene_dict["laser_basic"]
 @onready var bullet = BulletUtils.scene_dict["circle_medium"]
-@onready var stream = BulletUtils.scene_dict["partial_laser_medium_subtle"]
+@onready var stream = BulletUtils.scene_dict["partial_laser_small"]
 
 @onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 @onready var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
@@ -26,7 +26,6 @@ func setup() -> void:
 		parent.penetration = 100
 
 func _on_hit_wall() -> void:
-	print("Lily Hit Wall")
 	# The direction of bullets, Default up (as if hit bottom)
 	var init_direction = Vector2.UP
 	var target_direction = get_target_direction()
@@ -53,12 +52,12 @@ func part_laser(angle_rotated : float) -> void:
 	var cur_laser = spawn_laser(laser, parent.position)
 	basic_copy(cur_laser, parent)
 	set_bullet_style(cur_laser)
-	cur_laser.damage = 200
+	cur_laser.damage = 50
 	cur_laser.rotation = angle_rotated - PI/2 #target_direction.angle()
-	cur_laser.target_size.y = 100
+	cur_laser.target_size.y = 20
 	cur_laser.delay_time = 0.0
-	cur_laser.laser_active_time = 2.0
-	cur_laser.switch_state(Laser.State.STATIC, 2.0)
+	cur_laser.laser_active_time = 0.5
+	cur_laser.switch_state(Laser.State.STATIC, 0.5)
 	
 	# Audio node to laser
 	var audio_node = AudioStreamPlayer2D.new()
@@ -67,44 +66,29 @@ func part_laser(angle_rotated : float) -> void:
 	audio_node.play()
 	
 func part_stream(angle_rotated : float) -> void:
-	var stream_count : int = 4
-	var mid : int = stream_count / 2 # ASSUME Even number, get higher index (4 gives 2)
-	for stream_num in range(stream_count):
-		var base_amp = 200
-		var side_velocity = 180
-		var forward_velocity = -600
-		var stream_from_center = stream_num - mid
-		if stream_num < mid: # inverse halfway
-			base_amp *= -1
-			stream_from_center += 1 # offset due to double 0 center
-		side_velocity *= stream_from_center # Side velocity based on how far from center
-		
-		# Initial is UP, then rotated
-		var frequency = Vector2(3, 0).rotated(angle_rotated) # Only Width side waves
-		var amplitude = Vector2(base_amp, 0).rotated(angle_rotated)
-		var phase_offset = Vector2(PI/2, 0).rotated(angle_rotated).abs() # Offset should not inverse
-		var base_velocity = Vector2(side_velocity, forward_velocity).rotated(angle_rotated)
-		
-		for i in range(60):
-			var cur_bullet = spawn_bullet(stream, parent.position)
-			basic_copy(cur_bullet, parent)
-			set_bullet_style(cur_bullet)
-			cur_bullet.modulate.a = 0.3
-			cur_bullet.delay_time = i * 0.02 + 0.1
-			
-			cur_bullet.add_script_node(
-				MSVelocitySine.new(
-					frequency, amplitude, phase_offset, base_velocity
-				)
+	var alpha_value = 0.3 * parent.modulate.a
+	var main_angle = angle_rotated - PI/2 + PI/24
+	for i in range(20):
+		var bullet_list = BulletUtils.spawn_arc_arrow(
+			stream, parent.position, 200, 7, PI/12, main_angle, 1.0
+		)
+		for bullet in bullet_list:
+			basic_copy(bullet, parent)
+			set_bullet_style(bullet)
+			bullet.modulate.a = alpha_value
+			bullet.delay_time = i * 0.02 + 0.1
+			var acceleration = bullet.velocity * 4
+			bullet.add_script_node(
+				MSAcceleration.new(acceleration)
 			)
 
 func part_spray(angle_rotated : float) -> void:
 	# Initial is UP, then rotated. Calculated outside to avoid rotating per every bullet
-	var spray_min = Vector2(0, -150).rotated(angle_rotated)
-	var spray_max = Vector2(-150, 150).rotated(angle_rotated)
-	var spray_accel = Vector2(0, -150).rotated(angle_rotated)
+	var spray_min = Vector2(0, -100).rotated(angle_rotated)
+	var spray_max = Vector2(-100, 100).rotated(angle_rotated)
+	var spray_accel = Vector2(0, -100).rotated(angle_rotated)
 	
-	for i in range(40):
+	for i in range(20):
 		var cur_bullet = spawn_bullet(bullet, parent.position)
 		basic_copy(cur_bullet, parent)
 		set_bullet_style(cur_bullet)
@@ -122,4 +106,4 @@ func basic_copy(to_copy: Entity, base: Entity) -> void:
 
 func set_bullet_style(bullet: Entity) -> void:
 	bullet.material = blend_add
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.RED)
+	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)

@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://dcd8d7umir7nd"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/enemy.gd" id="1_xyka8"]
+[ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_ugbna"]
+[ext_resource type="Texture2D" uid="uid://bt2ys5s2cj73e" path="res://assets/img/enemies/boss_letty_whiterock.png" id="3_fw0af"]
+[ext_resource type="Script" path="res://scripts/sprite_effects/sprite_boss_simple.gd" id="4_qws14"]
+[ext_resource type="PackedScene" uid="uid://w54qs2iq7b0n" path="res://scripts/gameplay/boss_bar.tscn" id="5_3g11l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d1y22"]
+radius = 70.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql216"]
+atlas = ExtResource("3_fw0af")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd26e"]
+atlas = ExtResource("3_fw0af")
+region = Rect2(0, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdclq"]
+atlas = ExtResource("3_fw0af")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ee4b3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql216")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd26e")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdclq")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="BossLettyWhiterock" type="Area2D" node_paths=PackedStringArray("main_collision") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_xyka8")
+drop_power = 40
+drop_point = 40
+main_collision = NodePath("CollisionShape2D")
+death_effect_scene = ExtResource("2_ugbna")
+mhp = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d1y22")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ee4b3")
+animation = &"right"
+script = ExtResource("4_qws14")
+
+[node name="BossBar" parent="." instance=ExtResource("5_3g11l")]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

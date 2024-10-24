@@ -87,7 +87,7 @@ func do_hit() -> void:
 			
 			# Fancy hit change attributes
 			entity.velocity.y = -abs(entity.velocity.y) # Go upward
-			entity.modulate.a = 0.4
+			entity.modulate.a = 0.3
 			entity.z_index = -10
 			
 			if entity is Bullet:
@@ -110,7 +110,7 @@ func is_max_charge() -> bool:
 func area_can_parry(area: Area2D) -> bool:
 	return (
 		(area is Bullet and not area is Laser) 
-		or (area is Enemy)#and area.can_be_parried)
+		or (area is Enemy and area.can_be_parried)
 	)
 
 func _on_area_entered(area: Area2D) -> void:
