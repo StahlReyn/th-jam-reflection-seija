@@ -45,28 +45,30 @@ func spawn_circle_shot_fairy(position):
 		MSAcceleration.new(acceleration)
 	)
 	var shooter := MSShootCircle.new(1.0, 400, 25, 0)
-	shooter.bullet_list_function = circle_shot_bullets
+	shooter.bullet_list_function = circle_shot_style
 	enemy.add_script_node(shooter)
 
-static func circle_shot_bullets(bullet_list):
+static func circle_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:
 		bullet.set_color(SpriteGroupBasicBullet.ColorType.GREEN)
 
 func spawn_big_shot_fairy(position):
-	var velocity = Vector2(0, 300)
-	var acceleration = Vector2(0, -120)
+	var velocity = Vector2(0, 320)
+	var acceleration = Vector2(0, -100)
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.main_sprite.set_type(SpriteGroupFairy.Type.RED)
 	enemy.velocity = velocity
+	enemy.mhp = 50
+	enemy.reset_hp()
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
 	)
-	var shooter = MSShootCircleGroup.new(3.0, Vector2(0,300), 16, 0, 50, 3, TAU/32)
+	var shooter = MSShootCircleGroup.new(4.0, Vector2(0,300), 16, 0, 50, 3, TAU/32)
 	shooter.target_player = true
-	shooter.bullet_list_function = big_shot_iterator
+	shooter.bullet_list_function = big_shot_style
 	enemy.add_script_node(shooter)
 
-static func big_shot_iterator(bullet_list):
+static func big_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:
 		bullet.set_color(SpriteGroupBasicBullet.ColorType.RED)
 		bullet.material = material_additive

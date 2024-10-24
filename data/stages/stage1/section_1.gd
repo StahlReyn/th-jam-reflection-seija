@@ -58,7 +58,7 @@ func timeout_1_1():
 			MSAcceleration.new(acceleration)
 		)
 		#var shoot_script = MSShootArc.new(2.0, 350, 5, TAU/256)
-		var shoot_script = MSShootArcTriangle.new(2.0, 450, 5, TAU/160)
+		var shoot_script = MSShootArcTriangle.new(2.0, 450, 5, TAU/160, 0, 0.1)
 		shoot_script.bullet_scene = bullet_scene
 		shoot_script.target_player = true
 		shoot_script.bullet_list_function = bullet_shot_style
@@ -67,10 +67,9 @@ func timeout_1_1():
 		count += 1
 
 static func bullet_shot_style(bullet_list):
-	print("DID STYLE")
 	for bullet : Bullet in bullet_list:
 		bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
 
-func mirror_x(x: float) -> float:
+static func mirror_x(x: float) -> float:
 	return -(x - GameUtils.game_area.x)
 	

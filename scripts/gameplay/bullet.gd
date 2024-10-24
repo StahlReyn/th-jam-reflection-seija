@@ -1,6 +1,7 @@
 class_name Bullet
 extends Entity
 
+static var bullet_hit_effect : PackedScene = preload("res://data/after_effects/bullet_hit_basic.tscn")
 static var bullet_remove_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
 static var bullet_spawn_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
 
@@ -38,8 +39,8 @@ func on_hit():
 func do_remove() -> void:
 	if hit_count <= 0: # This is just crude way to do remove bullet that hasnt hit yet
 		AfterEffect.add_effect(bullet_remove_effect, global_position)
-	elif bullet_hit_effect_scene:
-		AfterEffect.add_effect(bullet_hit_effect_scene, global_position)
+	else:
+		AfterEffect.add_effect(bullet_hit_effect, global_position)
 	super()
 
 func set_color(type: int = 0, variant: int = 0) -> void:
