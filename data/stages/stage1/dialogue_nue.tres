@@ -1,30 +1,103 @@
-[gd_resource type="Resource" script_class="DialogueSet" load_steps=7 format=3 uid="uid://co5r6a4gmpfa1"]
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=15 format=3 uid="uid://co5r6a4gmpfa1"]
 
 [ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_ad6xq"]
 [ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_10gnj"]
 [ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_27xcc"]
 [ext_resource type="Script" path="res://resources/dialogue_set.gd" id="4_1ujyu"]
+[ext_resource type="PackedScene" uid="uid://dan15ethswgun" path="res://data/portraits/nue_houjuu/portrait_set_nue_houjuu.tscn" id="4_vrg41"]
 
 [sub_resource type="Resource" id="Resource_smvod"]
 script = ExtResource("3_27xcc")
 id = "A"
-auto = false
+auto = true
+set_others_back = true
 portrait = ExtResource("2_10gnj")
 face_anim = "neutral"
 body_anim = "main"
-position_type = 0
-text = "Huh? What is Nue's pattern doing here?"
+position_type = 2
+text = ""
 
-[sub_resource type="Resource" id="Resource_fckqh"]
+[sub_resource type="Resource" id="Resource_ocqt5"]
+script = ExtResource("3_27xcc")
+id = "B"
+auto = false
+set_others_back = true
+portrait = ExtResource("4_vrg41")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 1
+text = "NUE_1"
+
+[sub_resource type="Resource" id="Resource_b56ne"]
 script = ExtResource("3_27xcc")
 id = "A"
 auto = false
+set_others_back = true
 face_anim = ""
 body_anim = ""
 position_type = 0
-text = "Regardless, uhhhhhh yeah 
-my wife Nuemaxxing or something"
+text = "NUE_2"
+
+[sub_resource type="Resource" id="Resource_rxvpf"]
+script = ExtResource("3_27xcc")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "NUE_3"
+
+[sub_resource type="Resource" id="Resource_lc77s"]
+script = ExtResource("3_27xcc")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "NUE_4"
+
+[sub_resource type="Resource" id="Resource_tp6b0"]
+script = ExtResource("3_27xcc")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "NUE_5"
+
+[sub_resource type="Resource" id="Resource_4vhk7"]
+script = ExtResource("3_27xcc")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "NUE_6"
+
+[sub_resource type="Resource" id="Resource_a0d0k"]
+script = ExtResource("3_27xcc")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = "angry"
+body_anim = ""
+position_type = 0
+text = "NUE_7"
+
+[sub_resource type="Resource" id="Resource_gn4vk"]
+script = ExtResource("3_27xcc")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "NUE_8"
 
 [resource]
 script = ExtResource("4_1ujyu")
-dialogue_actions = Array[ExtResource("1_ad6xq")]([SubResource("Resource_smvod"), SubResource("Resource_fckqh")])
+dialogue_actions = Array[ExtResource("1_ad6xq")]([SubResource("Resource_smvod"), SubResource("Resource_ocqt5"), SubResource("Resource_b56ne"), SubResource("Resource_rxvpf"), SubResource("Resource_lc77s"), SubResource("Resource_tp6b0"), SubResource("Resource_4vhk7"), SubResource("Resource_a0d0k"), SubResource("Resource_gn4vk")])

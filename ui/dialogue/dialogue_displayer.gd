@@ -77,6 +77,12 @@ func reset_anim():
 
 func update_portrait():
 	if cur_dialogue_action is DialogueLine:
+		# Set every other portrait back first. Current portrait later will override
+		if cur_dialogue_action.set_others_back:
+			for id in portrait_dict:
+				var portrait : PortraitSet = portrait_dict[id]
+				portrait.set_back_position()
+				
 		if portrait_dict.has(cur_dialogue_action.id):
 			# if no portrait, assume same and just update animation
 			if cur_dialogue_action.portrait == null:

@@ -101,4 +101,4 @@ size_flags_vertical = 4
 texture = ExtResource("9_1ugch")
 
 [node name="SpeechPosition" type="Node2D" parent="."]
-position = Vector2(-78, -140)
+position = Vector2(-19, -28)

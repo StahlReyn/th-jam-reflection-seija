@@ -11,6 +11,7 @@ enum PortraitPosition {
 @export_group("Technical")
 @export var id : String ## id, if same id the portrait replace the existing
 @export var auto : bool = false 
+@export var set_others_back : bool = true 
 @export_group("Portrait")
 @export var portrait : PackedScene ## Portrait shown. If left empty the ID retains it's portrait
 @export var face_anim : String ## Face Animation Name

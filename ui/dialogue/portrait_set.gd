@@ -72,7 +72,14 @@ func set_initial_position(instant: bool = false) -> void:
 	if instant:
 		global_position = pos_target
 		set_modulate(mod_target)
-	
+
+func set_back_position(instant: bool = false) -> void:
+	match position_type:
+		DialogueLine.PortraitPosition.LEFT:
+			set_position_type(DialogueLine.PortraitPosition.LEFT_BACK, instant)
+		DialogueLine.PortraitPosition.RIGHT:
+			set_position_type(DialogueLine.PortraitPosition.RIGHT_BACK, instant)
+
 func set_body_anim(anim_name: String) -> void:
 	sprite_body.play(anim_name)
 
