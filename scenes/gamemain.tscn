@@ -1,29 +1,89 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7v7flp6p65gf"]
+[gd_scene load_steps=9 format=3 uid="uid://b7v7flp6p65gf"]
 
 [ext_resource type="PackedScene" uid="uid://chg817g0wf0ij" path="res://scripts/gamestate/gamehud.tscn" id="1_585am"]
 [ext_resource type="Script" path="res://scenes/gamemain.gd" id="1_jvava"]
 [ext_resource type="PackedScene" uid="uid://bitw5rm3yby8i" path="res://ui/dialogue/dialogue_displayer.tscn" id="2_aq4qu"]
 [ext_resource type="PackedScene" uid="uid://btg4d8khha007" path="res://scripts/gamestate/gameview.tscn" id="2_frqqi"]
 [ext_resource type="PackedScene" uid="uid://djh1d5tgxtxjj" path="res://scenes/background/background-test.tscn" id="4_4i7d7"]
+[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="5_r1qk6"]
+[ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="6_a366n"]
+[ext_resource type="Script" path="res://scenes/selection_list.gd" id="6_p64jw"]
 
 [node name="Gamemain" type="Node2D"]
 script = ExtResource("1_jvava")
 
 [node name="DialogueDisplayer" parent="." instance=ExtResource("2_aq4qu")]
 z_index = 100
+metadata/_edit_lock_ = true
 
 [node name="Gamehud" parent="." instance=ExtResource("1_585am")]
-z_index = 10
+z_index = 50
+metadata/_edit_lock_ = true
 
 [node name="Gameview" parent="." instance=ExtResource("2_frqqi")]
 position = Vector2(64, 32)
+metadata/_edit_lock_ = true
+
+[node name="PauseMenu" type="Node2D" parent="." node_paths=PackedStringArray("selection_list")]
+process_mode = 3
+z_index = 20
+script = ExtResource("5_r1qk6")
+selection_list = NodePath("PauseUI/SelectionList")
+metadata/_edit_lock_ = true
+
+[node name="PauseUI" type="Control" parent="PauseMenu"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/PauseUI"]
+offset_right = 1280.0
+offset_bottom = 960.0
+color = Color(0, 0, 0, 0.631373)
+
+[node name="SelectionList" type="VBoxContainer" parent="PauseMenu/PauseUI"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 475.0
+offset_right = 451.0
+offset_bottom = 684.0
+theme_override_constants/separation = 25
+script = ExtResource("6_p64jw")
+
+[node name="Return" type="MarginContainer" parent="PauseMenu/PauseUI/SelectionList"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="Label" type="Label" parent="PauseMenu/PauseUI/SelectionList/Return"]
+layout_mode = 2
+text = "SYS_RETURN"
+label_settings = ExtResource("6_a366n")
+
+[node name="Retry" type="MarginContainer" parent="PauseMenu/PauseUI/SelectionList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/PauseUI/SelectionList/Retry"]
+layout_mode = 2
+text = "SYS_RETRY"
+label_settings = ExtResource("6_a366n")
+
+[node name="Quit" type="MarginContainer" parent="PauseMenu/PauseUI/SelectionList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/PauseUI/SelectionList/Quit"]
+layout_mode = 2
+text = "SYS_QUIT"
+label_settings = ExtResource("6_a366n")
 
 [node name="ViewportBackground" type="SubViewportContainer" parent="."]
-z_index = -10
+z_index = -20
 offset_left = 64.0
 offset_top = 32.0
 offset_right = 832.0
 offset_bottom = 928.0
+metadata/_edit_lock_ = true
 
 [node name="SubViewport" type="SubViewport" parent="ViewportBackground"]
 handle_input_locally = false

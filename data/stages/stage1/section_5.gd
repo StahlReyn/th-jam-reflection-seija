@@ -30,15 +30,19 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 
 func timeout_1():
-	if time_active > 45.0:
-		timer1.start(100.0)
 	if timer1_count % 7 == 0:
 		timer1.start(1.3)
 		spawn_weeping_fairy_set()
 	elif timer1_count % 7 == 6:
 		timer1.start(3.5)
-		spawn_side_fairy_set(false, 0)
-		spawn_side_fairy_set(true, 0)
+		if time_active > 15.0:
+			spawn_side_fairy_set(false, 0)
+			spawn_side_fairy_set(true, 0)
+		if time_active > 30.0:
+			spawn_side_fairy_set(false, 0)
+			spawn_side_fairy_set(true, 0)
+		if time_active > 40.0:
+			timer1.start(100.0)
 	else:
 		timer1.start(0.1)
 		spawn_side_fairy_set(timer1_count % 2 == 1, 1)
