@@ -1,6 +1,68 @@
-[gd_scene load_steps=2 format=3 uid="uid://mk4snd1s7lkh"]
+[gd_scene load_steps=8 format=3 uid="uid://mk4snd1s7lkh"]
 
 [ext_resource type="Script" path="res://scenes/menu.gd" id="1_4fphm"]
+[ext_resource type="Script" path="res://scenes/selection_list.gd" id="2_20aw2"]
+[ext_resource type="Shader" path="res://shaders/multi_frame_wipe.gdshader" id="2_psduu"]
+[ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_6a7ab"]
+[ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="3_rrqch"]
+[ext_resource type="Script" path="res://scenes/start_menu.gd" id="4_iojj8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gp7d"]
+shader = ExtResource("2_psduu")
+shader_parameter/percentage = 0.0
+shader_parameter/hidden_alpha = 0.0
+shader_parameter/flip = false
+shader_parameter/horizontal = false
+shader_parameter/frames = 20
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_4fphm")
+
+[node name="ScreenWipe" type="ColorRect" parent="."]
+process_mode = 3
+z_index = 200
+material = SubResource("ShaderMaterial_3gp7d")
+offset_right = 1280.0
+offset_bottom = 960.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("3_6a7ab")
+
+[node name="StartMenu" type="Node2D" parent="." node_paths=PackedStringArray("selection_list")]
+script = ExtResource("4_iojj8")
+selection_list = NodePath("SelectionList")
+
+[node name="SelectionList" type="VBoxContainer" parent="StartMenu"]
+offset_left = 142.0
+offset_top = 475.0
+offset_right = 451.0
+offset_bottom = 684.0
+theme_override_constants/separation = 25
+script = ExtResource("2_20aw2")
+
+[node name="Start" type="MarginContainer" parent="StartMenu/SelectionList"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="Label" type="Label" parent="StartMenu/SelectionList/Start"]
+layout_mode = 2
+text = "MENU_START"
+label_settings = ExtResource("3_rrqch")
+
+[node name="Options" type="MarginContainer" parent="StartMenu/SelectionList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StartMenu/SelectionList/Options"]
+layout_mode = 2
+text = "MENU_OPTIONS"
+label_settings = ExtResource("3_rrqch")
+
+[node name="Quit" type="MarginContainer" parent="StartMenu/SelectionList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StartMenu/SelectionList/Quit"]
+layout_mode = 2
+text = "MENU_QUIT"
+label_settings = ExtResource("3_rrqch")
+
+[connection signal="closed" from="ScreenWipe" to="StartMenu" method="_on_screen_wipe_closed"]
+[connection signal="start_game" from="StartMenu" to="ScreenWipe" method="_do_close"]

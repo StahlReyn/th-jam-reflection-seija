@@ -1,5 +1,7 @@
 extends Node2D
 
+signal retry
+
 @export var selection_list : SelectionList
 
 func _ready() -> void:
@@ -33,8 +35,7 @@ func option_return():
 
 func option_retry():
 	print("> Option Retry")
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	retry.emit()
 
 func option_quit():
 	print("> Option Quit")
@@ -43,3 +44,8 @@ func option_quit():
 
 func do_pause():
 	get_tree().paused = true
+
+func _on_screen_wipe_closed() -> void:
+	get_tree().paused = false
+	GameVariables.reset_variables()
+	SceneHandler.reload_current_scene()
