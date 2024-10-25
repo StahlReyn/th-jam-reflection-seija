@@ -3,6 +3,7 @@ extends Node
 var current_scene = null
 
 static var scene_game = "res://scenes/gamemain.tscn"
+static var scene_menu = "res://scenes/menu.tscn"
 
 func _ready():
 	var root = get_tree().root

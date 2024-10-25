@@ -1,5 +1,6 @@
 class_name SelectionList
 extends VBoxContainer
+## Styled container, all children should be Margin Container
 
 static var margin_deselect : int = 0
 static var margin_select : int = 20

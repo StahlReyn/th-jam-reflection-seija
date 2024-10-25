@@ -39,6 +39,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu/PauseUI"]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 960.0
 color = Color(0, 0, 0, 0.631373)
