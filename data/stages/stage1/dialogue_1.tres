@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueSet" load_steps=7 format=3 uid="uid://btnjtfgcpejyw"]
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=10 format=3 uid="uid://btnjtfgcpejyw"]
 
 [ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_wobq7"]
 [ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_xl0nv"]
@@ -10,20 +10,47 @@ script = ExtResource("3_s5lyv")
 id = "A"
 auto = false
 portrait = ExtResource("2_xl0nv")
-face_anim = "neutral"
+face_anim = "angry"
 body_anim = "main"
 position_type = 0
-text = "I love commiting crimes against fairies."
+text = "INTRO_1"
 
 [sub_resource type="Resource" id="Resource_h6uyo"]
+script = ExtResource("3_s5lyv")
+id = "A"
+auto = false
+face_anim = "smug"
+body_anim = ""
+position_type = 0
+text = "INTRO_2"
+
+[sub_resource type="Resource" id="Resource_gm8up"]
+script = ExtResource("3_s5lyv")
+id = "A"
+auto = false
+face_anim = "angry"
+body_anim = ""
+position_type = 0
+text = "INTRO_3"
+
+[sub_resource type="Resource" id="Resource_7rcb8"]
 script = ExtResource("3_s5lyv")
 id = "A"
 auto = false
 face_anim = ""
 body_anim = ""
 position_type = 0
-text = "I will now hit stuff very hard!"
+text = "INTRO_4"
+
+[sub_resource type="Resource" id="Resource_3bg6i"]
+script = ExtResource("3_s5lyv")
+id = "A"
+auto = false
+face_anim = "surprised"
+body_anim = ""
+position_type = 0
+text = "INTRO_5"
 
 [resource]
 script = ExtResource("4_sq3ia")
-dialogue_actions = Array[ExtResource("1_wobq7")]([SubResource("Resource_26rq7"), SubResource("Resource_h6uyo")])
+dialogue_actions = Array[ExtResource("1_wobq7")]([SubResource("Resource_26rq7"), SubResource("Resource_h6uyo"), SubResource("Resource_gm8up"), SubResource("Resource_7rcb8"), SubResource("Resource_3bg6i")])

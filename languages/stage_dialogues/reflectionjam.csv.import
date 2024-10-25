@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://jf2kuawd8od"
+
+[deps]
+
+files=["res://languages/stage_dialogues/reflectionjam.en.translation"]
+
+source_file="res://languages/stage_dialogues/reflectionjam.csv"
+dest_files=["res://languages/stage_dialogues/reflectionjam.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0

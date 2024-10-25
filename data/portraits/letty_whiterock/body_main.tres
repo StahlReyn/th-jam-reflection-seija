@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ber1fqv8n7yf7"]
+
+[ext_resource type="Texture2D" uid="uid://ce8eh858f55uc" path="res://assets/img/portraits/letty_whiterock.png" id="1_4qiop"]
+
+[resource]
+atlas = ExtResource("1_4qiop")
+region = Rect2(50, 0, 550, 900)

@@ -29,7 +29,18 @@ func _process(delta: float) -> void:
 	set_tail_position()
 
 func set_display_text(text: String) -> void:
-	label_main.text = text
+	var words = tr(text).split(" ")
+	var char_count = 0
+	var cur_line = ""
+	for word in words:
+		char_count += word.length()
+		cur_line += word
+		if char_count > 40:
+			cur_line += "\n"
+			char_count = 0
+		else:
+			cur_line += " "
+	label_main.text = cur_line
 
 func set_position_type(num: int) -> void:
 	position_type = num

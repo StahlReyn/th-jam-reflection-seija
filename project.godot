@@ -127,7 +127,7 @@ skip={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://languages/system/system.en.translation", "res://languages/system/system.es.translation", "res://languages/system/system.jp.translation", "res://languages/character_names/character_names.csv", "res://languages/character_names/character_names.en.translation", "res://languages/character_names/character_names.jp.translation", "res://languages/spell_cards/spell_cards.csv", "res://languages/spell_cards/spell_cards.en.translation", "res://languages/spell_cards/spell_cards.jp.translation")
+locale/translations=PackedStringArray("res://languages/system/system.en.translation", "res://languages/system/system.es.translation", "res://languages/system/system.jp.translation", "res://languages/character_names/character_names.csv", "res://languages/character_names/character_names.en.translation", "res://languages/character_names/character_names.jp.translation", "res://languages/spell_cards/spell_cards.csv", "res://languages/spell_cards/spell_cards.en.translation", "res://languages/spell_cards/spell_cards.jp.translation", "res://languages/stage_dialogues/reflectionjam.csv", "res://languages/stage_dialogues/reflectionjam.en.translation")
 
 [layer_names]
 

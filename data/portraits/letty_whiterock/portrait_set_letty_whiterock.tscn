@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://djahhl372822n"]
+
+[ext_resource type="Script" path="res://ui/dialogue/portrait_set.gd" id="1_6aopb"]
+[ext_resource type="Texture2D" uid="uid://ber1fqv8n7yf7" path="res://data/portraits/letty_whiterock/body_main.tres" id="2_82wgk"]
+[ext_resource type="LabelSettings" uid="uid://baxanrvsxf4vv" path="res://assets/resources/label_settings/label_name_title.tres" id="3_sqv4s"]
+[ext_resource type="LabelSettings" uid="uid://bjjl7v2ai34v2" path="res://assets/resources/label_settings/label_name_ruby.tres" id="4_u8qlk"]
+[ext_resource type="LabelSettings" uid="uid://magrn7v6vmcj" path="res://assets/resources/label_settings/label_name_main.tres" id="5_q50ls"]
+[ext_resource type="LabelSettings" uid="uid://c6wx3igo44q2q" path="res://assets/resources/label_settings/label_name_alt.tres" id="6_lqe2e"]
+[ext_resource type="Texture2D" uid="uid://vu30x87heeip" path="res://data/portraits/reimu_holdurei/bgtext.tres" id="7_u6vi4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tiout"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_82wgk")
+}],
+"loop": true,
+"name": &"main",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q3n5p"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"neutral",
+"speed": 5.0
+}]
+
+[node name="PortraitSetNueHoujuu" type="Node2D" node_paths=PackedStringArray("sprite_body", "sprite_face", "speech_position")]
+script = ExtResource("1_6aopb")
+id = "holder_1"
+sprite_body = NodePath("Body")
+sprite_face = NodePath("Face")
+speech_position = NodePath("SpeechPosition")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 11)
+sprite_frames = SubResource("SpriteFrames_tiout")
+animation = &"main"
+
+[node name="Face" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(76, -289)
+sprite_frames = SubResource("SpriteFrames_q3n5p")
+animation = &"neutral"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -445.0
+offset_top = 15.0
+offset_right = -38.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="NameBox" type="VBoxContainer" parent="MarginContainer"]
+z_index = 5
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_TITLE"
+label_settings = ExtResource("3_sqv4s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ruby" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_RUBY"
+label_settings = ExtResource("4_u8qlk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_MAIN"
+label_settings = ExtResource("5_q50ls")
+horizontal_alignment = 1
+
+[node name="Alt" type="Label" parent="MarginContainer/NameBox"]
+layout_mode = 2
+text = "CHAR_HOLDER_ALT"
+label_settings = ExtResource("6_lqe2e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/CenterContainer"]
+texture = ExtResource("7_u6vi4")
+
+[node name="SpeechPosition" type="Node2D" parent="."]
+position = Vector2(-78, -140)

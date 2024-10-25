@@ -1,16 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://dysnc27pd05m4"]
+[gd_scene load_steps=15 format=3 uid="uid://dysnc27pd05m4"]
 
 [ext_resource type="Script" path="res://ui/dialogue/portrait_set.gd" id="1_qbqgd"]
 [ext_resource type="Texture2D" uid="uid://5f5kc0ayc102" path="res://data/portraits/seija_kijin/body_defeated.tres" id="2_ff77u"]
 [ext_resource type="Texture2D" uid="uid://dj2qetowf05hy" path="res://data/portraits/seija_kijin/body_main.tres" id="3_d1o07"]
 [ext_resource type="Texture2D" uid="uid://dgb6x8cqdedmt" path="res://data/portraits/seija_kijin/face_neutral.tres" id="4_0mlst"]
+[ext_resource type="Texture2D" uid="uid://bmm64bno7twai" path="res://data/portraits/seija_kijin/face_angry.tres" id="4_3p1f7"]
+[ext_resource type="Texture2D" uid="uid://d2gd3ym78l2ut" path="res://data/portraits/seija_kijin/face_smug.tres" id="6_r3jqf"]
+[ext_resource type="Texture2D" uid="uid://dsjtpminvvvay" path="res://data/portraits/seija_kijin/face_surprised.tres" id="7_2omic"]
 [ext_resource type="LabelSettings" uid="uid://baxanrvsxf4vv" path="res://assets/resources/label_settings/label_name_title.tres" id="7_swoh0"]
 [ext_resource type="LabelSettings" uid="uid://bjjl7v2ai34v2" path="res://assets/resources/label_settings/label_name_ruby.tres" id="8_vrkx5"]
 [ext_resource type="LabelSettings" uid="uid://magrn7v6vmcj" path="res://assets/resources/label_settings/label_name_main.tres" id="9_gaopb"]
 [ext_resource type="LabelSettings" uid="uid://c6wx3igo44q2q" path="res://assets/resources/label_settings/label_name_alt.tres" id="10_es3m4"]
 [ext_resource type="Texture2D" uid="uid://vu30x87heeip" path="res://data/portraits/reimu_holdurei/bgtext.tres" id="11_nkusl"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ya4ge"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_m62i8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -29,8 +32,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_quvdx"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ptu7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3p1f7")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_0mlst")
@@ -38,9 +49,25 @@ animations = [{
 "loop": true,
 "name": &"neutral",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_r3jqf")
+}],
+"loop": true,
+"name": &"smug",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2omic")
+}],
+"loop": true,
+"name": &"surprised",
+"speed": 5.0
 }]
 
-[node name="PortraitSetReimuHoldurei" type="Node2D" node_paths=PackedStringArray("sprite_body", "sprite_face", "speech_position")]
+[node name="PortraitSetSeijaKijin" type="Node2D" node_paths=PackedStringArray("sprite_body", "sprite_face", "speech_position")]
 script = ExtResource("1_qbqgd")
 id = "holder_1"
 sprite_body = NodePath("Body")
@@ -49,13 +76,13 @@ speech_position = NodePath("SpeechPosition")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 11)
-sprite_frames = SubResource("SpriteFrames_ya4ge")
+sprite_frames = SubResource("SpriteFrames_m62i8")
 animation = &"main"
 
 [node name="Face" type="AnimatedSprite2D" parent="."]
 z_index = 1
 position = Vector2(76, -289)
-sprite_frames = SubResource("SpriteFrames_quvdx")
+sprite_frames = SubResource("SpriteFrames_3ptu7")
 animation = &"neutral"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
