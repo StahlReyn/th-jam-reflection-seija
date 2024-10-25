@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7v7flp6p65gf"]
+[gd_scene load_steps=13 format=3 uid="uid://b7v7flp6p65gf"]
 
 [ext_resource type="PackedScene" uid="uid://chg817g0wf0ij" path="res://scripts/gamestate/gamehud.tscn" id="1_585am"]
 [ext_resource type="Script" path="res://scenes/gamemain.gd" id="1_jvava"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scenes/pause_menu.gd" id="5_r1qk6"]
 [ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="6_a366n"]
 [ext_resource type="Script" path="res://scenes/selection_list.gd" id="6_p64jw"]
+[ext_resource type="AudioStream" uid="uid://c2a1nbhne0osk" path="res://assets/audio/bgm/reflection_jam_seija.mp3" id="11_fqbm5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_su4a2"]
 shader = ExtResource("2_breqb")
@@ -112,6 +113,12 @@ render_target_update_mode = 4
 
 [node name="Background-test" parent="ViewportBackground/SubViewport" instance=ExtResource("4_4i7d7")]
 top_level = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_fqbm5")
+volume_db = 2.5
+autoplay = true
+parameters/looping = true
 
 [connection signal="closed" from="ScreenWipe" to="PauseMenu" method="_on_screen_wipe_closed"]
 [connection signal="retry" from="PauseMenu" to="ScreenWipe" method="_do_close"]
