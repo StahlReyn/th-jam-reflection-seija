@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=14 format=3 uid="uid://bddly22kdqvyj"]
+
+[ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_4dlnp"]
+[ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_6gx61"]
+[ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_cxh1l"]
+[ext_resource type="PackedScene" uid="uid://d18mjjkay4yau" path="res://data/portraits/junko/portrait_set_junko.tscn" id="4_7tyk7"]
+[ext_resource type="Script" path="res://resources/dialogue_set.gd" id="5_2p5mf"]
+
+[sub_resource type="Resource" id="Resource_smvod"]
+script = ExtResource("3_cxh1l")
+id = "A"
+auto = true
+set_others_back = true
+portrait = ExtResource("2_6gx61")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 2
+text = ""
+
+[sub_resource type="Resource" id="Resource_ocqt5"]
+script = ExtResource("3_cxh1l")
+id = "B"
+auto = false
+set_others_back = true
+portrait = ExtResource("4_7tyk7")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 1
+text = "JUNKO_1"
+
+[sub_resource type="Resource" id="Resource_7o71f"]
+script = ExtResource("3_cxh1l")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = "surprised"
+body_anim = ""
+position_type = 0
+text = "JUNKO_2"
+
+[sub_resource type="Resource" id="Resource_k37k2"]
+script = ExtResource("3_cxh1l")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "JUNKO_3"
+
+[sub_resource type="Resource" id="Resource_xqoco"]
+script = ExtResource("3_cxh1l")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "JUNKO_4"
+
+[sub_resource type="Resource" id="Resource_0y8w8"]
+script = ExtResource("3_cxh1l")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "JUNKO_5"
+
+[sub_resource type="Resource" id="Resource_igdsc"]
+script = ExtResource("3_cxh1l")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = "smug"
+body_anim = ""
+position_type = 0
+text = "JUNKO_6"
+
+[sub_resource type="Resource" id="Resource_e4ok5"]
+script = ExtResource("3_cxh1l")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "JUNKO_7"
+
+[resource]
+script = ExtResource("5_2p5mf")
+dialogue_actions = Array[ExtResource("1_4dlnp")]([SubResource("Resource_smvod"), SubResource("Resource_ocqt5"), SubResource("Resource_7o71f"), SubResource("Resource_k37k2"), SubResource("Resource_xqoco"), SubResource("Resource_0y8w8"), SubResource("Resource_igdsc"), SubResource("Resource_e4ok5")])

@@ -25,7 +25,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if time_active > 25.0:
-		timer1.pause = true
+		timer1.paused = true
 
 func timeout_1():
 	if timer1_count % 3 == 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cp2oftf5r651e"]
+[gd_scene load_steps=10 format=3 uid="uid://b11ww0586oe2p"]
 
 [ext_resource type="Script" path="res://ui/dialogue/portrait_set.gd" id="1_ftl4c"]
 [ext_resource type="Texture2D" uid="uid://ber1fqv8n7yf7" path="res://data/portraits/letty_whiterock/body_main.tres" id="2_otyv3"]
