@@ -14,7 +14,7 @@ set_others_back = true
 portrait = ExtResource("2_w7c6q")
 face_anim = "neutral"
 body_anim = "main"
-position_type = 0
+position_type = 2
 text = ""
 
 [sub_resource type="Resource" id="Resource_q5ggg"]

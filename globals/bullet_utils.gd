@@ -14,6 +14,7 @@ static var scene_dict : Dictionary = {
 	"spike" = preload("res://data/bullets/basic/spike.tscn"),
 	"knife" = preload("res://data/bullets/basic/knife.tscn"),
 	"bullet" = preload("res://data/bullets/basic/bullet.tscn"),
+	"star_small" = preload("res://data/bullets/basic/star_small.tscn"),
 	# Partial Lasers
 	"partial_laser_small" = preload("res://data/bullets/basic/partial_laser_small.tscn"),
 	"partial_laser_medium" = preload("res://data/bullets/basic/partial_laser_medium.tscn"),
@@ -103,3 +104,7 @@ static func spawn_arc_arrow(bullet_scene: PackedScene, pos: Vector2, speed: floa
 static func clear_bullets() -> void:
 	for bullet in GameUtils.get_bullet_list():
 		bullet.do_remove()
+
+static func clear_enemies() -> void:
+	for enemy in GameUtils.get_enemy_list():
+		enemy.do_remove()

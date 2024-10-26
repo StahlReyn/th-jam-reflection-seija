@@ -1,7 +1,7 @@
 class_name MSConstantRotation
 extends EntityScript
 
-@export var rotation_speed : float = 10 ## deg/s
+@export var rotation_speed : float = 10 ## rad/s
 
 func _init(rotation_speed : float) -> void:
 	self.rotation_speed = rotation_speed

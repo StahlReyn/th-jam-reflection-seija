@@ -1,7 +1,7 @@
 class_name MSShootSpiral
 extends EntityScript
 
-@onready var bullet_scene: PackedScene = BulletUtils.scene_dict["spike"]
+@onready var bullet_scene: PackedScene
 @onready var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
 
 @export var shoot_cooldown : float = 3.0
@@ -11,9 +11,13 @@ extends EntityScript
 var time_since_shot : float = 0.0
 var cur_angle : float = 0.0
 
+var bullet_function : Callable
+
 func _init(shoot_cooldown: float, bullet_speed: float, angle_per_shot: float, init_angle: float = 0.0, bullet_scene: PackedScene = null) -> void:
 	if bullet_scene != null:
 		self.bullet_scene = bullet_scene
+	else:
+		self.bullet_scene = BulletUtils.scene_dict["spike"]
 	self.shoot_cooldown = shoot_cooldown
 	self.bullet_speed = bullet_speed
 	self.angle_per_shot = angle_per_shot
@@ -29,5 +33,6 @@ func physics_process_active(delta: float) -> void:
 		bullet.velocity = Vector2.from_angle(cur_angle) * bullet_speed
 		cur_angle += angle_per_shot
 		time_since_shot = 0.0
+		bullet_function.call(bullet)
 		#if audio_shoot:
 		#	AudioManager.play_audio(audio_shoot)

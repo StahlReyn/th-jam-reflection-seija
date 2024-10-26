@@ -1,6 +1,6 @@
 extends SectionDialogueScript
 
-@onready var set_1 : DialogueSet = preload("dialogue_nue.tres")
+@onready var set_1 : DialogueSet = preload("dialogue_letty_after.tres")
 
 func _ready() -> void:
 	super()
