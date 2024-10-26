@@ -90,19 +90,23 @@ func do_hit() -> void:
 			entity.modulate.a = 0.3
 			entity.z_index = -10
 			
+			var power_mult = (GameVariables.power / 100) + 1
+			
 			if entity is Bullet:
 				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
-				entity.damage += floori(charge_time * 5)
-				entity.penetration += floori(charge_time * 3)
+				entity.damage += floori(charge_time * 2 * power_mult)
+				entity.penetration += floori(charge_time * 1 * power_mult)
 				if is_max_charge():
 					entity.damage *= 2
 					entity.penetration *= 2
+				GameVariables.point_value += entity.damage
 			elif entity is Character:
 				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
 				entity.collision_mask = BulletUtils.CollisionMask.TARGET_PLAYER
-				entity.collision_damage += floori(charge_time * 5)
+				entity.collision_damage += floori(charge_time * 3 * power_mult)
 				if is_max_charge():
 					entity.collision_damage *= 2
+				GameVariables.point_value += entity.collision_damage
 
 func is_max_charge() -> bool:
 	return charge_time >= max_charge

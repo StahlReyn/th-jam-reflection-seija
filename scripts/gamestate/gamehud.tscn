@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://chg817g0wf0ij"]
+[gd_scene load_steps=20 format=3 uid="uid://chg817g0wf0ij"]
 
 [ext_resource type="Script" path="res://scripts/gamestate/gamehud.gd" id="1_ovxsb"]
 [ext_resource type="Texture2D" uid="uid://c7cx5yj4h5drb" path="res://assets/img/system/hud-test.png" id="1_tnihf"]
+[ext_resource type="FontFile" uid="uid://cgat1phnbct83" path="res://assets/fonts/Seagull-Bold.otf" id="2_avfm3"]
 [ext_resource type="Script" path="res://scripts/gamestate/debug-label.gd" id="2_hgmoc"]
 [ext_resource type="LabelSettings" uid="uid://bkay61kan2hfv" path="res://assets/resources/label_settings/label_score.tres" id="4_w0ro3"]
 [ext_resource type="Texture2D" uid="uid://ba2ttc5hf8t30" path="res://assets/img/system/divider_stat.png" id="5_7bs50"]
@@ -17,6 +18,12 @@
 [ext_resource type="Script" path="res://ui/gameplay/label_point_value.gd" id="15_dakvi"]
 [ext_resource type="Script" path="res://ui/gameplay/label_graze.gd" id="16_w272q"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_8h2d3"]
+font = ExtResource("2_avfm3")
+font_size = 70
+outline_size = 30
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_k5vxq"]
 font_size = 14
 
@@ -30,12 +37,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ovxsb")
 
+[node name="Label" type="Label" parent="."]
+z_index = 100
+layout_mode = 0
+offset_left = 900.0
+offset_top = 250.0
+offset_right = 1202.0
+offset_bottom = 336.0
+text = "DISABLED"
+label_settings = SubResource("LabelSettings_8h2d3")
+
 [node name="Hud-test" type="Sprite2D" parent="."]
 z_index = 10
 texture = ExtResource("1_tnihf")
 centered = false
 
 [node name="DebugLabel" type="Label" parent="."]
+visible = false
 z_index = 20
 layout_mode = 2
 offset_left = 868.0
@@ -54,6 +72,7 @@ offset_left = 871.0
 offset_top = 55.0
 offset_right = 1239.0
 offset_bottom = 546.0
+metadata/_edit_lock_ = true
 
 [node name="Difficulty" type="Label" parent="Stats"]
 custom_minimum_size = Vector2(0, 50)

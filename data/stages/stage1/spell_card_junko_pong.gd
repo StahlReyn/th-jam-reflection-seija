@@ -25,6 +25,8 @@ var timer_hit_cooldown : Timer = Timer.new()
 var timer_pong_count : Timer = Timer.new()
 var timer_star : Timer = Timer.new()
 
+var timer_end : Timer = Timer.new()
+
 var can_hit = true
 var doing_end : bool = false
 var can_end : bool = false
@@ -37,7 +39,7 @@ func _ready() -> void:
 	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
 	boss.do_check_despawn = false
 	boss.remove_on_death = false
-	boss.mhp = 3000;
+	boss.mhp = 3600
 	boss.reset_hp()
 	boss.drop_power = 40
 	boss.drop_point = 40
@@ -64,15 +66,36 @@ func _ready() -> void:
 	add_child(timer_star)
 	timer_star.connect("timeout", timeout_star)
 	timer_star.start(20.0)
+	add_child(timer_end)
+	timer_end.connect("timeout", timeout_end)
+	timer_end.start(100.0)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if is_instance_valid(boss):
 		boss.position = lerp(boss.position, boss_target_position, delta * 2)
-		if boss.hp < 0 and not doing_end:
-			doing_end = true
+		if boss.hp <= 0 and not doing_end:
+			special_setup_end()
 	if time_active >= duration and not doing_end:
-		doing_end = true
+		special_setup_end()
+
+func special_setup_end():
+	doing_end = true
+	if is_instance_valid(boss):
+		boss.do_check_despawn = true
+	boss_target_position = Vector2(385,-200)
+	enabled = false
+	BulletUtils.clear_bullets()
+		
+	timer_end.start(2.0)
+	timer_movement.paused = true
+	timer_spawn_pong.paused = true
+	timer_hit_cooldown.paused = true
+	timer_pong_count.paused = true
+	timer_star.paused = true
+
+func timeout_end():
+	can_end = true
 
 # Modify end condition so boss is finished properly
 func end_condition() -> bool:
@@ -104,7 +127,7 @@ func timeout_hit_cooldown():
 	pong_bullet_list.clean_list()
 	for bullet in pong_bullet_list:
 		if bullet is Bullet:
-			if bullet.position.distance_to(boss.position) < 180:
+			if bullet.position.distance_to(boss.position) < 150:
 				did_hit = do_hit(bullet)
 	
 	if did_hit:
