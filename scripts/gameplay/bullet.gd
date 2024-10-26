@@ -47,6 +47,13 @@ func set_color(type: int = 0, variant: int = 0) -> void:
 	else:
 		printerr("Cannot set color to non-sprite group bullets")
 
+func get_color() -> int:
+	if main_sprite is SpriteGroupBasicBullet:
+		return main_sprite.frame_coords.x
+	else:
+		printerr("Cannot set color to non-sprite group bullets")
+		return 0
+	
 func set_random_color(variant: int = 0) -> void:
 	if main_sprite is SpriteGroupBasicBullet:
 		main_sprite.set_random_color(variant)

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6t6r67w6g4lj"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_npsg1"]
+[ext_resource type="Texture2D" uid="uid://bdjd4tqywr2xo" path="res://assets/img/bullets/circle_medium.png" id="2_o2gwb"]
+[ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_ldumh"]
+[ext_resource type="Script" path="res://data/entity_script/example/lily_pong.gd" id="4_x4gla"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rmofr"]
+radius = 27.0185
+
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("main_sprite") groups=["bullet"]]
+z_index = 5
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_npsg1")
+main_sprite = NodePath("Sprite")
+rotation_based_on_velocity = false
+damage = 100
+penetration = 100
+velocity = Vector2(500, -500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rmofr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_o2gwb")
+hframes = 10
+vframes = 4
+frame = 1
+script = ExtResource("3_ldumh")
+
+[node name="NodeLily" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("4_x4gla")
+parent = NodePath("..")

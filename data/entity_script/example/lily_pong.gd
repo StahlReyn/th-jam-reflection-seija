@@ -10,7 +10,7 @@ extends EntityScript
 @onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 @onready var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
 
-@export var remove_on_hit_wall = true
+@export var remove_on_hit_wall = false
 
 func _ready() -> void:
 	super()
@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	parent.set_color(bullet_color())
 
 func setup() -> void:
 	parent.connect("hit_wall", _on_hit_wall)
@@ -36,6 +37,12 @@ func _on_hit_wall() -> void:
 	part_laser(angle_rotated)
 	part_stream(angle_rotated)
 	part_spray(angle_rotated)
+	
+	var reflect_line = Vector2.DOWN # Vertical
+	if parent.position.y < 0 or parent.position.y > GameUtils.game_area.y:
+		reflect_line = Vector2.RIGHT
+	parent.velocity = parent.velocity.reflect(reflect_line)
+	
 	# Remove self
 	if remove_on_hit_wall:
 		parent.call_deferred("queue_free")
@@ -54,12 +61,12 @@ func part_laser(angle_rotated : float) -> void:
 	var cur_laser = spawn_laser(laser, parent.position)
 	basic_copy(cur_laser, parent)
 	set_bullet_style(cur_laser)
-	cur_laser.damage = 200
+	cur_laser.damage = 150
 	cur_laser.rotation = angle_rotated - PI/2 #target_direction.angle()
-	cur_laser.target_size.y = 100
+	cur_laser.target_size.y = 20
 	cur_laser.delay_time = 0.0
-	cur_laser.laser_active_time = 2.0
-	cur_laser.switch_state(Laser.State.STATIC, 2.0)
+	cur_laser.laser_active_time = 1.0
+	cur_laser.switch_state(Laser.State.STATIC, 1.0)
 	
 	# Audio node to laser
 	var audio_node = AudioStreamPlayer2D.new()
@@ -71,8 +78,8 @@ func part_stream(angle_rotated : float) -> void:
 	var stream_count : int = 4
 	var mid : int = stream_count / 2 # ASSUME Even number, get higher index (4 gives 2)
 	for stream_num in range(stream_count):
-		var base_amp = 200
-		var side_velocity = 180
+		var base_amp = 300
+		var side_velocity = 80
 		var forward_velocity = -600
 		var stream_from_center = stream_num - mid
 		if stream_num < mid: # inverse halfway
@@ -81,17 +88,17 @@ func part_stream(angle_rotated : float) -> void:
 		side_velocity *= stream_from_center # Side velocity based on how far from center
 		
 		# Initial is UP, then rotated
-		var frequency = Vector2(3, 0).rotated(angle_rotated) # Only Width side waves
+		var frequency = Vector2(12, 0).rotated(angle_rotated) # Only Width side waves
 		var amplitude = Vector2(base_amp, 0).rotated(angle_rotated)
 		var phase_offset = Vector2(PI/2, 0).rotated(angle_rotated).abs() # Offset should not inverse
 		var base_velocity = Vector2(side_velocity, forward_velocity).rotated(angle_rotated)
 		
-		for i in range(60):
+		for i in range(5):
 			var cur_bullet = spawn_bullet(stream, parent.position)
 			basic_copy(cur_bullet, parent)
 			set_bullet_style(cur_bullet)
 			cur_bullet.modulate.a = 0.3
-			cur_bullet.delay_time = i * 0.02 + 0.1
+			cur_bullet.delay_time = i * 0.05 + 0.1
 			
 			cur_bullet.add_script_node(
 				MSVelocitySine.new(
@@ -101,15 +108,15 @@ func part_stream(angle_rotated : float) -> void:
 
 func part_spray(angle_rotated : float) -> void:
 	# Initial is UP, then rotated. Calculated outside to avoid rotating per every bullet
-	var spray_min = Vector2(0, -150).rotated(angle_rotated)
-	var spray_max = Vector2(-150, 150).rotated(angle_rotated)
-	var spray_accel = Vector2(0, -150).rotated(angle_rotated)
+	var spray_min = Vector2(0, -50).rotated(angle_rotated)
+	var spray_max = Vector2(-100, 50).rotated(angle_rotated)
+	var spray_accel = Vector2(0, -100).rotated(angle_rotated)
 	
-	for i in range(40):
+	for i in range(16):
 		var cur_bullet = spawn_bullet(bullet, parent.position)
 		basic_copy(cur_bullet, parent)
 		set_bullet_style(cur_bullet)
-		cur_bullet.delay_time = i * 0.02
+		cur_bullet.delay_time = i * 0.03
 		cur_bullet.velocity.y = randf_range(spray_min.x, spray_max.x)
 		cur_bullet.velocity.x = randf_range(spray_min.y, spray_max.y)
 		cur_bullet.add_script_node(
@@ -123,4 +130,10 @@ func basic_copy(to_copy: Entity, base: Entity) -> void:
 
 func set_bullet_style(bullet: Entity) -> void:
 	bullet.material = blend_add
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.RED)
+	bullet.set_color(bullet_color())
+
+func bullet_color():
+	if parent.collision_layer != BulletUtils.CollisionMask.TARGET_PLAYER:
+		return SpriteGroupBasicBullet.ColorType.ORANGE
+	else:
+		return SpriteGroupBasicBullet.ColorType.RED

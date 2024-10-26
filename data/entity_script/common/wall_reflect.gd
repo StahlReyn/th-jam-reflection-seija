@@ -9,6 +9,7 @@ func _init(bounce_count : int) -> void:
 
 func _ready() -> void:
 	super()
+	print("SETUP PONG")
 	call_deferred("setup")
 
 func setup() -> void:
@@ -16,6 +17,7 @@ func setup() -> void:
 	cur_bounce_count = 0
 
 func _on_hit_wall() -> void:
+	print("Hit wall")
 	if cur_bounce_count < bounce_count:
 		var reflect_line = Vector2.DOWN # Vertical
 		if parent.position.y < 0 or parent.position.y > GameUtils.game_area.y:

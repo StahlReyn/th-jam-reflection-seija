@@ -1,0 +1,110 @@
+[gd_scene load_steps=18 format=3 uid="uid://cmdcfgoopd355"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/enemy.gd" id="1_jq3ru"]
+[ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_c0whv"]
+[ext_resource type="Texture2D" uid="uid://tdatpcgsoqa6" path="res://assets/img/enemies/boss_junko.png" id="3_sd8qb"]
+[ext_resource type="Script" path="res://scripts/sprite_effects/sprite_boss_simple.gd" id="4_lmsoi"]
+[ext_resource type="PackedScene" uid="uid://w54qs2iq7b0n" path="res://scripts/gameplay/boss_bar.tscn" id="5_p7dpo"]
+[ext_resource type="Material" uid="uid://b00awa5xgvt7g" path="res://data/canvas_material/blend_additive.tres" id="6_i4rfl"]
+[ext_resource type="Texture2D" uid="uid://ivtjquqivrl7" path="res://assets/img/effects/bullet_disappear.png" id="7_0nhoi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d1y22"]
+radius = 70.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ft8c"]
+atlas = ExtResource("3_sd8qb")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veuye"]
+atlas = ExtResource("3_sd8qb")
+region = Rect2(0, 192, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj5gb"]
+atlas = ExtResource("3_sd8qb")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u1hvr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ft8c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_veuye")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tj5gb")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve" id="Curve_g28ev"]
+_data = [Vector2(0, 0.253698), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.952974, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_x56n6"]
+curve = SubResource("Curve_g28ev")
+
+[sub_resource type="Curve" id="Curve_2g1kc"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 4.96335, 0, 0, Vector2(1, 1.75028), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dec5o"]
+curve = SubResource("Curve_2g1kc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ox32l"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+angle_curve = SubResource("CurveTexture_dec5o")
+spread = 180.0
+initial_velocity_min = 123.07
+initial_velocity_max = 228.14
+gravity = Vector3(0, 0, 0)
+damping_min = 70.0
+damping_max = 70.0
+alpha_curve = SubResource("CurveTexture_x56n6")
+
+[node name="BossJunko" type="Area2D" node_paths=PackedStringArray("main_collision") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_jq3ru")
+drop_power = 40
+drop_point = 40
+main_collision = NodePath("CollisionShape2D")
+death_effect_scene = ExtResource("2_c0whv")
+mhp = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d1y22")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_u1hvr")
+script = ExtResource("4_lmsoi")
+
+[node name="BossBar" parent="." instance=ExtResource("5_p7dpo")]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = ExtResource("6_i4rfl")
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ox32l")
+texture = ExtResource("7_0nhoi")
+lifetime = 0.7
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

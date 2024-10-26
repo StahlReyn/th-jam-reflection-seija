@@ -13,6 +13,8 @@ signal exit_wall
 @export var do_check_despawn : bool = true
 @export var script_handler : EntityScriptHandler ## Movement Handler is auto created if empty
 
+var speed_multiplier = 1.0
+
 var total_time : float = 0.0
 var active_time : float = 0.0
 var hit_count : int = 0
@@ -46,7 +48,7 @@ func is_active():
 	return total_time >= delay_time
 
 func process_movement(delta) -> void:
-	position += velocity * delta
+	position += velocity * delta * speed_multiplier
 
 func check_hit_wall() -> void:
 	if is_in_wall_area():
