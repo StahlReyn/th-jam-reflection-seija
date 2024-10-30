@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfuynk4gbj2g2"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_n22f3"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_n22f3"]
 [ext_resource type="Texture2D" uid="uid://o5e4pksxue71" path="res://assets/img/bullets/knife.png" id="2_8ryma"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_ho4uc"]
 

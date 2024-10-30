@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://icd748p18cgv"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_iuydp"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_iuydp"]
 [ext_resource type="Texture2D" uid="uid://clnl18fndfi38" path="res://assets/img/bullets/talisman.png" id="2_bp2ow"]
 [ext_resource type="PackedScene" uid="uid://djohlf5howpr" path="res://data/after_effects/bullet_hit_basic.tscn" id="2_k5ix7"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_hs2fv"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cry27skgka46s"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_v074k"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_v074k"]
 [ext_resource type="Texture2D" uid="uid://bygmespoxa5sm" path="res://assets/img/bullets/spike.png" id="2_5t1da"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_ll5xl"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://e00na8n7nsfn"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_wcle7"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_wcle7"]
 [ext_resource type="Texture2D" uid="uid://47qgd8f36w0j" path="res://assets/img/bullets/circle_small_cross.png" id="2_g5txu"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_bw6yh"]
 [ext_resource type="Script" path="res://data/entity_script/common/constant_rotation.gd" id="4_fi1nu"]

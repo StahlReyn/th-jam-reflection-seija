@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://qbaoce8pthqa"]
 
 [ext_resource type="Texture2D" uid="uid://dskbsnsab2j0" path="res://assets/img/bullets/yingyang_shot.png" id="1_b37pd"]
-[ext_resource type="Script" path="res://scripts/gameplay/shooter.gd" id="1_v6wc3"]
+[ext_resource type="Script" path="res://scripts/entities/shooter.gd" id="1_v6wc3"]
 [ext_resource type="Script" path="res://scripts/sprite_effects/spin_sprite.gd" id="4_gi6uc"]
 
 [node name="ReimuYingyang" type="Node2D"]

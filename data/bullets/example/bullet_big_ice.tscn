@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cldyu1f13bf6"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_xe6kr"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_xe6kr"]
 [ext_resource type="Texture2D" uid="uid://bdjd4tqywr2xo" path="res://assets/img/bullets/circle_medium.png" id="2_640bw"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_ncc4c"]
 [ext_resource type="Script" path="res://data/entity_script/example/big_ice.gd" id="4_2apv2"]

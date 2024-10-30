@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://fuxvcjrqr0fg"]
+
+[ext_resource type="Script" path="res://scenes/gameplay/pause_menu.gd" id="1_wwt7j"]
+[ext_resource type="Script" path="res://scenes/selection_list.gd" id="2_bn2ex"]
+[ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="3_tgauo"]
+
+[node name="PauseMenu" type="Node2D" node_paths=PackedStringArray("selection_list")]
+process_mode = 3
+z_index = 20
+script = ExtResource("1_wwt7j")
+selection_list = NodePath("PauseUI/SelectionList")
+metadata/_edit_lock_ = true
+
+[node name="PauseUI" type="Control" parent="."]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="PauseUI"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 960.0
+color = Color(0, 0, 0, 0.631373)
+
+[node name="SelectionList" type="VBoxContainer" parent="PauseUI"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 475.0
+offset_right = 451.0
+offset_bottom = 684.0
+theme_override_constants/separation = 25
+script = ExtResource("2_bn2ex")
+
+[node name="Return" type="MarginContainer" parent="PauseUI/SelectionList"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="Label" type="Label" parent="PauseUI/SelectionList/Return"]
+layout_mode = 2
+text = "PAUSE_RETURN"
+label_settings = ExtResource("3_tgauo")
+
+[node name="Retry" type="MarginContainer" parent="PauseUI/SelectionList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseUI/SelectionList/Retry"]
+layout_mode = 2
+text = "PAUSE_RETRY"
+label_settings = ExtResource("3_tgauo")
+
+[node name="Quit" type="MarginContainer" parent="PauseUI/SelectionList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseUI/SelectionList/Quit"]
+layout_mode = 2
+text = "PAUSE_QUIT"
+label_settings = ExtResource("3_tgauo")

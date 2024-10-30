@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://mk4snd1s7lkh"]
 
-[ext_resource type="Script" path="res://scenes/menu.gd" id="1_4fphm"]
+[ext_resource type="Script" path="res://scenes/main/menu.gd" id="1_4fphm"]
 [ext_resource type="Script" path="res://scenes/selection_list.gd" id="2_20aw2"]
 [ext_resource type="Shader" path="res://shaders/multi_frame_wipe.gdshader" id="2_psduu"]
 [ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_6a7ab"]
 [ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="3_rrqch"]
-[ext_resource type="Script" path="res://scenes/start_menu.gd" id="4_iojj8"]
+[ext_resource type="Script" path="res://scenes/gameplay/start_menu.gd" id="4_iojj8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gp7d"]
 shader = ExtResource("2_psduu")

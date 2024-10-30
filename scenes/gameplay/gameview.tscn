@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://btg4d8khha007"]
 
-[ext_resource type="Script" path="res://scripts/gamestate/gameview.gd" id="1_dyv06"]
+[ext_resource type="Script" path="res://scenes/gameplay/gameview.gd" id="1_dyv06"]
 [ext_resource type="Script" path="res://scripts/containers/image_container.gd" id="3_r12md"]
 [ext_resource type="Script" path="res://scripts/containers/bullet_container.gd" id="4_q2e0v"]
 [ext_resource type="Script" path="res://scripts/containers/effect_container.gd" id="5_fx8wi"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bstkesf6qp7fw" path="res://data/character/player_seija.tscn" id="7_3h4w4"]
 [ext_resource type="Script" path="res://scripts/containers/stage_handler.gd" id="8_e6ddu"]
 [ext_resource type="Texture2D" uid="uid://cb0p73frtui6m" path="res://assets/img/system/item_get_line.png" id="9_gyqvd"]
-[ext_resource type="Script" path="res://scripts/gamestate/area_collection.gd" id="10_w4su3"]
+[ext_resource type="Script" path="res://scenes/gameplay/area_collection.gd" id="10_w4su3"]
 [ext_resource type="PackedScene" uid="uid://et66msp52cef" path="res://scripts/gameplay/spell_card_text.tscn" id="12_eoofb"]
 
 [node name="Gameview" type="Node2D" groups=["game_view"]]

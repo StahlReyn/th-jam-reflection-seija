@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://co37m4043hihk"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_7h38g"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_7h38g"]
 [ext_resource type="Texture2D" uid="uid://cct101xfkyotp" path="res://assets/img/bullets/partial_laser_medium_subtle.png" id="2_mmfck"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_qmr8c"]
 

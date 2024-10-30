@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://y1ht13i0dqug"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/enemy.gd" id="1_l2u5d"]
+[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_l2u5d"]
 [ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_bj5kv"]
 [ext_resource type="Texture2D" uid="uid://dd8tet8s1inyg" path="res://assets/img/enemies/lesser_fairy.png" id="3_wcuc6"]
 [ext_resource type="Script" path="res://data/enemies/common/sprite_group_fairy.gd" id="4_364e6"]

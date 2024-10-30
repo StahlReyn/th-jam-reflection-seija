@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://sy7dt53hhh0t"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_3ad14"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_3ad14"]
 [ext_resource type="Texture2D" uid="uid://h76eehiraow0" path="res://assets/img/bullets/circle_small.png" id="2_jgib2"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_fcxj5"]
 

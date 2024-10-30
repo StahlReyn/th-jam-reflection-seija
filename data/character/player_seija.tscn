@@ -1,6 +1,6 @@
 [gd_scene load_steps=49 format=3 uid="uid://bstkesf6qp7fw"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/player.gd" id="1_s2rpu"]
+[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_s2rpu"]
 [ext_resource type="PackedScene" uid="uid://d2eem28mf01vm" path="res://data/after_effects/player_death.tscn" id="2_x02xu"]
 [ext_resource type="Texture2D" uid="uid://ciyh1fc3avga" path="res://assets/img/character/hit_swing.png" id="3_irfnf"]
 [ext_resource type="Texture2D" uid="uid://ctun8unxq0m8i" path="res://assets/img/character/seija.png" id="3_lqj6h"]
@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://cdcqm4htide61" path="res://assets/audio/sfx/click_collect.wav" id="7_icqmt"]
 [ext_resource type="Material" uid="uid://b00awa5xgvt7g" path="res://data/canvas_material/blend_additive.tres" id="7_v6ub3"]
 [ext_resource type="Texture2D" uid="uid://cln7nfxe8xhy2" path="res://assets/img/system/charge_progress.png" id="8_0a5y1"]
-[ext_resource type="Script" path="res://scripts/gameplay/area_graze.gd" id="8_3w082"]
+[ext_resource type="Script" path="res://scripts/entities/area_graze.gd" id="8_3w082"]
 [ext_resource type="Texture2D" uid="uid://c0wruv71j8ich" path="res://assets/img/character/graze_circle.png" id="9_yfk5v"]
 [ext_resource type="Texture2D" uid="uid://dqdl2bwkkx363" path="res://assets/img/character/focus_dot.png" id="10_6oa7s"]
 [ext_resource type="Texture2D" uid="uid://ivtjquqivrl7" path="res://assets/img/effects/bullet_disappear.png" id="10_esweu"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://cmdcfgoopd355"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/enemy.gd" id="1_jq3ru"]
+[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jq3ru"]
 [ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_c0whv"]
 [ext_resource type="Texture2D" uid="uid://tdatpcgsoqa6" path="res://assets/img/enemies/boss_junko.png" id="3_sd8qb"]
 [ext_resource type="Script" path="res://scripts/sprite_effects/sprite_boss_simple.gd" id="4_lmsoi"]

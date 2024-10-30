@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dql0ufllflom6"]
 
-[ext_resource type="Script" path="res://scripts/gameplay/bullet.gd" id="1_hx2vt"]
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_hx2vt"]
 [ext_resource type="Texture2D" uid="uid://clnl18fndfi38" path="res://assets/img/bullets/talisman.png" id="2_fvji1"]
 [ext_resource type="Script" path="res://data/bullets/sprite_group_basic_bullet.gd" id="3_mbwdn"]
 

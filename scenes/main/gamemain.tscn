@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7v7flp6p65gf"]
+
+[ext_resource type="PackedScene" uid="uid://chg817g0wf0ij" path="res://scenes/gameplay/gamehud.tscn" id="1_585am"]
+[ext_resource type="Script" path="res://scenes/main/gamemain.gd" id="1_jvava"]
+[ext_resource type="PackedScene" uid="uid://bitw5rm3yby8i" path="res://ui/dialogue/dialogue_displayer.tscn" id="2_aq4qu"]
+[ext_resource type="Shader" path="res://shaders/multi_frame_wipe.gdshader" id="2_breqb"]
+[ext_resource type="PackedScene" uid="uid://btg4d8khha007" path="res://scenes/gameplay/gameview.tscn" id="2_frqqi"]
+[ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_a3loy"]
+[ext_resource type="PackedScene" uid="uid://bhxpmmfn0rxv" path="res://scenes/gameplay/pop_ups.tscn" id="6_h5sjb"]
+[ext_resource type="PackedScene" uid="uid://fuxvcjrqr0fg" path="res://scenes/gameplay/pause_menu.tscn" id="8_uh2lw"]
+[ext_resource type="PackedScene" uid="uid://b2416reix6xak" path="res://scenes/background/stage_torifune.tscn" id="10_muvou"]
+[ext_resource type="AudioStream" uid="uid://c2a1nbhne0osk" path="res://assets/audio/bgm/reflection_jam_seija.mp3" id="11_fqbm5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_su4a2"]
+shader = ExtResource("2_breqb")
+shader_parameter/percentage = 0.0
+shader_parameter/hidden_alpha = 0.0
+shader_parameter/flip = false
+shader_parameter/horizontal = false
+shader_parameter/frames = 20
+
+[node name="Gamemain" type="Node2D"]
+script = ExtResource("1_jvava")
+
+[node name="ScreenWipe" type="ColorRect" parent="."]
+process_mode = 3
+z_index = 200
+material = SubResource("ShaderMaterial_su4a2")
+offset_right = 1280.0
+offset_bottom = 960.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("3_a3loy")
+
+[node name="DialogueDisplayer" parent="." instance=ExtResource("2_aq4qu")]
+z_index = 100
+metadata/_edit_lock_ = true
+
+[node name="Gamehud" parent="." instance=ExtResource("1_585am")]
+z_index = 50
+metadata/_edit_lock_ = true
+
+[node name="PopUps" parent="." instance=ExtResource("6_h5sjb")]
+z_index = 10
+
+[node name="Gameview" parent="." instance=ExtResource("2_frqqi")]
+position = Vector2(64, 32)
+metadata/_edit_lock_ = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("8_uh2lw")]
+
+[node name="ViewportBackground" type="SubViewportContainer" parent="."]
+z_index = -20
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 832.0
+offset_bottom = 928.0
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="SubViewport" parent="ViewportBackground"]
+handle_input_locally = false
+size = Vector2i(768, 896)
+render_target_update_mode = 4
+
+[node name="StageTorifune" parent="ViewportBackground/SubViewport" instance=ExtResource("10_muvou")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 4
+stream = ExtResource("11_fqbm5")
+volume_db = 2.5
+autoplay = true
+parameters/looping = true

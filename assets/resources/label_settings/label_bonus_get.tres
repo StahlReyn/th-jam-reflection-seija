@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://mfvsbr1ncp3n"]
+
+[ext_resource type="FontFile" uid="uid://bb1qlsmay1voc" path="res://assets/fonts/RusselSquareOpti.otf" id="1_akqhi"]
+
+[resource]
+font = ExtResource("1_akqhi")
+font_size = 48
+font_color = Color(0.592157, 1, 1, 1)
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
