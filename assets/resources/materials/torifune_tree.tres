@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dcqyl821l4xpl"]
+
+[ext_resource type="Texture2D" uid="uid://bmc2v6asnawok" path="res://assets/img/textures/torifune_tree.png" id="1_kpkqv"]
+
+[resource]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_kpkqv")

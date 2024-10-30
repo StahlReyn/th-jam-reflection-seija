@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cwpq6rgmdt54e"]
+
+[ext_resource type="Texture2D" uid="uid://djidl1w0444jh" path="res://assets/img/textures/torifune_patch.png" id="1_ylisp"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_ylisp")

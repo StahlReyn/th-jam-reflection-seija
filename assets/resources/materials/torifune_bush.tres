@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bajni0qc0xxth"]
+
+[ext_resource type="Texture2D" uid="uid://vm6sum4p82bu" path="res://assets/img/textures/torifune_bush.png" id="1_4g0ii"]
+
+[resource]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_4g0ii")
