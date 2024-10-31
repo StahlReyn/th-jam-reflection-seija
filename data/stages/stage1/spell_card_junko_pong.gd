@@ -108,7 +108,7 @@ func end_section() -> void:
 func start_section():
 	super()
 	section_name = "\"Pong of Muderous Intent\""
-	total_bonus = 200000000
+	total_bonus = 25000000
 	duration = 100.0
 	update_displayer()
 

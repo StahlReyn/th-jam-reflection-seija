@@ -6,6 +6,14 @@ var stage_data : StageData
 var section_count : int = 0
 var added_section_list : Array[SectionScript] = []
 
+var section_delay_timer : Timer
+
+func _init() -> void:
+	section_delay_timer = Timer.new()
+	section_delay_timer.one_shot = true
+	add_child(section_delay_timer)
+	section_delay_timer.connect("timeout", _on_section_delay_timer_timeout)
+
 func _ready() -> void:
 	super()
 	print_rich("[color=green][b]==== Stage Script ====[/b][/color]")
@@ -32,7 +40,11 @@ func is_section_available() -> bool:
 			return false # If ANY script saying to wait, wait
 	return true
 
-func on_section_end() -> void:
+func on_section_end(section_script : SectionScript) -> void:
+	print("On Section End - Delaying ", section_script.section_end_delay)
+	section_delay_timer.start(section_script.section_end_delay)
+
+func _on_section_delay_timer_timeout() -> void:
 	do_next_script()
 
 func do_next_script() -> void:

@@ -12,6 +12,7 @@ var total_bonus : int = 1000000
 
 var stage_parent : StageScript
 var do_chapter_end : bool = true
+var section_end_delay : float = 2.0
 
 func _ready() -> void:
 	print_rich("[color=green]==== Section Script ====[/color]")
@@ -34,7 +35,7 @@ func end_section() -> void:
 	if do_chapter_end:
 		end_chapter()
 	if stage_parent:
-		stage_parent.on_section_end()
+		stage_parent.on_section_end(self)
 	else:
 		printerr("Section have no StageScript Parent")
 
