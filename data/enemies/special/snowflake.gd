@@ -29,24 +29,27 @@ func _on_hit_wall() -> void:
 	part_splinter(angle_rotated)
 	# Remove self
 	if remove_on_hit_wall:
-		parent.call_deferred("queue_free")
+		# Add so Chapter enemy count can count properly
+		if parent is Enemy:
+			GameVariables.shoot_down += 1
+			parent.do_remove()
 
 func part_splinter(angle_rotated : float) -> void:
 	var count = 3
 	var mid = floor(count/2)
 	var angle_interval = TAU/6
-	parent = parent as Character
-	var multiplier = (parent.collision_damage / parent.mhp)
-	for i in range(6):
-		var angle = ((i-mid) * angle_interval) + angle_rotated
-		#var bullet_list = BulletUtils.spawn_circle(bullet_splinter, parent.position, 300, 6, angle)
-		var bullet_list = BulletUtils.spawn_arc_arrow(bullet_splinter, parent.position, 300, 6, TAU/240, angle, 0.2)
-		for bullet in bullet_list:
-			basic_copy(bullet, parent)
-			set_bullet_style(bullet)
-			bullet.velocity *= multiplier
-			bullet.damage *= multiplier
-			bullet.penetration *= multiplier
+	if parent is Enemy:
+		var multiplier = (parent.collision_damage / parent.mhp)
+		for i in range(6):
+			var angle = ((i-mid) * angle_interval) + angle_rotated
+			#var bullet_list = BulletUtils.spawn_circle(bullet_splinter, parent.position, 300, 6, angle)
+			var bullet_list = BulletUtils.spawn_arc_arrow(bullet_splinter, parent.position, 300, 6, TAU/240, angle, 0.2)
+			for bullet in bullet_list:
+				basic_copy(bullet, parent)
+				set_bullet_style(bullet)
+				bullet.velocity *= multiplier
+				bullet.damage *= multiplier
+				bullet.penetration *= multiplier
 
 func basic_copy(to_copy: Entity, base: Entity) -> void:
 	to_copy.collision_layer = base.collision_layer

@@ -64,15 +64,15 @@ func end_chapter() -> void:
 static func clear_bullets() -> void:
 	print("- Clear Bullets")
 	for bullet in GameUtils.get_bullet_list():
-		bullet.do_remove()
+		bullet.do_remove(true)
 
 static func clear_enemies(forced : bool = false) -> void:
 	if forced:
 		print("- Clear Enemies - FORCED")
 		for enemy : Enemy in GameUtils.get_enemy_list():
-			enemy.do_remove()
+			enemy.do_remove(true)
 	else:
 		print("- Clear Enemies - Soft")
 		for enemy : Enemy in GameUtils.get_enemy_list():
 			if enemy.remove_on_chapter_change:
-				enemy.do_remove()
+				enemy.do_remove(true)

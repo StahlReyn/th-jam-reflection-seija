@@ -13,6 +13,8 @@ signal exit_wall
 @export var do_check_despawn : bool = true
 @export var script_handler : EntityScriptHandler ## Movement Handler is auto created if empty
 
+static var default_remove_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
+
 var speed_multiplier = 1.0
 
 var total_time : float = 0.0
@@ -80,7 +82,9 @@ func on_hit():
 	hit_count += 1
 
 # in base entity do_remove isnt called automatically, let the child class or external handle it
-func do_remove():
+func do_remove(remove_effect : bool = false):
+	if remove_effect:
+		AfterEffect.add_effect(default_remove_effect, global_position)
 	call_deferred("queue_free")
 
 func add_entity_script(script : GDScript) -> Node:

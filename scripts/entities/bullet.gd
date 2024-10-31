@@ -31,15 +31,12 @@ func process_movement(delta) -> void:
 
 func on_hit():
 	super()
+	AfterEffect.add_effect(bullet_hit_effect, global_position)
 	if hit_count >= penetration:
 		do_remove()
 
-func do_remove() -> void:
-	if hit_count <= 0: # This is just crude way to do remove bullet that hasnt hit yet
-		AfterEffect.add_effect(bullet_remove_effect, global_position)
-	else:
-		AfterEffect.add_effect(bullet_hit_effect, global_position)
-	super()
+func do_remove(remove_effect : bool = false) -> void:
+	super(remove_effect)
 
 func set_color(type: int = 0, variant: int = 0) -> void:
 	if main_sprite is SpriteGroupBasicBullet:
