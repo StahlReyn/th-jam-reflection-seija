@@ -20,11 +20,22 @@ var graze : int = 0
 var point_value : int = 10000
 
 var lives : int = 3
-var life_pieces : int = 0
 var bombs : int = 3
+var life_pieces : int = 0
 var bomb_pieces : int = 0
+##Powers are in integer for simplicity, display divides by 100
+var power : int = 0
 
-var power : int = 0 ##Powers are in integer for simplicity, display divides by 100
+var deaths : int = 0
+var enemy_spawned : int = 0
+var shoot_down : int = 0
+var section_bonus : int = 0
+
+# For use in counting chapter
+var prev_deaths: int = 0
+var prev_graze : int = 0
+var prev_enemy_spawned : int = 0
+var prev_shoot_down : int = 0
 
 func reset_variables() -> void:
 	game_time = 0.0
@@ -34,6 +45,42 @@ func reset_variables() -> void:
 	bombs = 3
 	power = 0
 	point_value = 10000
+	
+	section_bonus = 0
+	deaths = 0
+	enemy_spawned = 0
+	shoot_down = 0
+	reset_chapter_variables()
+
+func reset_chapter_variables() -> void:
+	section_bonus = 0
+	prev_deaths = deaths
+	prev_graze = graze
+	prev_enemy_spawned = enemy_spawned
+	prev_shoot_down = shoot_down
+
+func get_chapter_graze() -> int:
+	return graze - prev_graze
+
+func get_chapter_shoot_ratio() -> float:
+	if enemy_spawned - prev_enemy_spawned == 0:
+		return 0
+	return (
+		float(shoot_down - prev_shoot_down) / 
+		float(enemy_spawned - prev_enemy_spawned)
+	)
+
+func get_chapter_deaths() -> int:
+	return deaths - prev_deaths
+
+func get_chapter_shoot_display():
+	return percentage_display(get_chapter_shoot_ratio())
+
+func get_section_bonus_final() -> int:
+	return int(section_bonus * get_chapter_shoot_ratio())
+
+func add_section_bonus_to_score() -> void:
+	add_score(get_section_bonus_final())
 
 func add_score(value: int) -> void:
 	score += value
@@ -103,7 +150,10 @@ func get_bomb_piece_display():
 
 static func two_decimal_int(number : int) -> String:
 	return "%.2f" % (float(number) / 100)
-	
+
+static func percentage_display(number : float) -> String:
+	return "%.1f" % (float(number) * 100) + "%"
+
 static func thousands_sep(number, prefix='') -> String:
 	number = int(number)
 	var neg = false

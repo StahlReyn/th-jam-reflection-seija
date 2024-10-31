@@ -89,6 +89,7 @@ func take_damage(dmg : int):
 func do_death():
 	super()
 	GameVariables.lose_lives()
+	GameVariables.deaths += 1
 	check_game_over()
 	do_spawn_movement()
 

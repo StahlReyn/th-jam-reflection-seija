@@ -63,13 +63,13 @@ func end_condition() -> bool:
 	return time_active >= duration or end_delay_cd <= 0
 
 func end_section() -> void:
-	BulletUtils.clear_bullets()
+	clear_bullets()
 	boss_target_position = Vector2(380,-200)
 	super()
 	
 func start_section():
 	super()
-	spell_name = "FLOWER SIGN \"KNOCK OFF MEILING\""
+	section_name = "FLOWER SIGN \"KNOCK OFF MEILING\""
 	total_bonus = 5000000
 	duration = 30.0
 	update_displayer()

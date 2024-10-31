@@ -8,6 +8,9 @@ var dialogue_set : DialogueSet
 func _ready() -> void:
 	print_rich("[color=green]==== Section Dialogue Script ====[/color]")
 	super()
+	# Dialogue should not trigger chapter by default
+	do_chapter_end = false
+	total_bonus = 0
 
 func _physics_process(delta: float) -> void:
 	super(delta)

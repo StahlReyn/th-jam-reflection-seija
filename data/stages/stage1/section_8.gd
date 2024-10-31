@@ -40,8 +40,8 @@ func _physics_process(delta: float) -> void:
 		timer_rain.paused = true
 
 func end_section():
-	BulletUtils.clear_bullets()
-	BulletUtils.clear_enemies()
+	clear_bullets()
+	clear_enemies()
 	super()
 
 func timeout_rain():

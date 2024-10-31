@@ -22,6 +22,7 @@ func add_section_script(script: GDScript) -> SectionScript:
 	add_child(section)
 	added_section_list.push_front(section)
 	section.set_stage_parent(self)
+	GameVariables.section_bonus += section.total_bonus;
 	print_rich("[color=yellow]+ Add Section Script[/color]")
 	return section
 

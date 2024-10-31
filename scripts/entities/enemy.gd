@@ -4,6 +4,7 @@ extends Character
 @export_group("Important")
 @export var remove_on_death : bool = true
 @export var self_update_anim : bool = true
+@export var remove_on_chapter_change : bool = true
 @export_group("Drops")
 @export var drop_spawn_speed : float = 1000.0
 @export var drop_spawn_time : float = 0.1
@@ -31,6 +32,7 @@ func do_death():
 	super()
 	drop_items()
 	death.emit()
+	GameVariables.shoot_down += 1
 	if remove_on_death:
 		do_remove()
 

@@ -7,7 +7,11 @@ var duration : float = 40.0 ## Duration of section, mostly for boss spellcard + 
 var ended_already : bool = false
 var is_subsection : bool = false ## If enabled, the ScriptStage will not wait until this ends
 
+var section_name : String = "[SECTION NAME]"
+var total_bonus : int = 1000000
+
 var stage_parent : StageScript
+var do_chapter_end : bool = true
 
 func _ready() -> void:
 	print_rich("[color=green]==== Section Script ====[/color]")
@@ -27,6 +31,8 @@ func end_section() -> void:
 	prints("END SECTION", end_condition(), ended_already)
 	ended_already = true
 	enabled = false
+	if do_chapter_end:
+		end_chapter()
 	if stage_parent:
 		stage_parent.on_section_end()
 	else:
@@ -47,3 +53,26 @@ func get_time_left() -> float:
 
 func set_stage_parent(node : StageScript) -> void:
 	stage_parent = node
+
+func end_chapter() -> void:
+	clear_bullets()
+	clear_enemies(false)
+	GameVariables.add_section_bonus_to_score()
+	GameUtils.get_popup_displayer().display_chapter()
+	GameVariables.reset_chapter_variables()
+	
+static func clear_bullets() -> void:
+	print("- Clear Bullets")
+	for bullet in GameUtils.get_bullet_list():
+		bullet.do_remove()
+
+static func clear_enemies(forced : bool = false) -> void:
+	if forced:
+		print("- Clear Enemies - FORCED")
+		for enemy : Enemy in GameUtils.get_enemy_list():
+			enemy.do_remove()
+	else:
+		print("- Clear Enemies - Soft")
+		for enemy : Enemy in GameUtils.get_enemy_list():
+			if enemy.remove_on_chapter_change:
+				enemy.do_remove()

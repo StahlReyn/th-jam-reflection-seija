@@ -39,6 +39,7 @@ func _ready() -> void:
 	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
 	boss.do_check_despawn = false
 	boss.remove_on_death = false
+	boss.remove_on_chapter_change = false
 	boss.mhp = 3600
 	boss.reset_hp()
 	boss.drop_power = 40
@@ -85,7 +86,7 @@ func special_setup_end():
 		boss.do_check_despawn = true
 	boss_target_position = Vector2(385,-200)
 	enabled = false
-	BulletUtils.clear_bullets()
+	clear_bullets()
 		
 	timer_end.start(2.0)
 	timer_movement.paused = true
@@ -106,7 +107,7 @@ func end_section() -> void:
 	
 func start_section():
 	super()
-	spell_name = "\"Pong of Muderous Intent\""
+	section_name = "\"Pong of Muderous Intent\""
 	total_bonus = 200000000
 	duration = 100.0
 	update_displayer()

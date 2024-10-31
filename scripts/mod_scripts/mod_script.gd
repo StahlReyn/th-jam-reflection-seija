@@ -35,6 +35,8 @@ static func spawn_entity(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> E
 	var container = get_container_for_entity(entity)
 	entity.global_position = pos
 	container.call_deferred("add_child", entity)
+	if entity is Enemy:
+		GameVariables.enemy_spawned += 1
 	return entity
 
 static func spawn_enemy(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Enemy:
@@ -42,6 +44,7 @@ static func spawn_enemy(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> En
 	var enemy : Enemy = scene.instantiate()
 	enemy.global_position = pos
 	container.call_deferred("add_child", enemy)
+	GameVariables.enemy_spawned += 1
 	return enemy
 
 static func spawn_bullet(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Bullet:

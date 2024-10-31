@@ -70,6 +70,7 @@ enemy_container=""
 stage_handler=""
 spell_card_displayer=""
 dialogue_displayer=""
+popups=""
 
 [input]
 

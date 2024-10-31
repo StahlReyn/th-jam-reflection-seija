@@ -79,7 +79,7 @@ func end_section() -> void:
 	
 func start_section():
 	super()
-	spell_name = "Nue Sign \"Danmaku Chimera\""
+	section_name = "Nue Sign \"Danmaku Chimera\""
 	total_bonus = 25000000
 	duration = 50.0
 	update_displayer()
@@ -188,7 +188,7 @@ func on_state_change(state: int):
 				boss.do_check_despawn = true
 			boss_target_position = Vector2(385,-200)
 			enabled = false
-			BulletUtils.clear_bullets()
+			clear_bullets()
 
 #func rotate_around_point(point1: Vector2, point2: Vector2, angle: float) -> Vector2:
 	#var diff = point1 - point2

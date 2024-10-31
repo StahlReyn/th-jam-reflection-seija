@@ -3,8 +3,6 @@ extends SectionScript
 ## Spellcard is more specific type of section script
 ## Non-spells are still Section script, despite boss existing
 
-var spell_name : String = "[SPELL CARD NAME]"
-var total_bonus : int = 10000000
 # var count_capture : int = 0
 # var count_attempt : int = 0
 # Duration is part of section already

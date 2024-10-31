@@ -100,11 +100,3 @@ static func spawn_arc_arrow(bullet_scene: PackedScene, pos: Vector2, speed: floa
 		bullet.velocity *=  dist_mult_interval #* init_distance_mult
 		bullet_list.append(bullet)
 	return bullet_list
-
-static func clear_bullets() -> void:
-	for bullet in GameUtils.get_bullet_list():
-		bullet.do_remove()
-
-static func clear_enemies() -> void:
-	for enemy in GameUtils.get_enemy_list():
-		enemy.do_remove()

@@ -39,6 +39,7 @@ func _ready() -> void:
 	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
 	boss.do_check_despawn = false
 	boss.remove_on_death = false
+	boss.remove_on_chapter_change = false
 	boss.mhp = 700;
 	boss.reset_hp()
 	boss.drop_power = 40
@@ -69,7 +70,7 @@ func end_section() -> void:
 	
 func start_section():
 	super()
-	spell_name = "Winter Sign \"Cold Front\""
+	section_name = "Winter Sign \"Cold Front\""
 	total_bonus = 20000000
 	duration = 50.0
 	update_displayer()
@@ -89,7 +90,7 @@ func timeout_1():
 			boss.do_check_despawn = true
 		boss_target_position = Vector2(385,-200)
 		enabled = false
-		BulletUtils.clear_bullets()
+		clear_bullets()
 		return
 		
 	if timer1_count % 10 == 9:

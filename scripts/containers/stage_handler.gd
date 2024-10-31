@@ -37,7 +37,6 @@ func check_finished_sections() -> void:
 				if node is SectionScript:
 					if node.is_ending():
 						node.call_deferred("queue_free")
-			
 
 static func current_add_stage_script(script : GDScript) -> void:
 	var handler : StageHandler = GameUtils.get_stage_handler()

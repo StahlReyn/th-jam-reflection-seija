@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if cur_spellcard:
-		label_name.text = cur_spellcard.spell_name
+		label_name.text = cur_spellcard.section_name
 		label_timer.text = "%.2f" % cur_spellcard.get_time_left()
 	process_timer_display(delta)
 
