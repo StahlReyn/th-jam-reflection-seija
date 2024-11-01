@@ -113,8 +113,8 @@ func bp_spiral(speed, offset) -> void:
 	var bullet_speed = 300
 	bullet.velocity = direction * bullet_speed
 	bullet.set_color(
-		SpriteGroupBasicBullet.ColorType.YELLOW, 
-		SpriteGroupBasicBullet.ColorVariant.LIGHT
+		SGBasicBullet.ColorType.YELLOW, 
+		SGBasicBullet.ColorVariant.LIGHT
 	)
 
 func bp_circle(count, offset) -> void:
@@ -124,6 +124,6 @@ func bp_circle(count, offset) -> void:
 		var bullet = spawn_bullet(bullet_crystal, pos_spiral)
 		bullet.velocity = direction * 300
 		bullet.set_color(
-			SpriteGroupBasicBullet.ColorType.RED, 
-			SpriteGroupBasicBullet.ColorVariant.LIGHT
+			SGBasicBullet.ColorType.RED, 
+			SGBasicBullet.ColorVariant.LIGHT
 		)

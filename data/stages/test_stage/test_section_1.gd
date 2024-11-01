@@ -44,13 +44,13 @@ func _physics_process(delta: float) -> void:
 			var enemy = spawn_enemy(enemy_fairy, Vector2(randi_range(150,400), -100))
 			if cd1_count_loop % 3 == 2:
 				enemy.add_entity_script(entity_script_1)
-				enemy.main_sprite.set_type(SpriteGroupFairy.Type.YELLOW)
+				enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
 			elif cd1_count_loop % 3 == 1:
 				enemy.add_entity_script(entity_script_2)
-				enemy.main_sprite.set_type(SpriteGroupFairy.Type.RED)
+				enemy.main_sprite.set_type(SGFairy.Type.RED)
 			else:
 				enemy.add_entity_script(entity_script_1)
-				enemy.main_sprite.set_type(SpriteGroupFairy.Type.GREEN)
+				enemy.main_sprite.set_type(SGFairy.Type.GREEN)
 			count1 -= 1
 			cd1_loop += 0.2
 	
@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 			var enemy : Enemy = spawn_enemy(enemy_fairy_boss, Vector2(400, -100))
 			#enemy.call_deferred("add_entity_script", entity_script_3)
 			enemy.add_entity_script(entity_script_3)
-			enemy.main_sprite.set_type(SpriteGroupFairy.Type.BLUE)
+			enemy.main_sprite.set_type(SGFairy.Type.BLUE)
 		else:
 			var positions = [
 				Vector2(200, -100), 
@@ -82,6 +82,6 @@ func _physics_process(delta: float) -> void:
 			for pos in positions:
 				var enemy :  = spawn_enemy(enemy_fairy_boss, pos)
 				enemy.add_entity_script(entity_script_4)
-				enemy.main_sprite.set_type(SpriteGroupFairy.Type.YELLOW)
+				enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
 		cd_big += 15
 		cd_count += 1

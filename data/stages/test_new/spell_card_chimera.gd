@@ -23,10 +23,6 @@ enum State {
 
 @onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 
- # Two sets as one goes another direction
-var chimera_list_1 : EntityList = EntityList.new()
-var chimera_list_2 : EntityList = EntityList.new()
-
 var boss : Enemy
 var state : int = State.IDLE
 var state_timer : float = 3.0
@@ -34,9 +30,13 @@ var state_timer : float = 3.0
 var boss_target_position : Vector2 = Vector2(385, 385)
 
 var shot_count_1 : int = 0
+var angle_offset : float = 0
+
+var timer_spawn : Timer
+var timer_spawn_count : int = 0
 
 # Pattern Variables
-var bullet_base_speed : float = 320
+var bullet_base_speed : float = 350
 var line_count : int = 16
 var spin_time : float = 2.0
 var spawn_time : float = 1.0
@@ -45,6 +45,7 @@ var spin_speed : float = 0.19 # This is more of multiplier. Speed is also depend
 func _ready() -> void:
 	super()
 	start_section()
+	timer_spawn = timer_setup(timer_spawn_timeout)
 	switch_state(State.IDLE, 3.0)
 	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
 	boss.do_check_despawn = false
@@ -68,6 +69,12 @@ func _physics_process(delta: float) -> void:
 	if time_active >= duration and can_switch_end():
 		switch_state(State.ENDING, 2.0)
 
+func timer_setup(function: Callable) -> Timer:
+	var timer = Timer.new()
+	timer.connect("timeout", function)
+	add_child(timer)
+	return timer
+	
 func end_condition() -> bool:
 	return state == State.ENDED
 
@@ -84,25 +91,37 @@ func start_section():
 	duration = 50.0
 	update_displayer()
 
-func spawn_bullet_line():
-	var angle_offset = (shot_count_1 % 2) * PI/16
-	for circle_i in range(10):
-		var bullet_list = BulletUtils.spawn_circle(
+func move_boss_random():
+	boss_target_position = Vector2(
+		randf_range(200,600),
+		randf_range(160,260)
+	)
+
+func timer_spawn_timeout():
+	var bullet_list = BulletUtils.spawn_circle(
 			bullet_line,
 			boss.position,
 			bullet_base_speed,
 			line_count,
 			angle_offset,
 		)
-		for i in bullet_list.size():
-			var bullet : Bullet = bullet_list[i]
-			if circle_i % 2 == 0:
-				chimera_list_1.add_entity(bullet)
-			else:
-				chimera_list_2.add_entity(bullet)
-			bullet.set_color(SGBasicBullet.ColorType.BLUE)
-			bullet.delay_time = circle_i * 0.1
-			set_bullet_style(bullet)
+	for bullet : Bullet in bullet_list:
+		bullet.set_meta("center_pos", boss.position)
+		bullet.set_meta("circle_count", timer_spawn_count % 2)
+		bullet.set_color(SGBasicBullet.ColorType.BLUE)
+		set_bullet_style(bullet)
+	timer_spawn_count += 1
+	if timer_spawn_count >= 12:
+		move_boss_random()
+		timer_spawn.paused = true
+	else:
+		timer_spawn.start(0.07)
+	
+func spawn_bullet_line():
+	angle_offset = (shot_count_1 % 2) * PI/16
+	timer_spawn_count = 0
+	timer_spawn.paused = false
+	timer_spawn.start(0.01)
 	shot_count_1 += 1
 
 func set_bullet_style(bullet: Entity) -> void:
@@ -122,52 +141,58 @@ func process_state() -> void:
 			State.ENDING:
 				switch_state(State.ENDED, 5.0)
 
-func stop_bullets() -> void:
-	print("CHIMERA - Stop Bullet")
-	
-	chimera_list_1.clean_list()
-	chimera_list_1.replace_entities(bullet_circle)
-	for entity : Entity in chimera_list_1:
-		entity.velocity = Vector2(0,0)
-		entity.do_check_despawn = false
-		set_bullet_style(entity)
-	
-	chimera_list_2.clean_list()
-	chimera_list_2.replace_entities(bullet_circle)
-	for entity : Entity in chimera_list_2:
-		entity.velocity = Vector2(0,0)
-		entity.do_check_despawn = false
-		set_bullet_style(entity)
+static func bullet_change_path(position, spin_speed, circ_times):
+	return func f(entity:Entity):
+		var distance = entity.position.distance_to(position)
+		var rotation = 0.4 * PI
+		if circ_times % 2 == 1:
+			rotation *= -1
+		var direction = entity.position.direction_to(position).rotated(rotation)
+		return direction * spin_speed * distance
 
 func change_path() -> void:
-	chimera_list_1.clean_list()
-	for entity : Entity in chimera_list_1:
-		var distance = entity.position.distance_to(boss.position)
-		var direction = entity.position.direction_to(boss.position).rotated(0.4*PI)
-		entity.velocity = direction * spin_speed * distance
-	chimera_list_2.clean_list()
-	for entity : Entity in chimera_list_2:
-		var distance = entity.position.distance_to(boss.position)
-		var direction = entity.position.direction_to(boss.position).rotated(-0.4*PI)
-		entity.velocity = direction * spin_speed * distance
+	print("CHIMERA - Change Path")
+	var center_pos
+	var circle_count
+	var new_bullet
+	var distance
+	var direction
+	for bullet in GameUtils.get_bullet_list():
+		center_pos = bullet.get_meta("center_pos")
+		circle_count = bullet.get_meta("circle_count")
+		bullet.call_deferred("queue_free")
+		
+		new_bullet = spawn_bullet(BulletUtils.scene_dict["circle_medium"], bullet.position)
+		new_bullet.set_meta("center_pos", center_pos)
+		new_bullet.set_meta("circle_count", circle_count)
+		set_bullet_style(new_bullet)
+		
+		distance = new_bullet.position.distance_to(center_pos)
+		if circle_count % 2 == 0:
+			direction = new_bullet.position.direction_to(center_pos).rotated(0.4*PI)
+		else:
+			direction = new_bullet.position.direction_to(center_pos).rotated(-0.4*PI)
+		new_bullet.velocity = direction * spin_speed * distance
 
 func continue_bullets() -> void:
 	print("CHIMERA - Continue Bullet")
-	chimera_list_1.clean_list()
-	chimera_list_1.replace_entities(bullet_line)
-	for entity : Entity in chimera_list_1:
-		var direction = entity.position.direction_to(boss.position)
-		entity.velocity = -direction * bullet_base_speed
-		entity.do_check_despawn = true
-		set_bullet_style(entity)
-	
-	chimera_list_2.clean_list()
-	chimera_list_2.replace_entities(bullet_line)
-	for entity : Entity in chimera_list_2:
-		var direction = entity.position.direction_to(boss.position)
-		entity.velocity = -direction * bullet_base_speed
-		entity.do_check_despawn = true
-		set_bullet_style(entity)
+	var center_pos
+	var circle_count
+	var new_bullet
+	var direction
+	for bullet in GameUtils.get_bullet_list():
+		center_pos = bullet.get_meta("center_pos")
+		circle_count = bullet.get_meta("circle_count")
+		bullet.call_deferred("queue_free")
+		
+		new_bullet = spawn_bullet(BulletUtils.scene_dict["partial_laser_small"], bullet.position)
+		new_bullet.set_meta("center_pos", center_pos)
+		new_bullet.set_meta("circle_count", circle_count)
+		set_bullet_style(new_bullet)
+		
+		direction = new_bullet.position.direction_to(center_pos)
+		new_bullet.velocity = -direction * bullet_base_speed
+		new_bullet.do_check_despawn = true
 
 func switch_state(state: int, state_timer: float):
 	self.state = state
@@ -182,7 +207,6 @@ func on_state_change(state: int):
 			spawn_bullet_line()
 			AudioManager.play_audio(audio_laser)
 		State.SPINNING:
-			stop_bullets()
 			change_path()
 		State.ENDING:
 			if is_instance_valid(boss):
@@ -190,7 +214,3 @@ func on_state_change(state: int):
 			boss_target_position = Vector2(385,-200)
 			enabled = false
 			clear_bullets()
-
-#func rotate_around_point(point1: Vector2, point2: Vector2, angle: float) -> Vector2:
-	#var diff = point1 - point2
-	#return diff.rotated(angle) + point2

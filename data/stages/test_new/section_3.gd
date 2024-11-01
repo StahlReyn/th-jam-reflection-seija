@@ -8,11 +8,10 @@ var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
 
 func _init() -> void:
-	timer1 = timer_setup(3.0, timeout_1)
+	timer1 = timer_setup(timeout_1)
 
-func timer_setup(wait_time: float, function: Callable) -> Timer:
+func timer_setup(function: Callable) -> Timer:
 	var timer = Timer.new()
-	timer.wait_time = wait_time
 	timer.connect("timeout", function)
 	add_child(timer)
 	return timer
@@ -20,15 +19,15 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 func _ready() -> void:
 	super()
 	duration = 25.0
-	timer1.start()
+	timer1.start(1.0)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	if time_active > 20.0:
+		timer1.paused = true
 
 func timeout_1():
-	if time_active > 20.0:
-		timer1.start(100.0)
-	elif timer1_count % 3 == 0:
+	if timer1_count % 3 == 0:
 		timer1.start(0.8)
 		spawn_side_fairy_set(timer1_count % 2 == 0)
 	elif timer1_count <= 1000:
@@ -82,22 +81,20 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.velocity = velocity
 	enemy.drop_power = 0
 	enemy.drop_point = 8
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.BLUE)
-	enemy.add_script_node(
-		MSAcceleration.new(acceleration)
-	)
-	
-	var shoot_script = MSShootRandomAngle.new(0.2, 100, -3 * PI/8, -PI/8)
-	shoot_script.bullet_function = bullet_weeping_style
-	enemy.add_script_node(shoot_script)
+	enemy.main_sprite.set_type(SGFairy.Type.BLUE)
+	enemy.add_velocity_func(en_accel(acceleration))
+	enemy.add_behavior_func(weeping_shooter)
 	return enemy
 
-static func bullet_weeping_style(bullet):
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
-	bullet.add_script_node(
-		MSAcceleration.new(Vector2(0, 200))
-	)
-	bullet.material = material_additive
+static func weeping_shooter(entity:Entity):
+	if entity.just_time_passed_every(0.2):
+		var bullet = ModScript.spawn_entity(
+			BulletUtils.scene_dict["circle_medium"], entity.position
+		)
+		bullet.velocity = Vector2.from_angle(randf_range(-3 * PI/4, -PI/4)) * 100
+		bullet.set_color(SGBasicBullet.ColorType.BLUE)
+		bullet.add_velocity_func(en_accel(Vector2(0, 200)))
+		bullet.material = material_additive
 
 # ================ TRIANGLE SHOT FAIRY ================
 
@@ -106,21 +103,27 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.velocity = velocity
 	enemy.drop_power = 5
 	enemy.drop_point = 0
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.YELLOW)
-	enemy.add_script_node(
-		MSAcceleration.new(acceleration)
-	)
-	
-	var shoot_script = MSShootArcTriangle.new(1.0, 550, 4, TAU/160, 0, 0.1)
-	shoot_script.bullet_scene = bullet_scene
-	shoot_script.target_player = true
-	shoot_script.bullet_list_function = bullet_shot_style
-	enemy.add_script_node(shoot_script)
+	enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
+	enemy.add_velocity_func(en_accel(acceleration))
+	enemy.add_behavior_func(shoot_arc_triangle)
 	return enemy
 
-static func bullet_shot_style(bullet_list):
-	for bullet : Bullet in bullet_list:
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.ORANGE)
+static func shoot_arc_triangle(entity:Entity):
+	if entity.just_time_passed_every(1.0):
+		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
+		var angle = entity.position.angle_to_point(GameUtils.get_player().position)
+		var bullet_list = BulletUtils.spawn_arc_triangle(
+			BulletUtils.scene_dict["bullet"], # Bullet to spawn
+			entity.position, # Position
+			550, # Speed
+			4, # Count
+			TAU/160, # angle per shot
+			angle, # Main angle
+			0.1 # init distance mult
+		)
+		
+		for bullet : Bullet in bullet_list:
+			bullet.set_color(SGBasicBullet.ColorType.ORANGE)
 
 static func mirror_x(x: float) -> float:
 	return -(x - GameUtils.game_area.x)

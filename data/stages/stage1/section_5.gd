@@ -92,7 +92,7 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.drop_point = 20
 	enemy.mhp = 70
 	enemy.reset_hp()
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.BLUE)
+	enemy.main_sprite.set_type(SGFairy.Type.BLUE)
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
 	)
@@ -116,7 +116,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.velocity = velocity
 	enemy.drop_power = 5
 	enemy.drop_point = 0
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.GREEN)
+	enemy.main_sprite.set_type(SGFairy.Type.GREEN)
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
 	)
@@ -131,7 +131,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 
 static func bullet_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.TEAL)
+		bullet.set_color(SGBasicBullet.ColorType.TEAL)
 		bullet.add_script_node(
 			MSAcceleration.new(bullet.velocity * 50)
 		)
@@ -141,7 +141,7 @@ func spawn_rain_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.velocity = velocity
 	enemy.drop_power = 0
 	enemy.drop_point = 8
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.YELLOW)
+	enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
 	enemy.add_script_node(
 		MSAcceleration.new(acceleration)
 	)
@@ -152,7 +152,7 @@ func spawn_rain_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	return enemy
 
 static func bullet_rain_style(bullet):
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+	bullet.set_color(SGBasicBullet.ColorType.BLUE)
 	bullet.add_script_node(
 		MSAcceleration.new(Vector2(0, 200))
 	)

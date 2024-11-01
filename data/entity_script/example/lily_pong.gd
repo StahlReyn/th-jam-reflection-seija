@@ -134,6 +134,6 @@ func set_bullet_style(bullet: Entity) -> void:
 
 func bullet_color():
 	if parent.collision_layer != BulletUtils.CollisionMask.TARGET_PLAYER:
-		return SpriteGroupBasicBullet.ColorType.ORANGE
+		return SGBasicBullet.ColorType.ORANGE
 	else:
-		return SpriteGroupBasicBullet.ColorType.RED
+		return SGBasicBullet.ColorType.RED

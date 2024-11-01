@@ -72,7 +72,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 
 static func bullet_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+		bullet.set_color(SGBasicBullet.ColorType.BLUE)
 
 static func mirror_x(x: float) -> float:
 	return -(x - GameUtils.game_area.x)

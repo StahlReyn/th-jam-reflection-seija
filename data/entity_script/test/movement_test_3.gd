@@ -79,7 +79,7 @@ func bullet_pattern1(speed, scale, offset) -> void:
 	var direction = Vector2(cos(angle),sin(angle))
 	var bullet = spawn_bullet(bullet_circle, parent.position)
 	bullet.velocity = direction * 300
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE, SpriteGroupBasicBullet.ColorVariant.LIGHT)
+	bullet.set_color(SGBasicBullet.ColorType.BLUE, SGBasicBullet.ColorVariant.LIGHT)
 
 func spawn_lily() -> void:
 	print("Spawned Lily")
@@ -87,8 +87,8 @@ func spawn_lily() -> void:
 	var cur_lily = spawn_bullet(bullet_lily, parent.position)
 	cur_lily.velocity = direction * 400
 	cur_lily.set_color(
-		SpriteGroupBasicBullet.ColorType.RED, 
-		SpriteGroupBasicBullet.ColorVariant.LIGHT
+		SGBasicBullet.ColorType.RED, 
+		SGBasicBullet.ColorVariant.LIGHT
 	)
 	#cur_lily.add_entity_script(script_lily)
 

@@ -100,7 +100,7 @@ func spawn_bullet_line():
 				chimera_list_1.add_entity(bullet)
 			else:
 				chimera_list_2.add_entity(bullet)
-			bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+			bullet.set_color(SGBasicBullet.ColorType.BLUE)
 			bullet.delay_time = circle_i * 0.1
 			set_bullet_style(bullet)
 	shot_count_1 += 1
@@ -108,7 +108,7 @@ func spawn_bullet_line():
 func set_bullet_style(bullet: Entity) -> void:
 	bullet.despawn_padding = 300  # increase padding as rotate move offscreen far
 	bullet.material = blend_add
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+	bullet.set_color(SGBasicBullet.ColorType.BLUE)
 
 func process_state() -> void:
 	if state_timer < 0:

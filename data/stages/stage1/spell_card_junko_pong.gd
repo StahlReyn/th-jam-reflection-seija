@@ -147,7 +147,7 @@ func timeout_star():
 	var bullets = BulletUtils.spawn_circle(bullet_circle, boss.position, 300, 32)
 	for bullet : Bullet in bullets:
 		bullet.material = blend_add
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+		bullet.set_color(SGBasicBullet.ColorType.BLUE)
 	AudioManager.play_audio(audio_shoot)
 	if time_active >= 80:
 		timer_star.start(1.0)
