@@ -7,18 +7,31 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if visible:
-		player = GameUtils.get_player()
-		text = (
-			"FPS: " + str(Engine.get_frames_per_second()  ) + "\n" +
-			"Time: " + ("%.3f" % GameVariables.game_time) + "\n" +
-			"X: " + ("%.3f" % player.position.x) + "\n" +
-			"Y: " + ("%.3f" % player.position.y) + "\n" +
-			"Bullet Count: " + str(GameUtils.get_bullet_count()) + "\n" +
-			"Enemy Count: " + str(GameUtils.get_enemy_count()) + "\n" +
-			"Item Count: " + str(GameUtils.get_item_count()) + "\n" +
-			"Power: " + str(GameVariables.power) + "\n" +
-			"Score: " + str(GameVariables.score) + "\n" +
-			"Lives: " + str(GameVariables.lives) + "\n" +
-			"Life Pieces: " + str(GameVariables.life_pieces) + "\n" +
-			"Graze Count: " + str(GameVariables.graze) + "\n" 
-		)
+		simple()
+
+func simple():
+	player = GameUtils.get_player()
+	text = (
+		"FPS: " + str(Engine.get_frames_per_second()  ) + "\n" +
+		"Time: " + ("%.3f" % GameVariables.game_time) + "\n" +
+		"Bullet: " + str(GameUtils.get_bullet_count()) + "\n" +
+		"Enemy: " + str(GameUtils.get_enemy_count()) + "\n" +
+		"Item: " + str(GameUtils.get_item_count())
+	)
+
+func detailed():
+	player = GameUtils.get_player()
+	text = (
+		"FPS: " + str(Engine.get_frames_per_second()  ) + "\n" +
+		"Time: " + ("%.3f" % GameVariables.game_time) + "\n" +
+		"X: " + ("%.3f" % player.position.x) + "\n" +
+		"Y: " + ("%.3f" % player.position.y) + "\n" +
+		"Bullet Count: " + str(GameUtils.get_bullet_count()) + "\n" +
+		"Enemy Count: " + str(GameUtils.get_enemy_count()) + "\n" +
+		"Item Count: " + str(GameUtils.get_item_count()) + "\n" +
+		"Power: " + str(GameVariables.power) + "\n" +
+		"Score: " + str(GameVariables.score) + "\n" +
+		"Lives: " + str(GameVariables.lives) + "\n" +
+		"Life Pieces: " + str(GameVariables.life_pieces) + "\n" +
+		"Graze Count: " + str(GameVariables.graze) + "\n" 
+	)

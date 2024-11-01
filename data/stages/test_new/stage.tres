@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StageData" load_steps=3 format=3 uid="uid://b6org8ginbbsr"]
+
+[ext_resource type="Script" path="res://resources/stage_data.gd" id="1_qsp84"]
+[ext_resource type="Script" path="res://data/stages/test_new/section_1.gd" id="2_mt7yj"]
+
+[resource]
+script = ExtResource("1_qsp84")
+stage_number = 0
+stage_difficulty = 0
+section_list = Array[GDScript]([ExtResource("2_mt7yj")])

@@ -12,13 +12,13 @@ enum State {
 }
 
 @export var base_speed : int = 400 ## pixels/sec
-@export var focus_speed : int = 100 ## pixels/sec
+@export var focus_speed : int = 150 ## pixels/sec
 @export var area_graze : AreaGraze
 @export var audio_shoot : AudioStreamPlayer2D ## shoot audio is done on player side to not overlap multiple shooters
 @export var audio_item : AudioStreamPlayer2D ## Audio for item collection
 
 var state_timer : float = 0.0
-var state : int = State.NORMAL
+var state : int = State.SPAWNING
 
 func _init() -> void:
 	super()
@@ -28,14 +28,17 @@ func _ready() -> void:
 	super()
 	do_spawn_movement()
 
-func _physics_process(delta: float) -> void:
+func physics_process_active(delta: float) -> void:
 	state_timer -= delta
-	super(delta)
+	if state == State.SPAWNING:
+		position += Vector2.UP * 600 * delta
+	elif state != State.DEAD_DELAY:
+		position = position.clamp(Vector2.ZERO, GameUtils.game_area)
 	process_movement_input()
 	process_shoot_input()
 	process_state()
 	process_iframe()
-
+	
 func process_movement_input() -> void:
 	velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -51,13 +54,6 @@ func process_shoot_input() -> void:
 	pass
 	#if Input.is_action_pressed("shoot") and can_shoot() and not audio_shoot.playing:
 	#	audio_shoot.play()
-
-func process_movement(delta) -> void:
-	if state == State.NORMAL or state == State.GRACE:
-		position += velocity * delta
-		position = position.clamp(Vector2.ZERO, GameUtils.get_game_area())
-	elif state == State.SPAWNING:
-		position += Vector2.UP * 600 * delta
 
 func process_state() -> void:
 	if state != State.NORMAL and state_timer < 0:

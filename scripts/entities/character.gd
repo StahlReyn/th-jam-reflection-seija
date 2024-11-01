@@ -16,19 +16,12 @@ signal death
 
 var hp : int
 var is_dead : bool = false
-
-func _init() -> void:
-	super()
 	
 func _ready() -> void:
 	super()
 	reset_hp()
 
-func _physics_process(delta: float) -> void:	
-	super(delta)
-
 func physics_process_active(delta: float) -> void:
-	super(delta)
 	update_animation()
 
 # Passes self so script can also access other like velocity

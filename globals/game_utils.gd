@@ -52,6 +52,3 @@ func get_popup_displayer() -> PopUps:
 
 func get_point_items() -> Array[Node]:
 	return get_tree().get_nodes_in_group("item")
-
-func get_game_area() -> Vector2:
-	return game_area
