@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://mk4snd1s7lkh"]
+[gd_scene load_steps=9 format=3 uid="uid://mk4snd1s7lkh"]
 
 [ext_resource type="Script" path="res://scenes/menu.gd" id="1_4fphm"]
 [ext_resource type="Script" path="res://scenes/selection_list.gd" id="2_20aw2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_6a7ab"]
 [ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="3_rrqch"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="4_iojj8"]
+[ext_resource type="Texture2D" uid="uid://bdym3royadcm8" path="res://assets/img/system/placeholder_menu.png" id="7_wm87h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gp7d"]
 shader = ExtResource("2_psduu")
@@ -63,6 +64,11 @@ layout_mode = 2
 layout_mode = 2
 text = "MENU_QUIT"
 label_settings = ExtResource("3_rrqch")
+
+[node name="PlaceholderMenu" type="Sprite2D" parent="."]
+z_index = -20
+texture = ExtResource("7_wm87h")
+centered = false
 
 [connection signal="closed" from="ScreenWipe" to="StartMenu" method="_on_screen_wipe_closed"]
 [connection signal="start_game" from="StartMenu" to="ScreenWipe" method="_do_close"]
