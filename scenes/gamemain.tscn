@@ -116,7 +116,7 @@ top_level = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_fqbm5")
-volume_db = 2.5
+volume_db = 5.0
 autoplay = true
 parameters/looping = true
 

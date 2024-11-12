@@ -53,7 +53,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="StartMenu/SelectionList/Options"]
 layout_mode = 2
-text = "MENU_OPTIONS"
+text = "VOLUME"
 label_settings = ExtResource("3_rrqch")
 
 [node name="Quit" type="MarginContainer" parent="StartMenu/SelectionList"]
