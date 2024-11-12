@@ -7,7 +7,7 @@ signal start_game
 func _ready() -> void:
 	modulate.a = 1.0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		match selection_list.cur_selection:
 			0: # START

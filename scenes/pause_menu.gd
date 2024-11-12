@@ -7,7 +7,7 @@ signal retry
 func _ready() -> void:
 	modulate.a = 0.0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("back") and not get_tree().paused:
 		selection_list.reset_display()
 		do_pause()

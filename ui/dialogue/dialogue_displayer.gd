@@ -12,24 +12,23 @@ func _ready() -> void:
 	reset_dialogue_variables()
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("dialogue"):
+	if Input.is_action_just_pressed("dialogue") or Input.is_action_pressed("skip"):
 		if cur_dialogue_script:
 			next_dialogue_action_input()
 
 func next_dialogue_action_input():
-	if check_end_dialogue():
-		end_dialogue()
-	else:
-		while true:
-			next_dialogue()
-			update_portrait()
-			create_balloon()
-			if not cur_dialogue_action.auto:
-				break
-		first_action = false
+	while true:
+		next_dialogue()
+		update_portrait()
+		call_deferred("create_balloon") # Deferred so it comes after input and not immediately disappear
+		if not cur_dialogue_action.auto:
+			break
+	first_action = false
+	call_deferred("check_end_dialogue")
 					
-func check_end_dialogue() -> bool:
-	return cur_action_index >= cur_dialogue_script.get_dialogue_action_count()
+func check_end_dialogue() -> void:
+	if cur_action_index >= cur_dialogue_script.get_dialogue_action_count():
+		end_dialogue()
 
 func next_dialogue() -> void:
 	prints("Next Dialogue:", cur_action_index, "/", cur_dialogue_script.get_dialogue_action_count())
@@ -45,8 +44,8 @@ func create_balloon() -> void:
 			cur_dialogue_action.position_type,
 			get_cur_portrait().get_speech_position()
 		)
-		if first_action: # If first action treat as if pressed once already
-			dialogue_balloon.press_count = 1
+		#if first_action: # If first action treat as if pressed once already
+		dialogue_balloon.press_count = 1
 
 func start_dialogue() -> void:
 	first_action = true

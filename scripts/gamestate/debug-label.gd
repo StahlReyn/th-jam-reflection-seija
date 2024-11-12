@@ -5,7 +5,7 @@ var player : Player
 func _ready() -> void:
 	player = GameUtils.get_player()
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	player = GameUtils.get_player()
 	text = (
 		"FPS: " + str(Engine.get_frames_per_second()  ) + "\n" +

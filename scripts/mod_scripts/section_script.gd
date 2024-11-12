@@ -15,12 +15,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	if end_condition() and not ended_already:
-		print_rich("[color=orange]END SECTION - Section Condition[/color]")
-		end_section()
+	call_deferred("check_end_deferred")
 
 func start_section() -> void:
 	pass
+
+func check_end_deferred():
+	if end_condition() and not ended_already:
+		print_rich("[color=orange]END SECTION - Section Condition[/color]")
+		end_section()
 
 ## This ends the section. Can also be called externally, like Boss HP condition
 func end_section() -> void:

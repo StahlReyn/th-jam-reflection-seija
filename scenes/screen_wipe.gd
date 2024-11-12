@@ -10,7 +10,7 @@ var time_closed : float = 0.0
 func _ready() -> void:
 	pass 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if closing:
 		cur_percent += delta * 10
 	else:

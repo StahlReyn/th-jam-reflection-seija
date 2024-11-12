@@ -31,7 +31,7 @@ func _ready() -> void:
 	# set_position_type(DialogueLine.PortraitPosition.LEFT_BACK)
 	pass
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	process_position(delta)
 	if opacity_free and get_modulate().a <= 0.01:
 		print("Freed Portrait")
