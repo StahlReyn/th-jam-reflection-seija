@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://mk4snd1s7lkh"]
+[gd_scene load_steps=11 format=3 uid="uid://mk4snd1s7lkh"]
 
 [ext_resource type="Script" path="res://scenes/menu.gd" id="1_4fphm"]
 [ext_resource type="Script" path="res://scenes/selection_list.gd" id="2_20aw2"]
@@ -7,6 +7,7 @@
 [ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="3_rrqch"]
 [ext_resource type="Script" path="res://scenes/start_menu.gd" id="4_iojj8"]
 [ext_resource type="Texture2D" uid="uid://bdym3royadcm8" path="res://assets/img/system/placeholder_menu.png" id="7_wm87h"]
+[ext_resource type="FontFile" uid="uid://cgat1phnbct83" path="res://assets/fonts/Seagull-Bold.otf" id="8_rcsdu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gp7d"]
 shader = ExtResource("2_psduu")
@@ -15,6 +16,14 @@ shader_parameter/hidden_alpha = 0.0
 shader_parameter/flip = false
 shader_parameter/horizontal = false
 shader_parameter/frames = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_73ojy"]
+line_spacing = 2.0
+font = ExtResource("8_rcsdu")
+font_size = 20
+font_color = Color(0.592157, 1, 1, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_4fphm")
@@ -33,9 +42,9 @@ script = ExtResource("4_iojj8")
 selection_list = NodePath("SelectionList")
 
 [node name="SelectionList" type="VBoxContainer" parent="StartMenu"]
-offset_left = 142.0
+offset_left = 100.0
 offset_top = 475.0
-offset_right = 451.0
+offset_right = 409.0
 offset_bottom = 684.0
 theme_override_constants/separation = 25
 script = ExtResource("2_20aw2")
@@ -69,6 +78,24 @@ label_settings = ExtResource("3_rrqch")
 z_index = -20
 texture = ExtResource("7_wm87h")
 centered = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 506.0
+offset_top = 459.0
+offset_right = 801.0
+offset_bottom = 754.0
+text = "Z - Confirm
+X - Back
+Ctrl - Skip Dialouge
+Shift - Volume x10
+
+Z (Hold) - Charge
+Z (Release) - Hit
+Up Down Left Right Arrow - Move
+
+No control options currently.
+Still working on Framework :("
+label_settings = SubResource("LabelSettings_73ojy")
 
 [connection signal="closed" from="ScreenWipe" to="StartMenu" method="_on_screen_wipe_closed"]
 [connection signal="start_game" from="StartMenu" to="ScreenWipe" method="_do_close"]
