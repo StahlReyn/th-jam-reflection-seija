@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmc2v6asnawok"
 path.s3tc="res://.godot/imported/torifune_tree.png-c607c078a418cfcfcf6d69162b8bf59a.s3tc.ctex"
+path.etc2="res://.godot/imported/torifune_tree.png-c607c078a418cfcfcf6d69162b8bf59a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/img/textures/torifune_tree.png"
-dest_files=["res://.godot/imported/torifune_tree.png-c607c078a418cfcfcf6d69162b8bf59a.s3tc.ctex"]
+dest_files=["res://.godot/imported/torifune_tree.png-c607c078a418cfcfcf6d69162b8bf59a.s3tc.ctex", "res://.godot/imported/torifune_tree.png-c607c078a418cfcfcf6d69162b8bf59a.etc2.ctex"]
 
 [params]
 

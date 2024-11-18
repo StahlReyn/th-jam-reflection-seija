@@ -3,7 +3,7 @@ extends SectionScript
 ## For section where character talks
 ## Section ending is called from Dialogue Displayer
 
-var dialogue_set : DialogueSet
+@export var dialogue_set : DialogueSet
 
 func _ready() -> void:
 	print_rich("[color=green]==== Section Dialogue Script ====[/color]")
@@ -11,6 +11,7 @@ func _ready() -> void:
 	# Dialogue should not trigger chapter by default
 	do_chapter_end = false
 	total_bonus = 0
+	start_section()
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -20,6 +21,9 @@ func start_section() -> void:
 	var displayer : DialogueDisplayer = GameUtils.get_dialogue_displayer()
 	displayer.set_dialogue_script(self)
 	displayer.start_dialogue()
+
+func end_condition() -> bool: # Dialogue does NOT end automatically by default
+	return false
 
 func get_dialogue_set() -> DialogueSet:
 	return dialogue_set

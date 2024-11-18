@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://djidl1w0444jh"
 path.s3tc="res://.godot/imported/torifune_patch.png-b40841bd6b6a2f21c410092cd69a5789.s3tc.ctex"
+path.etc2="res://.godot/imported/torifune_patch.png-b40841bd6b6a2f21c410092cd69a5789.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/img/textures/torifune_patch.png"
-dest_files=["res://.godot/imported/torifune_patch.png-b40841bd6b6a2f21c410092cd69a5789.s3tc.ctex"]
+dest_files=["res://.godot/imported/torifune_patch.png-b40841bd6b6a2f21c410092cd69a5789.s3tc.ctex", "res://.godot/imported/torifune_patch.png-b40841bd6b6a2f21c410092cd69a5789.etc2.ctex"]
 
 [params]
 

@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7v7flp6p65gf"]
+[gd_scene load_steps=13 format=3 uid="uid://b7v7flp6p65gf"]
 
 [ext_resource type="PackedScene" uid="uid://chg817g0wf0ij" path="res://scenes/gameplay/gamehud.tscn" id="1_585am"]
 [ext_resource type="Script" path="res://scenes/main/gamemain.gd" id="1_jvava"]
 [ext_resource type="PackedScene" uid="uid://bitw5rm3yby8i" path="res://ui/dialogue/dialogue_displayer.tscn" id="2_aq4qu"]
 [ext_resource type="Shader" path="res://shaders/multi_frame_wipe.gdshader" id="2_breqb"]
+[ext_resource type="Resource" uid="uid://d160n3bdn3ewr" path="res://data/stages/jamstage/stage_1.tres" id="2_epeja"]
 [ext_resource type="PackedScene" uid="uid://btg4d8khha007" path="res://scenes/gameplay/gameview.tscn" id="2_frqqi"]
 [ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_a3loy"]
 [ext_resource type="PackedScene" uid="uid://bhxpmmfn0rxv" path="res://scenes/gameplay/pop_ups.tscn" id="6_h5sjb"]
 [ext_resource type="PackedScene" uid="uid://fuxvcjrqr0fg" path="res://scenes/gameplay/pause_menu.tscn" id="8_uh2lw"]
-[ext_resource type="PackedScene" uid="uid://b2416reix6xak" path="res://scenes/background/stage_torifune.tscn" id="10_muvou"]
+[ext_resource type="PackedScene" path="res://scenes/background/stage_torifune.tscn" id="10_muvou"]
 [ext_resource type="AudioStream" uid="uid://c2a1nbhne0osk" path="res://assets/audio/bgm/reflection_jam_seija.mp3" id="11_fqbm5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_su4a2"]
@@ -21,6 +22,7 @@ shader_parameter/frames = 20
 
 [node name="Gamemain" type="Node2D"]
 script = ExtResource("1_jvava")
+default_stage = ExtResource("2_epeja")
 
 [node name="ScreenWipe" type="ColorRect" parent="."]
 process_mode = 3
@@ -37,6 +39,7 @@ metadata/_edit_lock_ = true
 
 [node name="Gamehud" parent="." instance=ExtResource("1_585am")]
 z_index = 50
+script = null
 metadata/_edit_lock_ = true
 
 [node name="PopUps" parent="." instance=ExtResource("6_h5sjb")]
@@ -69,3 +72,5 @@ stream = ExtResource("11_fqbm5")
 volume_db = 2.5
 autoplay = true
 parameters/looping = true
+
+[connection signal="start_stage" from="." to="Gameview" method="_on_gamemain_start_stage"]

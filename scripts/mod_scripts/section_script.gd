@@ -41,6 +41,7 @@ func end_section() -> void:
 		stage_parent.on_section_end(self)
 	else:
 		printerr("Section have no StageScript Parent")
+	call_deferred("queue_free")
 
 func end_condition() -> bool:
 	return time_active >= duration

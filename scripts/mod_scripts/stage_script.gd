@@ -16,6 +16,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	super()
+	add_to_group("stage_script")
 	print_rich("[color=green][b]==== Stage Script ====[/b][/color]")
 	do_next_script()
 
