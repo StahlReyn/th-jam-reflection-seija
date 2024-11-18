@@ -6,7 +6,6 @@ var cur_dialogue_action : DialogueAction
 var cur_action_index : int = 0
 
 var portrait_dict : Dictionary = {}
-var first_action : bool = false # This is to check if its the first action, which auto play without input
 
 func _ready() -> void:
 	reset_dialogue_variables()
@@ -17,21 +16,18 @@ func _physics_process(delta: float) -> void:
 			next_dialogue_action_input()
 
 func next_dialogue_action_input():
-	while true:
-		next_dialogue()
-		update_portrait()
-		call_deferred("create_balloon") # Deferred so it comes after input and not immediately disappear
-		if not cur_dialogue_action.auto:
-			break
-	first_action = false
-	call_deferred("check_end_dialogue")
-					
-func check_end_dialogue() -> void:
 	if cur_action_index >= cur_dialogue_script.get_dialogue_action_count():
 		end_dialogue()
+	else:
+		while true:
+			next_dialogue()
+			update_portrait()
+			call_deferred("create_balloon") # Deferred so it comes after input and not immediately disappear
+			if not cur_dialogue_action.auto:
+				break
 
 func next_dialogue() -> void:
-	prints("Next Dialogue:", cur_action_index, "/", cur_dialogue_script.get_dialogue_action_count())
+	prints("Next Dialogue:", cur_action_index, "/", cur_dialogue_script.get_dialogue_action_count() - 1)
 	cur_dialogue_action = cur_dialogue_script.get_dialogue_action(cur_action_index)
 	cur_action_index += 1
 
@@ -44,11 +40,9 @@ func create_balloon() -> void:
 			cur_dialogue_action.position_type,
 			get_cur_portrait().get_speech_position()
 		)
-		#if first_action: # If first action treat as if pressed once already
 		dialogue_balloon.press_count = 1
 
 func start_dialogue() -> void:
-	first_action = true
 	reset_anim()
 	next_dialogue_action_input()
 
