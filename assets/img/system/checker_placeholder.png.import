@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhet1mvgelh6c"
 path.s3tc="res://.godot/imported/checker_placeholder.png-f9129dfd3b9238720e27e900acd4dff2.s3tc.ctex"
+path.etc2="res://.godot/imported/checker_placeholder.png-f9129dfd3b9238720e27e900acd4dff2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/img/system/checker_placeholder.png"
-dest_files=["res://.godot/imported/checker_placeholder.png-f9129dfd3b9238720e27e900acd4dff2.s3tc.ctex"]
+dest_files=["res://.godot/imported/checker_placeholder.png-f9129dfd3b9238720e27e900acd4dff2.s3tc.ctex", "res://.godot/imported/checker_placeholder.png-f9129dfd3b9238720e27e900acd4dff2.etc2.ctex"]
 
 [params]
 

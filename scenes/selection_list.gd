@@ -24,7 +24,7 @@ func reset_display() -> void:
 			child.modulate = modulate_deselect
 			child.add_theme_constant_override("margin_left", -10)
 				
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("move_up"):
 		cur_selection -= 1
 		cur_selection = wrapi(cur_selection, 0, get_option_count())
