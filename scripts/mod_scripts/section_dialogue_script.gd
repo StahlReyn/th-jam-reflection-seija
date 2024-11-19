@@ -3,7 +3,7 @@ extends SectionScript
 ## For section where character talks
 ## Section ending is called from Dialogue Displayer
 
-@export var dialogue_set : DialogueSet
+var dialogue_set : DialogueSet
 
 func _ready() -> void:
 	print_rich("[color=green]==== Section Dialogue Script ====[/color]")
@@ -25,11 +25,8 @@ func start_section() -> void:
 func end_condition() -> bool: # Dialogue does NOT end automatically by default
 	return false
 
-func get_dialogue_set() -> DialogueSet:
-	return dialogue_set
-
 func get_dialogue_actions() -> Array[DialogueAction]:
-	return get_dialogue_set().dialogue_actions
+	return dialogue_set.dialogue_actions
 
 func get_dialogue_action(index : int) -> DialogueAction:
 	return get_dialogue_actions()[index]

@@ -2,6 +2,7 @@ class_name DialogueLine
 extends DialogueAction
 
 enum PortraitPosition {
+	SAME = -1,
 	LEFT,
 	RIGHT,
 	LEFT_BACK,

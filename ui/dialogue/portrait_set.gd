@@ -44,6 +44,8 @@ func set_position_type(type: int, instant: bool = false) -> void:
 	position_type = type
 	# Update Position
 	match position_type:
+		DialogueLine.PortraitPosition.SAME:
+			pass # Dont change anything
 		DialogueLine.PortraitPosition.LEFT:
 			pos_target = pos_left
 		DialogueLine.PortraitPosition.RIGHT:
@@ -63,7 +65,8 @@ func set_position_type(type: int, instant: bool = false) -> void:
 		set_modulate(mod_target)
 
 func set_initial_position(instant: bool = false) -> void:
-	if DialogueLine.is_left(position_type):
+	# if same assume left
+	if DialogueLine.is_left(position_type) or position_type == DialogueLine.PortraitPosition.SAME:
 		pos_target = pos_left_start
 	else:
 		pos_target = pos_right_start
