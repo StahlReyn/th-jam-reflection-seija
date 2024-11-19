@@ -10,4 +10,4 @@
 script = ExtResource("1_qsp84")
 stage_number = 0
 stage_difficulty = 0
-section_list = Array[GDScript]([ExtResource("2_y5nqm"), ExtResource("2_mt7yj"), ExtResource("3_cq27f"), ExtResource("4_2708e")])
+section_list = Array[GDScript]([ExtResource("2_mt7yj"), ExtResource("3_cq27f"), ExtResource("4_2708e"), ExtResource("2_y5nqm")])

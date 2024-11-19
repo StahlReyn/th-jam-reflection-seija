@@ -23,9 +23,9 @@ func _ready() -> void:
 	call_deferred("setup_nodes")
 
 func _physics_process(delta: float) -> void:
-	if cur_spellcard:
+	if is_instance_valid(cur_spellcard):
 		label_name.text = cur_spellcard.section_name
-		label_timer.text = "%.2f" % cur_spellcard.get_time_left()
+		label_timer.text = "%.2f" % max(cur_spellcard.get_time_left(), 0.0)
 	process_timer_display(delta)
 
 func setup_nodes() -> void:

@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scenes/main/gamemain.gd" id="1_jvava"]
 [ext_resource type="PackedScene" uid="uid://bitw5rm3yby8i" path="res://ui/dialogue/dialogue_displayer.tscn" id="2_aq4qu"]
 [ext_resource type="Shader" path="res://shaders/multi_frame_wipe.gdshader" id="2_breqb"]
-[ext_resource type="Resource" uid="uid://d160n3bdn3ewr" path="res://data/stages/jamstage/stage_1.tres" id="2_epeja"]
 [ext_resource type="PackedScene" uid="uid://btg4d8khha007" path="res://scenes/gameplay/gameview.tscn" id="2_frqqi"]
+[ext_resource type="Resource" uid="uid://b6org8ginbbsr" path="res://data/stages/test_new/stage_test.tres" id="2_tt756"]
 [ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_a3loy"]
 [ext_resource type="PackedScene" uid="uid://bhxpmmfn0rxv" path="res://scenes/gameplay/pop_ups.tscn" id="6_h5sjb"]
 [ext_resource type="PackedScene" uid="uid://fuxvcjrqr0fg" path="res://scenes/gameplay/pause_menu.tscn" id="8_uh2lw"]
@@ -22,7 +22,7 @@ shader_parameter/frames = 20
 
 [node name="Gamemain" type="Node2D"]
 script = ExtResource("1_jvava")
-default_stage = ExtResource("2_epeja")
+default_stage = ExtResource("2_tt756")
 
 [node name="ScreenWipe" type="ColorRect" parent="."]
 process_mode = 3

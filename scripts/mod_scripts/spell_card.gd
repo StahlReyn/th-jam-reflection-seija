@@ -14,6 +14,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 
+func end_section() -> void:
+	var displayer : SpellCardDisplayer = GameUtils.get_spell_card_displayer()
+	displayer.end_spellcard()
+	super()
+	
 func start_section() -> void:
 	super()
 	var displayer : SpellCardDisplayer = GameUtils.get_spell_card_displayer()

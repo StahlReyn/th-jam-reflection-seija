@@ -51,7 +51,7 @@ func _ready() -> void:
 	boss.do_check_despawn = false
 	boss.remove_on_death = false
 	boss.remove_on_chapter_change = false
-	boss.mhp = 2000;
+	boss.mhp = 100;
 	boss.reset_hp()
 	boss.drop_power = 40
 	boss.drop_point = 40
@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	if is_instance_valid(boss):
 		#print(boss_target_position)
 		boss.position = lerp(boss.position, boss_target_position, delta * 2)
-		if boss.hp < 0 and can_switch_end():
+		if boss.hp <= 0 and can_switch_end():
 			switch_state(State.ENDING, 2.0)
 	if time_active >= duration and can_switch_end():
 		switch_state(State.ENDING, 2.0)
@@ -209,6 +209,7 @@ func on_state_change(state: int):
 		State.SPINNING:
 			change_path()
 		State.ENDING:
+			timer_spawn.paused = true
 			if is_instance_valid(boss):
 				boss.do_check_despawn = true
 			boss_target_position = Vector2(385,-200)
