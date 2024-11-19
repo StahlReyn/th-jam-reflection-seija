@@ -123,4 +123,4 @@ func basic_copy(to_copy: Entity, base: Entity) -> void:
 
 func set_bullet_style(bullet: Entity) -> void:
 	bullet.material = blend_add
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.RED)
+	bullet.set_color(SGBasicBullet.ColorType.RED)

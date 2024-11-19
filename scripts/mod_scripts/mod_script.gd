@@ -77,3 +77,15 @@ static func spawn_title_card(scene : PackedScene, pos : Vector2 = Vector2(0,0)) 
 	image.global_position = pos
 	container.call_deferred("add_child", image)
 	return image
+
+# Common Lambda Function
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
+
+static func en_accel(accel : Vector2):
+	return func f(entity : Entity):
+		return entity.velocity + (entity.dt * accel)
+
+static func en_circ(freq, amp, shift = 0.0):
+	return func f(entity : Entity):
+		return entity.velocity + entity.dt * Vector2.from_angle(entity.total_time * freq + shift) * amp

@@ -78,7 +78,7 @@ func start_section():
 func set_bullet_style(bullet: Entity) -> void:
 	bullet.despawn_padding = 300  # increase padding as rotate move offscreen far
 	bullet.material = blend_add
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+	bullet.set_color(SGBasicBullet.ColorType.BLUE)
 
 func timeout_1():
 	if not enabled:
@@ -133,7 +133,7 @@ func spawn_ice_shards(x_offset : float):
 	for i in range(50):
 		bullet = ModScript.spawn_bullet(bullet_shard, Vector2(i * 20 + x_offset, 5))
 		bullet.velocity = Vector2.ZERO
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.TEAL)
+		bullet.set_color(SGBasicBullet.ColorType.TEAL)
 		bullet.add_script_node(
 			MSAcceleration.new(Vector2(0, 200))
 		)

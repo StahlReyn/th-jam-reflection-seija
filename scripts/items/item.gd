@@ -49,7 +49,9 @@ func _physics_process(delta: float) -> void:
 		process_spawn_movement(delta)
 	else:
 		process_movement(delta)
-	check_despawn()
+	# Check Despawn
+	if position.y > 1000:
+		call_deferred("queue_free")
 
 func is_magnetic() -> bool:
 	if not magnet_target: # Sometimes self is Nil when A lot happens
@@ -123,10 +125,6 @@ func do_point_display() -> void:
 		item_display.set_text(str(point))
 	if is_item_border_range():
 		item_display.set_maximum_style()
-
-func check_despawn() -> void:
-	if position.y > 1000:
-		call_deferred("queue_free")
 
 func is_player_range() -> bool:
 	return distance_squared < magnet_range_squared

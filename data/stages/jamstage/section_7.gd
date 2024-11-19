@@ -47,7 +47,7 @@ func spawn_circle_shot_fairy(position):
 	var velocity = Vector2(0, 300)
 	var acceleration = Vector2(0, -120)
 	var enemy = spawn_enemy(enemy_fairy, position)
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.RED)
+	enemy.main_sprite.set_type(SGFairy.Type.RED)
 	enemy.velocity = velocity
 	enemy.drop_power = 0
 	enemy.drop_point = 25
@@ -62,14 +62,14 @@ func spawn_circle_shot_fairy(position):
 
 static func circle_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.RED)
+		bullet.set_color(SGBasicBullet.ColorType.RED)
 		bullet.material = material_additive
 
 func spawn_big_shot_fairy(position, invert = false):
 	var velocity = Vector2(0, 320)
 	var acceleration = Vector2(0, -100)
 	var enemy = spawn_enemy(enemy_fairy, position)
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.YELLOW)
+	enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
 	enemy.velocity = velocity
 	enemy.drop_power = 15
 	enemy.drop_point = 0
@@ -85,7 +85,7 @@ func spawn_big_shot_fairy(position, invert = false):
 
 static func big_shot_style(bullet):
 	#for bullet : Bullet in bullet_list:
-	bullet.set_color(SpriteGroupBasicBullet.ColorType.YELLOW)
+	bullet.set_color(SGBasicBullet.ColorType.YELLOW)
 	bullet.material = material_additive
 	bullet.add_script_node(
 		MSConstantRotation.new(2)

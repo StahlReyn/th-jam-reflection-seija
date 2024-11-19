@@ -56,7 +56,7 @@ func timeout_rain():
 		bullet.add_script_node(
 			MSAcceleration.new(acceleration)
 		)
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.BLUE)
+		bullet.set_color(SGBasicBullet.ColorType.BLUE)
 		bullet.material = material_additive
 	
 	if time_active > 10.0:
@@ -85,7 +85,7 @@ func timeout_fairy():
 	var velocity := Vector2(0, 80)
 	var enemy = spawn_enemy(enemy_fairy, Vector2(randf_range(100, 660), -50))
 	enemy.velocity = velocity
-	enemy.main_sprite.set_type(SpriteGroupFairy.Type.RED)
+	enemy.main_sprite.set_type(SGFairy.Type.RED)
 	enemy.velocity = velocity
 	enemy.drop_power = 0
 	enemy.drop_point = 25
@@ -101,7 +101,7 @@ func timeout_fairy():
 
 static func circle_shot_style(bullet_list):
 	for bullet : Bullet in bullet_list:
-		bullet.set_color(SpriteGroupBasicBullet.ColorType.RED)
+		bullet.set_color(SGBasicBullet.ColorType.RED)
 		bullet.material = material_additive
 
 static func mirror_x(x: float) -> float:

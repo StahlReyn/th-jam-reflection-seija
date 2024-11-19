@@ -76,6 +76,6 @@ func bullet_pattern1(speed, scale, offset) -> void:
 	var bullet = spawn_bullet(bullet_circle, parent.position)
 	var bullet_speed = 150 + (shot_count * 3)
 	bullet.velocity = direction * bullet_speed
-	bullet.set_color(shot_count, SpriteGroupBasicBullet.ColorVariant.LIGHT)
+	bullet.set_color(shot_count, SGBasicBullet.ColorVariant.LIGHT)
 
 # bullet.global_position.direction_to(player.global_position)

@@ -5,6 +5,9 @@ var game_area : Vector2 = Vector2(768,896)
 func get_player() -> Player:
 	return get_tree().get_nodes_in_group("player")[0]
 
+func get_direction_to_player(node : Node2D) -> Vector2:
+	return node.position.direction_to(get_player().position)
+
 func get_enemy_list() -> Array[Node]:
 	return get_tree().get_nodes_in_group("enemy")
 
@@ -52,6 +55,3 @@ func get_popup_displayer() -> PopUps:
 
 func get_point_items() -> Array[Node]:
 	return get_tree().get_nodes_in_group("item")
-
-func get_game_area() -> Vector2:
-	return game_area

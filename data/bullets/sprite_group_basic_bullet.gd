@@ -1,4 +1,4 @@
-class_name SpriteGroupBasicBullet
+class_name SGBasicBullet
 extends Sprite2D
 
 enum ColorType { ## Colummn Number x

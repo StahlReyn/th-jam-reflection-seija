@@ -1,4 +1,4 @@
-class_name SpriteGroupFairy
+class_name SGFairy
 extends SpriteGroup
 
 enum Type { ## essentially rows
