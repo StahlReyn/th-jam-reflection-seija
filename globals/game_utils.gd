@@ -1,6 +1,12 @@
 extends Node
 
-var game_area : Vector2 = Vector2(768,896) # Half is Vector2(384,448)
+var game_area := Vector2(768,896) # Half is Vector2(384,448)
+var default_time_scale := 1.0
+
+func freeze_frame(time_scale, duration):
+	Engine.time_scale = time_scale
+	await get_tree().create_timer(duration * time_scale).timeout
+	Engine.time_scale = default_time_scale
 
 func get_player() -> Player:
 	return get_tree().get_nodes_in_group("player")[0]

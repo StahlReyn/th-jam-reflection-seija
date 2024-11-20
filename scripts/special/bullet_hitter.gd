@@ -9,9 +9,13 @@ extends Area2D
 @onready var bar_hit_range : TextureProgressBar = $HitRange
 @onready var charge_particles : GPUParticles2D = $ChargeParticles
 
+static var hit_effect : PackedScene = preload("res://data/after_effects/bullet_reflect.tscn")
+static var hit_effect_big : PackedScene = preload("res://data/after_effects/bullet_reflect_big.tscn")
+
 var sprite_hit_range_base_width = 256
 
 var entity_in_area : EntityList = EntityList.new()
+var entity_hittable_list := []
 
 var min_time_press : float = 0.1
 var charge_time : float = 0.0
@@ -19,7 +23,7 @@ var play_anim : bool = true
 
 var disable_time : float = 0.0
 var whiff_disable_time : float = 0.3
-var combo_threshold : int = 20
+var combo_threshold : int = 30
 
 var hit_radius : float
 var hit_angle : float ## Angle from center, UP Vector
@@ -75,7 +79,6 @@ func process_hitter(delta):
 		#prints("released, charge time:", charge_time)
 		do_hit()
 		charge_time = 0
-	
 
 func do_hit() -> void:
 	if is_max_charge():
@@ -83,29 +86,32 @@ func do_hit() -> void:
 	else:
 		hit_sprite.play("default")
 	entity_in_area.clean_list()
-	var hit_count = entity_in_area.entity_count()
+	entity_hittable_list = []
 	
+	for entity : Entity in entity_in_area:
+		var angle_to_center = abs(Vector2.UP.angle_to(entity.position - get_parent().position))
+		if angle_to_center <= hit_angle:
+			entity_hittable_list.append(entity)
+	
+	var hit_count = entity_hittable_list.size()
 	if hit_count > 0: # HIT BULLET
 		audio_hit.play()
-		if hit_count >= combo_threshold:
+		if is_max_charge() and hit_count >= combo_threshold: # Combo Effect
 			var popup := TextPopup.create_popup("COMBO: " + str(hit_count), get_parent().global_position)
 			popup.modulate = Color.YELLOW
-		for entity : Entity in entity_in_area:
-			var center_pos = get_parent().position #+ Vector2(0, 300)
-			var distance_vector = entity.position - center_pos
-			# If out of arc length, consider it out of range and skip
-			var angle_to_center = abs(Vector2.UP.angle_to(distance_vector))
-			if angle_to_center > hit_angle:
-				continue
-			
+			GameUtils.freeze_frame(0.2, 0.3)
+		for entity : Entity in entity_hittable_list: # Bullet Changes
+			var direction = (entity.position - get_parent().position).normalized()
+			entity.velocity = direction * hit_velocity * (charge_time + 1)
 			# Hitted Entity change attributes
-			entity.velocity = distance_vector.normalized() * hit_velocity * (charge_time + 1)
-			if is_max_charge():
-				entity.velocity *= 2
 			entity.modulate.a = 0.3
 			entity.z_index = -10
 			hit_entity_property(entity)
-		
+			if is_max_charge():
+				entity.velocity *= 2
+				AfterEffect.add_effect(hit_effect_big, entity.global_position)
+			else:
+				AfterEffect.add_effect(hit_effect, entity.global_position)
 	else: # WHIFFED - NO BULLET
 		audio_swing.play()
 		var popup := TextPopup.create_popup("WHIFFED", get_parent().global_position)

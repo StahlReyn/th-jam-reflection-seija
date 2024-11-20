@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://bip8eai2u42mx"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/after_effect.gd" id="1_7dvdf"]
+[ext_resource type="Material" uid="uid://b00awa5xgvt7g" path="res://data/canvas_material/blend_additive.tres" id="2_m3a6c"]
+[ext_resource type="Texture2D" uid="uid://xxo3asphowy2" path="res://assets/img/effects/bullet_reflect.png" id="3_q3oai"]
+[ext_resource type="Script" path="res://scripts/sprite_effects/particle_oneshot.gd" id="4_sro3b"]
+
+[sub_resource type="Curve" id="Curve_da21x"]
+_data = [Vector2(0, 0.253698), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.952974, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tw5qy"]
+curve = SubResource("Curve_da21x")
+
+[sub_resource type="Curve" id="Curve_mo1la"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 4.96335, 0, 0, Vector2(1, 1.75028), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0mmf1"]
+curve = SubResource("Curve_mo1la")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1mwpq"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+angle_curve = SubResource("CurveTexture_0mmf1")
+spread = 180.0
+initial_velocity_min = 70.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+damping_min = 80.0
+damping_max = 80.0
+alpha_curve = SubResource("CurveTexture_tw5qy")
+
+[node name="BulletRemove" type="Node2D"]
+z_index = 10
+script = ExtResource("1_7dvdf")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = ExtResource("2_m3a6c")
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_1mwpq")
+texture = ExtResource("3_q3oai")
+lifetime = 0.5
+script = ExtResource("4_sro3b")
+time = 0.05
