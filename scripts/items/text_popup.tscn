@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://daaiy3hyaoxgj"]
+
+[ext_resource type="LabelSettings" uid="uid://bpx3qlx2aqi0w" path="res://assets/resources/label_settings/label_text_popup.tres" id="1_w70y1"]
+[ext_resource type="Script" path="res://scripts/items/text_popup.gd" id="1_x4j6n"]
+
+[node name="TextPopup" type="Label"]
+offset_right = 69.0
+offset_bottom = 24.0
+text = "000000"
+label_settings = ExtResource("1_w70y1")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_x4j6n")

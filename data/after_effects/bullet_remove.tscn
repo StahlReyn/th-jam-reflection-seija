@@ -40,7 +40,7 @@ script = ExtResource("1_ri8w8")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = ExtResource("2_ym0b2")
-amount = 50
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_cxee4")
 texture = ExtResource("3_17kfl")
 lifetime = 0.7

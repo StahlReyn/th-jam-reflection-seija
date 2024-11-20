@@ -14,37 +14,50 @@ var sprite_hit_range_base_width = 256
 var entity_in_area : EntityList = EntityList.new()
 
 var min_time_press : float = 0.1
-var time_since_press : float = 0.0
 var charge_time : float = 0.0
 var play_anim : bool = true
-var anim_time_per_frame = 0.08
-var anim_time = 0.0
 
-var max_charge = 2.0
+var disable_time : float = 0.0
+var whiff_disable_time : float = 0.3
+var combo_threshold : int = 20
+
 var hit_radius : float
 var hit_angle : float ## Angle from center, UP Vector
-var base_hit_radius = 70
-var base_hit_angle = TAU/6
+var hit_velocity := 500.0
+var max_charge := 1.0
+
+var hit_radius_min := 80.0
+var hit_radius_max := 120.0
+var hit_angle_min := TAU/6
+var hit_angle_max := TAU/4
+var max_charge_mult := 1.15
 
 func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	time_since_press += delta
-	anim_time += delta
-	
-	queue_redraw()
-	
+	disable_time -= delta
+	if disable_time <= 0.0:
+		progress_bar.modulate = Color(Color.WHITE, 0.2)
+		bar_hit_range.modulate = Color(Color.WHITE, 0.2)
+		process_hitter(delta)
+	else:
+		progress_bar.modulate = Color(Color.CRIMSON, 0.2)
+		bar_hit_range.modulate = Color(Color.CRIMSON, 0.2)
+	update_display()
+
+func update_display():
 	progress_bar.set_value(charge_time)
+	hit_radius = lerp(hit_radius_min, hit_radius_max, charge_time)
+	hit_angle = lerp(hit_angle_min, hit_angle_max, charge_time)
+		
 	if is_max_charge():
-		hit_radius = base_hit_radius + (35 * charge_time)
-		hit_angle = base_hit_angle + (TAU/15 * charge_time)
+		hit_radius *= max_charge_mult
+		hit_angle *= max_charge_mult
 		progress_bar.modulate.a = 1
 		bar_hit_range.modulate.a = 0.15
 		charge_particles.emitting = true
 	else:
-		hit_radius = base_hit_radius + (25 * charge_time)
-		hit_angle = base_hit_angle + (TAU/20 * charge_time)
 		progress_bar.modulate.a = 0.5
 		bar_hit_range.modulate.a = 0.1
 		charge_particles.emitting = false
@@ -53,7 +66,8 @@ func _physics_process(delta: float) -> void:
 	var scale_sprite = 2 * hit_radius / sprite_hit_range_base_width
 	bar_hit_range.scale = Vector2(scale_sprite, scale_sprite)
 	bar_hit_range.value = hit_angle
-	
+
+func process_hitter(delta):
 	if Input.is_action_pressed("shoot"):
 		charge_time += delta
 		charge_time = minf(charge_time, max_charge)
@@ -61,53 +75,64 @@ func _physics_process(delta: float) -> void:
 		#prints("released, charge time:", charge_time)
 		do_hit()
 		charge_time = 0
+	
 
 func do_hit() -> void:
 	if is_max_charge():
 		hit_sprite_large.play("default")
 	else:
 		hit_sprite.play("default")
-	audio_swing.play()
-	time_since_press = 0
-	
 	entity_in_area.clean_list()
-	if entity_in_area.entity_count() > 0:
+	var hit_count = entity_in_area.entity_count()
+	
+	if hit_count > 0: # HIT BULLET
 		audio_hit.play()
-		var center_pos = get_parent().position #+ Vector2(0, 300)
+		if hit_count >= combo_threshold:
+			var popup := TextPopup.create_popup("COMBO: " + str(hit_count), get_parent().global_position)
+			popup.modulate = Color.YELLOW
 		for entity : Entity in entity_in_area:
+			var center_pos = get_parent().position #+ Vector2(0, 300)
 			var distance_vector = entity.position - center_pos
 			# If out of arc length, consider it out of range and skip
 			var angle_to_center = abs(Vector2.UP.angle_to(distance_vector))
 			if angle_to_center > hit_angle:
 				continue
 			
-			#var direction = entity.velocity.bounce(distance_vector.normalized())
-			#entity.velocity = direction * (charge_time + 1)
-			entity.velocity = distance_vector.normalized() * 500 * (charge_time + 1)
-			
-			# Fancy hit change attributes
-			entity.velocity.y = -abs(entity.velocity.y) # Go upward
+			# Hitted Entity change attributes
+			entity.velocity = distance_vector.normalized() * hit_velocity * (charge_time + 1)
+			if is_max_charge():
+				entity.velocity *= 2
 			entity.modulate.a = 0.3
 			entity.z_index = -10
-			
-			var power_mult = (GameVariables.power / 100) + 1
-			
-			if entity is Bullet:
-				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
-				entity.damage += floori(charge_time * 2 * power_mult)
-				entity.penetration += floori(charge_time * 1 * power_mult)
-				if is_max_charge():
-					entity.damage *= 2
-					entity.penetration *= 2
-				GameVariables.point_value += entity.damage
-			elif entity is Character:
-				entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
-				entity.collision_mask = BulletUtils.CollisionMask.TARGET_PLAYER
-				entity.collision_damage += floori(charge_time * 3 * power_mult)
-				if is_max_charge():
-					entity.collision_damage *= 2
-				GameVariables.point_value += entity.collision_damage
+			hit_entity_property(entity)
+		
+	else: # WHIFFED - NO BULLET
+		audio_swing.play()
+		var popup := TextPopup.create_popup("WHIFFED", get_parent().global_position)
+		popup.modulate = Color.LIGHT_CORAL
+		disable_time = whiff_disable_time
 
+func hit_entity_property(entity):
+	var power_mult = (GameVariables.power / 100) + 1
+	var charge_mult = charge_time + 1
+	var total_mult = charge_mult * power_mult
+	
+	if entity is Bullet:
+		entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
+		entity.damage = floori(entity.damage * total_mult)
+		entity.penetration = floori(entity.penetration * total_mult)
+		if is_max_charge():
+			entity.damage *= 2
+			entity.penetration *= 2
+		GameVariables.point_value += entity.damage
+	elif entity is Character:
+		entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
+		entity.collision_mask = BulletUtils.CollisionMask.TARGET_PLAYER
+		entity.collision_damage = floori(charge_time * total_mult * 2)
+		if is_max_charge():
+			entity.collision_damage *= 2
+		GameVariables.point_value += entity.collision_damage
+	
 func is_max_charge() -> bool:
 	return charge_time >= max_charge
 

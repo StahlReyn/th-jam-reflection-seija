@@ -12,7 +12,7 @@ enum State {
 }
 
 @export var base_speed : int = 400 ## pixels/sec
-@export var focus_speed : int = 150 ## pixels/sec
+@export var focus_speed : int = 200 ## pixels/sec
 @export var area_graze : AreaGraze
 @export var audio_shoot : AudioStreamPlayer2D ## shoot audio is done on player side to not overlap multiple shooters
 @export var audio_item : AudioStreamPlayer2D ## Audio for item collection
@@ -69,25 +69,22 @@ func process_state() -> void:
 func process_iframe() -> void:
 	if is_invincible():
 		main_sprite.modulate.a = cos(state_timer * 20) * 0.2 + 0.8
+		monitoring = false
 	else:
 		main_sprite.modulate.a = 1
+		monitoring = true
 
 func get_speed():
 	if Input.is_action_pressed("focus"):
 		return focus_speed
 	return base_speed
 
-func take_damage(dmg : int):
-	if not is_invincible():
-		hp -= dmg
-		check_death()
-
 func do_death():
 	super()
 	GameVariables.lose_lives()
 	GameVariables.deaths += 1
 	check_game_over()
-	do_spawn_movement()
+	call_deferred("do_spawn_movement")
 
 func do_spawn_movement():
 	switch_state(State.DEAD_DELAY, 0.5)

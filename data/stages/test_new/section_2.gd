@@ -82,7 +82,7 @@ static func shoot_circle_group(entity:Entity):
 		var bullet_list = BulletUtils.spawn_circle_packed(
 			BulletUtils.scene_dict["circle_medium"], # Bullet to spawn
 			entity.position, # Position
-			direction * 200, 16, 50, 0, 5, PI/16
+			direction * 200, 16, 40, 0, 4, PI/16
 		)
 		for bullet : Bullet in bullet_list:
 			bullet.set_color(SGBasicBullet.ColorType.RED)

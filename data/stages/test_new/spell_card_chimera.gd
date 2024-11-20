@@ -51,7 +51,7 @@ func _ready() -> void:
 	boss.do_check_despawn = false
 	boss.remove_on_death = false
 	boss.remove_on_chapter_change = false
-	boss.mhp = 100;
+	boss.mhp = 1000;
 	boss.reset_hp()
 	boss.drop_power = 40
 	boss.drop_point = 40
