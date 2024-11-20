@@ -1,6 +1,6 @@
 extends Node
 
-var game_area : Vector2 = Vector2(768,896)
+var game_area : Vector2 = Vector2(768,896) # Half is Vector2(384,448)
 
 func get_player() -> Player:
 	return get_tree().get_nodes_in_group("player")[0]

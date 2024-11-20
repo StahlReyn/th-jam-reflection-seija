@@ -1,9 +1,9 @@
 [gd_scene load_steps=20 format=3 uid="uid://chg817g0wf0ij"]
 
-[ext_resource type="Script" path="res://scripts/gamestate/gamehud.gd" id="1_ovxsb"]
 [ext_resource type="Texture2D" uid="uid://c7cx5yj4h5drb" path="res://assets/img/system/hud-test.png" id="1_tnihf"]
+[ext_resource type="Script" path="res://scenes/gameplay/gamehud.gd" id="1_xgt62"]
 [ext_resource type="FontFile" uid="uid://cgat1phnbct83" path="res://assets/fonts/Seagull-Bold.otf" id="2_avfm3"]
-[ext_resource type="Script" path="res://scripts/gamestate/debug-label.gd" id="2_hgmoc"]
+[ext_resource type="Script" path="res://scenes/gameplay/debug-label.gd" id="2_hgmoc"]
 [ext_resource type="LabelSettings" uid="uid://bkay61kan2hfv" path="res://assets/resources/label_settings/label_score.tres" id="4_w0ro3"]
 [ext_resource type="Texture2D" uid="uid://ba2ttc5hf8t30" path="res://assets/img/system/divider_stat.png" id="5_7bs50"]
 [ext_resource type="LabelSettings" uid="uid://buvvmef2syqrg" path="res://assets/resources/label_settings/label_score_title.tres" id="5_tyrlp"]
@@ -35,7 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ovxsb")
+script = ExtResource("1_xgt62")
 
 [node name="Label" type="Label" parent="."]
 z_index = 21
@@ -53,7 +53,6 @@ texture = ExtResource("1_tnihf")
 centered = false
 
 [node name="DebugLabel" type="Label" parent="."]
-visible = false
 z_index = 20
 layout_mode = 2
 offset_left = 868.0

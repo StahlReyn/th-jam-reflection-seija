@@ -18,6 +18,10 @@ script = ExtResource("1_dyv06")
 [node name="StageHandler" type="Node" parent="." groups=["stage_handler"]]
 script = ExtResource("8_e6ddu")
 
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+position = Vector2(384, 448)
+current = true
+
 [node name="ImageContainer" type="Node2D" parent="." groups=["image_container"]]
 script = ExtResource("3_r12md")
 
