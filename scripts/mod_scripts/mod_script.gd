@@ -47,6 +47,13 @@ static func spawn_enemy(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> En
 	GameVariables.enemy_spawned += 1
 	return enemy
 
+static func spawn_enemy_boss(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> EnemyBoss:
+	var enemy : EnemyBoss = spawn_enemy(scene, pos)
+	enemy.stop_all_despawn()
+	enemy.set_inactive()
+	enemy.add_to_group("enemy_boss")
+	return enemy
+
 static func spawn_bullet(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Bullet:
 	var container = GameUtils.get_bullet_container()
 	var bullet : Bullet = scene.instantiate()

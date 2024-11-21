@@ -38,9 +38,9 @@ var timer_spawn_count : int = 0
 # Pattern Variables
 var bullet_base_speed : float = 350
 var line_count : int = 16
-var spin_time : float = 2.0
+var spin_time : float = 2.5
 var spawn_time : float = 1.0
-var spin_speed : float = 0.19 # This is more of multiplier. Speed is also depend on distance
+var spin_speed : float = 0.385 # This is more of multiplier. Speed is also depend on distance
 
 func _ready() -> void:
 	super()
@@ -165,7 +165,7 @@ func change_path() -> void:
 		circle_count = bullet.get_meta("circle_count")
 		bullet.call_deferred("queue_free")
 		
-		new_bullet = spawn_bullet(BulletUtils.scene_dict["circle_medium"], bullet.position)
+		new_bullet = spawn_bullet(bullet_circle, bullet.position)
 		new_bullet.set_meta("center_pos", center_pos)
 		new_bullet.set_meta("circle_count", circle_count)
 		set_bullet_style(new_bullet)
@@ -175,7 +175,13 @@ func change_path() -> void:
 			direction = new_bullet.position.direction_to(center_pos).rotated(0.4*PI)
 		else:
 			direction = new_bullet.position.direction_to(center_pos).rotated(-0.4*PI)
-		new_bullet.velocity = direction * spin_speed * distance
+		
+		new_bullet.set_meta("main_velocity", direction * spin_speed * distance)
+		new_bullet.add_behavior_func(
+			func f(bullet: Bullet):
+				bullet.velocity += bullet.get_meta("main_velocity") * bullet.dt * sin(bullet.active_time*TAU/spin_time)
+		)
+		# new_bullet.velocity = direction * spin_speed * distance
 
 func continue_bullets() -> void:
 	print("CHIMERA - Continue Bullet")
@@ -188,7 +194,7 @@ func continue_bullets() -> void:
 		circle_count = bullet.get_meta("circle_count")
 		bullet.call_deferred("queue_free")
 		
-		new_bullet = spawn_bullet(BulletUtils.scene_dict["partial_laser_small"], bullet.position)
+		new_bullet = spawn_bullet(bullet_line, bullet.position)
 		new_bullet.set_meta("center_pos", center_pos)
 		new_bullet.set_meta("circle_count", circle_count)
 		set_bullet_style(new_bullet)

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="DialogueSet" load_steps=15 format=3 uid="uid://3wrtknycht6e"]
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=16 format=3 uid="uid://3wrtknycht6e"]
 
+[ext_resource type="PackedScene" uid="uid://b7wem167k8q0c" path="res://data/enemies/bosses/boss_nue_houjuu.tscn" id="1_82tyl"]
 [ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_l6bcs"]
 [ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_5dwqe"]
 [ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_7lw3o"]
@@ -101,3 +102,5 @@ text = "NUE_8"
 [resource]
 script = ExtResource("5_mvfdl")
 dialogue_actions = Array[ExtResource("1_l6bcs")]([SubResource("Resource_smvod"), SubResource("Resource_ocqt5"), SubResource("Resource_b56ne"), SubResource("Resource_rxvpf"), SubResource("Resource_lc77s"), SubResource("Resource_tp6b0"), SubResource("Resource_4vhk7"), SubResource("Resource_a0d0k"), SubResource("Resource_gn4vk")])
+boss_spawn = ExtResource("1_82tyl")
+start_delay = 1.0

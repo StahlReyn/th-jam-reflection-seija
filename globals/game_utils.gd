@@ -17,6 +17,9 @@ func get_direction_to_player(node : Node2D) -> Vector2:
 func get_enemy_list() -> Array[Node]:
 	return get_tree().get_nodes_in_group("enemy")
 
+func get_enemy_boss_list() -> Array[Node]:
+	return get_tree().get_nodes_in_group("enemy_boss")
+
 func get_bullet_list() -> Array[Node]:
 	return get_tree().get_nodes_in_group("bullet")
 	

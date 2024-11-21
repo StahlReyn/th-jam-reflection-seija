@@ -4,11 +4,13 @@ extends SectionScript
 ## Section ending is called from Dialogue Displayer
 
 var dialogue_set : DialogueSet
-var dialogue_delay : float = 0.0
 
-func _init(dialogue_set : DialogueSet = null, dialogue_delay : float = 0.0) -> void:
+var boss : EnemyBoss
+var boss_target_position := Vector2(385, 300)
+var boss_spawn_position := Vector2(385,-50)
+
+func _init(dialogue_set : DialogueSet = null) -> void:
 	self.dialogue_set = dialogue_set
-	self.dialogue_delay = dialogue_delay
 
 func _ready() -> void:
 	print_rich("[color=green]==== Section Dialogue Script ====[/color]")
@@ -16,16 +18,20 @@ func _ready() -> void:
 	# Dialogue should not trigger chapter by default
 	do_chapter_end = false
 	total_bonus = 0
+	if dialogue_set.boss_spawn != null:
+		boss = spawn_enemy_boss(dialogue_set.boss_spawn, boss_spawn_position)
 	start_section()
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	if boss != null:
+		boss.position = lerp(boss.position, boss_target_position, delta * 2)
 
 func start_section() -> void:
 	super()
 	var displayer : DialogueDisplayer = GameUtils.get_dialogue_displayer()
 	displayer.set_dialogue_script(self)
-	await get_tree().create_timer(dialogue_delay).timeout
+	await get_tree().create_timer(dialogue_set.start_delay).timeout
 	displayer.start_dialogue()
 
 func end_condition() -> bool: # Dialogue does NOT end automatically by default

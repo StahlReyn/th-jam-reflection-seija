@@ -81,3 +81,8 @@ static func clear_enemies(forced : bool = false) -> void:
 		for enemy : Enemy in GameUtils.get_enemy_list():
 			if enemy.remove_on_chapter_change:
 				enemy.do_remove(true)
+
+static func clear_enemy_bosses() -> void:
+	print("- Clear Enemy BOSSES")
+	for enemy : EnemyBoss in GameUtils.get_enemy_boss_list():
+		enemy.do_remove(true)
