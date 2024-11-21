@@ -1,0 +1,103 @@
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=15 format=3 uid="uid://3rf8bxkny5l4"]
+
+[ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_qatay"]
+[ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_0x4fh"]
+[ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_68bk5"]
+[ext_resource type="PackedScene" uid="uid://djahhl372822n" path="res://data/portraits/letty_whiterock/portrait_set_letty_whiterock.tscn" id="4_epi1c"]
+[ext_resource type="Script" path="res://resources/dialogue_set.gd" id="5_3k8so"]
+
+[sub_resource type="Resource" id="Resource_hscxn"]
+script = ExtResource("3_68bk5")
+id = "A"
+auto = true
+set_others_back = true
+portrait = ExtResource("2_0x4fh")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 2
+text = ""
+
+[sub_resource type="Resource" id="Resource_j2qxn"]
+script = ExtResource("3_68bk5")
+id = "B"
+auto = false
+set_others_back = true
+portrait = ExtResource("4_epi1c")
+face_anim = "neutral"
+body_anim = "main"
+position_type = 1
+text = "LETTY_14"
+
+[sub_resource type="Resource" id="Resource_itbh8"]
+script = ExtResource("3_68bk5")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 0
+text = "LETTY_15"
+
+[sub_resource type="Resource" id="Resource_ktd6k"]
+script = ExtResource("3_68bk5")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "LETTY_16"
+
+[sub_resource type="Resource" id="Resource_qx8en"]
+script = ExtResource("3_68bk5")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "LETTY_17"
+
+[sub_resource type="Resource" id="Resource_esuri"]
+script = ExtResource("3_68bk5")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 0
+text = "LETTY_18"
+
+[sub_resource type="Resource" id="Resource_0x251"]
+script = ExtResource("3_68bk5")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 0
+text = "LETTY_19"
+
+[sub_resource type="Resource" id="Resource_umqlf"]
+script = ExtResource("3_68bk5")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "LETTY_20"
+
+[sub_resource type="Resource" id="Resource_ubqxa"]
+script = ExtResource("3_68bk5")
+id = "B"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 1
+text = "LETTY_21"
+
+[resource]
+script = ExtResource("5_3k8so")
+dialogue_actions = Array[ExtResource("1_qatay")]([SubResource("Resource_hscxn"), SubResource("Resource_j2qxn"), SubResource("Resource_itbh8"), SubResource("Resource_ktd6k"), SubResource("Resource_qx8en"), SubResource("Resource_esuri"), SubResource("Resource_0x251"), SubResource("Resource_umqlf"), SubResource("Resource_ubqxa")])

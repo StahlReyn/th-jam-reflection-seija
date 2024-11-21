@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=10 format=3 uid="uid://c2k5bx6vbki28"]
+
+[ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_ccohb"]
+[ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_jau0y"]
+[ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_mvokr"]
+[ext_resource type="Script" path="res://resources/dialogue_set.gd" id="4_8ub34"]
+
+[sub_resource type="Resource" id="Resource_26rq7"]
+script = ExtResource("3_mvokr")
+id = "A"
+auto = false
+set_others_back = true
+portrait = ExtResource("2_jau0y")
+face_anim = "angry"
+body_anim = "main"
+position_type = 0
+text = "INTRO_1"
+
+[sub_resource type="Resource" id="Resource_h6uyo"]
+script = ExtResource("3_mvokr")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = "smug"
+body_anim = ""
+position_type = 0
+text = "INTRO_2"
+
+[sub_resource type="Resource" id="Resource_gm8up"]
+script = ExtResource("3_mvokr")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = "angry"
+body_anim = ""
+position_type = 0
+text = "INTRO_3"
+
+[sub_resource type="Resource" id="Resource_7rcb8"]
+script = ExtResource("3_mvokr")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = ""
+body_anim = ""
+position_type = 0
+text = "INTRO_4"
+
+[sub_resource type="Resource" id="Resource_3bg6i"]
+script = ExtResource("3_mvokr")
+id = "A"
+auto = false
+set_others_back = true
+face_anim = "surprised"
+body_anim = ""
+position_type = 0
+text = "INTRO_5"
+
+[resource]
+script = ExtResource("4_8ub34")
+dialogue_actions = Array[ExtResource("1_ccohb")]([SubResource("Resource_26rq7"), SubResource("Resource_h6uyo"), SubResource("Resource_gm8up"), SubResource("Resource_7rcb8"), SubResource("Resource_3bg6i")])

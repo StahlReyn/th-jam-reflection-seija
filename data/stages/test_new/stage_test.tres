@@ -1,11 +1,35 @@
-[gd_resource type="Resource" script_class="StageData" load_steps=4 format=3 uid="uid://b6org8ginbbsr"]
+[gd_resource type="Resource" script_class="StageData" load_steps=16 format=3 uid="uid://b6org8ginbbsr"]
 
 [ext_resource type="Script" path="res://resources/stage_data.gd" id="1_qsp84"]
 [ext_resource type="Script" path="res://resources/stage_action.gd" id="2_obigo"]
-[ext_resource type="Resource" uid="uid://es7j1eqir048" path="res://data/stages/test_new/script_section_1.tres" id="3_on04u"]
+[ext_resource type="Script" path="res://resources/stage_action_script.gd" id="3_iuw4r"]
+[ext_resource type="Resource" uid="uid://c2k5bx6vbki28" path="res://data/stages/test_new/dialogues/dialogue_start.tres" id="4_klw34"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/section_1.gd" id="4_w3rn1"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/section_2.gd" id="5_iip8u"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/section_3.gd" id="6_c5cl7"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/spell_card_chimera.gd" id="7_l5fjw"]
+[ext_resource type="Script" path="res://resources/dialogue_set.gd" id="8_wm3v4"]
+[ext_resource type="Script" path="res://resources/stage_action_dialogue.gd" id="9_kqxls"]
+[ext_resource type="Resource" uid="uid://3wrtknycht6e" path="res://data/stages/test_new/dialogues/dialogue_nue.tres" id="10_qsvm6"]
+
+[sub_resource type="Resource" id="Resource_v5li2"]
+script = ExtResource("9_kqxls")
+dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("4_klw34")])
+
+[sub_resource type="Resource" id="Resource_ksmro"]
+script = ExtResource("3_iuw4r")
+script_data = Array[GDScript]([ExtResource("4_w3rn1"), ExtResource("5_iip8u"), ExtResource("6_c5cl7")])
+
+[sub_resource type="Resource" id="Resource_qdvuv"]
+script = ExtResource("9_kqxls")
+dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("10_qsvm6")])
+
+[sub_resource type="Resource" id="Resource_6hckk"]
+script = ExtResource("3_iuw4r")
+script_data = Array[GDScript]([ExtResource("7_l5fjw")])
 
 [resource]
 script = ExtResource("1_qsp84")
 stage_number = 0
 stage_difficulty = 0
-stage_actions = Array[ExtResource("2_obigo")]([ExtResource("3_on04u")])
+stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_qdvuv"), SubResource("Resource_6hckk")])

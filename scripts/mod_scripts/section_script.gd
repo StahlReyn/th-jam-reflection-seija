@@ -12,7 +12,7 @@ var total_bonus : int = 1000000
 
 var stage_parent : StageScript
 var do_chapter_end : bool = true
-var section_end_delay : float = 2.0
+var section_end_delay : float = 1.0
 
 func _ready() -> void:
 	print_rich("[color=green]==== Section Script ====[/color]")

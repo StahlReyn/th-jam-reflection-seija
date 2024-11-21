@@ -22,10 +22,6 @@ func _ready() -> void:
 	add_to_group("stage_script")
 	print_rich("[color=green][b]==== Stage Script ====[/b][/color]")
 	do_next_stage_action()
-	do_next_action()
-	print("THIS STUFF")
-	print(stage_data)
-	print(stage_data.stage_actions)
 
 func add_section_script(section : SectionScript) -> void:
 	add_child(section)
@@ -41,30 +37,40 @@ func is_section_available() -> bool:
 	return true
 
 func on_section_end(section_script : SectionScript) -> void:
-	print("On Section End - Delaying ", section_script.section_end_delay)
+	print("On Section End: Delay ", section_script.section_end_delay)
 	section_delay_timer.start(section_script.section_end_delay)
 
 func _on_section_delay_timer_timeout() -> void:
 	do_next_action()
 	
 func do_next_stage_action() -> void:
-	print_rich("[color=yellow]> Next Stage Action: [/color]", stage_action_index)
 	section_index = 0
 	if stage_action_index < stage_data.stage_actions.size():
+		print_rich("[color=yellow]> Next Stage Action: [/color]", stage_action_index)
 		cur_stage_action = stage_data.stage_actions[stage_action_index]
 		stage_action_index += 1
-	
+		do_next_action()
+	else:
+		print_rich("[color=yellow]> End Stage Action[/color]")
+
 func do_next_action() -> void:
-	print(cur_stage_action)
 	if cur_stage_action is StageActionDialogue:
 		if section_index < cur_stage_action.dialogue_data.size():
 			print_rich("[color=yellow]> Next Script (Dialogue): [/color]", section_index)
 			var dialogue_set : DialogueSet = cur_stage_action.dialogue_data[section_index]
 			add_section_script(SectionDialogueScript.new(dialogue_set))
 			section_index += 1
+		else:
+			print_rich("[color=yellow]> End Script (Dialogue)[/color]")
+			cur_stage_action.call_deferred("queue_free")
+			do_next_stage_action()
 	elif cur_stage_action is StageActionScript:
 		if section_index < cur_stage_action.script_data.size():
 			print_rich("[color=yellow]> Next Script (Script): [/color]", section_index)
 			var stage_script : GDScript = cur_stage_action.script_data[section_index]
 			add_section_script(stage_script.new())
 			section_index += 1
+		else:
+			print_rich("[color=yellow]> End Script (Script)[/color]")
+			cur_stage_action.call_deferred("queue_free")
+			do_next_stage_action()
