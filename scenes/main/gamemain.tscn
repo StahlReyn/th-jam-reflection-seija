@@ -20,48 +20,54 @@ shader_parameter/flip = false
 shader_parameter/horizontal = false
 shader_parameter/frames = 20
 
-[node name="Gamemain" type="Node2D"]
+[node name="Gamemain" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_jvava")
 default_stage = ExtResource("2_tt756")
 
-[node name="ScreenWipe" type="ColorRect" parent="."]
+[node name="Gamehud" parent="." instance=ExtResource("1_585am")]
+z_index = 100
+layout_mode = 1
+script = null
+
+[node name="Camera2D" type="Camera2D" parent="Gamehud"]
+position = Vector2(640, 480)
+
+[node name="ScreenWipe" type="ColorRect" parent="Gamehud"]
 process_mode = 3
 z_index = 200
 material = SubResource("ShaderMaterial_su4a2")
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 960.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("3_a3loy")
 
-[node name="DialogueDisplayer" parent="." instance=ExtResource("2_aq4qu")]
+[node name="DialogueDisplayer" parent="Gamehud" instance=ExtResource("2_aq4qu")]
 z_index = 100
 metadata/_edit_lock_ = true
 
-[node name="Gamehud" parent="." instance=ExtResource("1_585am")]
-z_index = 50
-script = null
-metadata/_edit_lock_ = true
+[node name="PauseMenu" parent="Gamehud" instance=ExtResource("8_uh2lw")]
+z_index = -1
 
-[node name="PopUps" parent="." instance=ExtResource("6_h5sjb")]
-z_index = 10
+[node name="PopUps" parent="Gamehud" instance=ExtResource("6_h5sjb")]
+z_index = -2
 
 [node name="Gameview" parent="." instance=ExtResource("2_frqqi")]
 position = Vector2(64, 32)
 metadata/_edit_lock_ = true
 
-[node name="PauseMenu" parent="." instance=ExtResource("8_uh2lw")]
-
 [node name="ViewportBackground" type="SubViewportContainer" parent="."]
 z_index = -20
-offset_left = 64.0
-offset_top = 32.0
-offset_right = 832.0
-offset_bottom = 928.0
-metadata/_edit_lock_ = true
+layout_mode = 0
+offset_left = 32.0
+offset_right = 864.0
+offset_bottom = 960.0
 
 [node name="SubViewport" type="SubViewport" parent="ViewportBackground"]
 handle_input_locally = false
-size = Vector2i(768, 896)
+size = Vector2i(832, 960)
 render_target_update_mode = 4
 
 [node name="StageTorifune" parent="ViewportBackground/SubViewport" instance=ExtResource("10_muvou")]

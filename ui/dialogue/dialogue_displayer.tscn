@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://bph3cyuhiqibp" path="res://ui/dialogue/dialogue_balloon.tscn" id="2_hwxvs"]
 [ext_resource type="PackedScene" uid="uid://p6dhswy1pgkx" path="res://data/portraits/reimu_holdurei/portrait_set_reimu_holdurei.tscn" id="3_g055i"]
 
-[node name="DialogueDisplayer" type="Node2D" groups=["dialogue_displayer"]]
+[node name="DialogueDisplayer" type="Control" groups=["dialogue_displayer"]]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_6q2me")
 
 [node name="DialogueBalloonTest" parent="." instance=ExtResource("2_hwxvs")]

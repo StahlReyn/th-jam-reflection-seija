@@ -1,5 +1,5 @@
 class_name PopUps
-extends Node2D
+extends Control
 ## Does Popups
 ## Chapter and Spellcard fastest, then timer and effects
 

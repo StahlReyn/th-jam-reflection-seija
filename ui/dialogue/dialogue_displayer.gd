@@ -1,5 +1,5 @@
 class_name DialogueDisplayer
-extends Node2D
+extends Control
 
 var cur_dialogue_script : SectionDialogueScript
 var cur_dialogue_action : DialogueAction

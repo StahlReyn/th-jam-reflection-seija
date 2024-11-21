@@ -5,8 +5,10 @@
 [ext_resource type="LabelSettings" uid="uid://bkay61kan2hfv" path="res://assets/resources/label_settings/label_score.tres" id="2_47yn5"]
 [ext_resource type="LabelSettings" uid="uid://nnehbdowh1ax" path="res://assets/resources/label_settings/label_chapter.tres" id="3_iab3m"]
 
-[node name="PopUps" type="Node2D" groups=["popups"]]
+[node name="PopUps" type="Control" groups=["popups"]]
 z_index = 5
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_tq0x4")
 
 [node name="Center" type="CenterContainer" parent="."]

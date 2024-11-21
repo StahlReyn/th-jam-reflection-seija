@@ -4,9 +4,11 @@
 [ext_resource type="Script" path="res://scenes/selection_list.gd" id="2_bn2ex"]
 [ext_resource type="LabelSettings" uid="uid://cri81cp1to0ux" path="res://assets/resources/label_settings/label_pause_options.tres" id="3_tgauo"]
 
-[node name="PauseMenu" type="Node2D" node_paths=PackedStringArray("selection_list")]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("selection_list")]
 process_mode = 3
 z_index = 20
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_wwt7j")
 selection_list = NodePath("PauseUI/SelectionList")
 metadata/_edit_lock_ = true

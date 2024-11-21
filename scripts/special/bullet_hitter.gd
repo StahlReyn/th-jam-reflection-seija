@@ -100,6 +100,7 @@ func do_hit() -> void:
 			var popup := TextPopup.create_popup("COMBO: " + str(hit_count), get_parent().global_position)
 			popup.modulate = Color.YELLOW
 			GameUtils.freeze_frame(0.2, 0.3)
+			GameUtils.get_game_view().get_parent().cur_shake_strength = 20.0
 		for entity : Entity in entity_hittable_list: # Bullet Changes
 			var direction = (entity.position - get_parent().position).normalized()
 			entity.velocity = direction * hit_velocity * (charge_time + 1)
