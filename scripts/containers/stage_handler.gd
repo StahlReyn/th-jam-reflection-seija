@@ -12,11 +12,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	check_finished_sections()
 
-func add_stage_script_from_data(data : StageData) -> Node:
-	var inst : StageScript = StageScript.new_stage_script_from_data(data)
+func add_stage_script_from_data(data : StageData) -> StageScript:
+	var inst := StageScript.new(data)
 	add_child(inst)
 	cur_stage_script = inst
-	print("Add Script Sequence")
+	print("Add Stage Script")
 	return inst
 
 func check_finished_sections() -> void:

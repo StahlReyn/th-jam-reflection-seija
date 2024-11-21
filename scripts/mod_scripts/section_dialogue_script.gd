@@ -5,6 +5,9 @@ extends SectionScript
 
 var dialogue_set : DialogueSet
 
+func _init(dialogue_set : DialogueSet) -> void:
+	self.dialogue_set = dialogue_set
+
 func _ready() -> void:
 	print_rich("[color=green]==== Section Dialogue Script ====[/color]")
 	super()
