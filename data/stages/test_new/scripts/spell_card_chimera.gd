@@ -23,7 +23,7 @@ enum State {
 
 @onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 
-var boss : Enemy
+var boss : EnemyBoss
 var state : int = State.IDLE
 var state_timer : float = 3.0
 
@@ -47,15 +47,18 @@ func _ready() -> void:
 	start_section()
 	timer_spawn = timer_setup(timer_spawn_timeout)
 	switch_state(State.IDLE, 3.0)
-	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
-	boss.do_check_despawn = false
-	boss.remove_on_death = false
-	boss.remove_on_chapter_change = false
+	var bosses = get_tree().get_nodes_in_group("enemy_boss")
+	if bosses.size() > 0:
+		boss = bosses[0]
+	else:
+		boss = spawn_enemy(enemy_boss, Vector2(385,-50))
+	boss.stop_all_despawn()
 	boss.mhp = 1000;
-	boss.reset_hp()
 	boss.drop_power = 40
 	boss.drop_point = 40
 	boss.drop_life_piece = 3
+	boss.reset_hp()
+	boss.set_active()
 
 func _physics_process(delta: float) -> void:
 	super(delta)

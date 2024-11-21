@@ -23,6 +23,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 
+func stop_all_despawn(): # Used for Bosses more but can be useful for other case
+	do_check_despawn = false
+	remove_on_death = false
+	remove_on_chapter_change = false
+
 func update_animation():
 	if not self_update_anim: # If not update just ignore
 		return

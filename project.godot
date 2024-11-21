@@ -72,6 +72,7 @@ spell_card_displayer=""
 dialogue_displayer=""
 popups=""
 stage_script=""
+enemy_boss=""
 
 [input]
 

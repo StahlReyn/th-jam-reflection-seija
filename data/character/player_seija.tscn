@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bstkesf6qp7fw"]
+[gd_scene load_steps=50 format=3 uid="uid://bstkesf6qp7fw"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_s2rpu"]
 [ext_resource type="PackedScene" uid="uid://d2eem28mf01vm" path="res://data/after_effects/player_death.tscn" id="2_x02xu"]
@@ -9,16 +9,17 @@
 [ext_resource type="AudioStream" uid="uid://cdhevsxixrc4p" path="res://assets/audio/sfx/bullet_big_noisy.wav" id="5_dhwaf"]
 [ext_resource type="AudioStream" uid="uid://dq30caahnggrl" path="res://assets/audio/sfx/pichuun_processed.wav" id="5_qrn1r"]
 [ext_resource type="Texture2D" uid="uid://bqidpawr42u4f" path="res://assets/img/system/hit_range.png" id="5_v0a1e"]
-[ext_resource type="AudioStream" uid="uid://d3yv5rebyk5hw" path="res://assets/audio/sfx/swing_whoosh.mp3" id="6_7b0us"]
 [ext_resource type="Texture2D" uid="uid://wvfou1s5yw25" path="res://assets/img/character/hit_swing_large.png" id="6_facvt"]
 [ext_resource type="AudioStream" uid="uid://d2xwmw785vew0" path="res://assets/audio/sfx/bullet_player.wav" id="6_t3jot"]
 [ext_resource type="AudioStream" uid="uid://cdcqm4htide61" path="res://assets/audio/sfx/click_collect.wav" id="7_icqmt"]
 [ext_resource type="Material" uid="uid://b00awa5xgvt7g" path="res://data/canvas_material/blend_additive.tres" id="7_v6ub3"]
 [ext_resource type="Texture2D" uid="uid://cln7nfxe8xhy2" path="res://assets/img/system/charge_progress.png" id="8_0a5y1"]
 [ext_resource type="Script" path="res://scripts/entities/area_graze.gd" id="8_3w082"]
+[ext_resource type="AudioStream" uid="uid://bsm75pt4sd3g4" path="res://assets/audio/sfx/big_hit.wav" id="9_2nxwy"]
 [ext_resource type="Texture2D" uid="uid://c0wruv71j8ich" path="res://assets/img/character/graze_circle.png" id="9_yfk5v"]
 [ext_resource type="Texture2D" uid="uid://dqdl2bwkkx363" path="res://assets/img/character/focus_dot.png" id="10_6oa7s"]
 [ext_resource type="Texture2D" uid="uid://ivtjquqivrl7" path="res://assets/img/effects/bullet_disappear.png" id="10_esweu"]
+[ext_resource type="AudioStream" uid="uid://gk35kr0m3pd0" path="res://assets/audio/sfx/hit_miss.wav" id="10_msd6i"]
 [ext_resource type="Script" path="res://scripts/sprite_effects/particle_oneshot.gd" id="11_u0gj8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_46g0w"]
@@ -222,7 +223,7 @@ animations = [{
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e5t30"]
-radius = 40.0
+radius = 50.0
 
 [node name="PlayerSeija" type="Area2D" node_paths=PackedStringArray("area_graze", "audio_shoot", "audio_item", "main_sprite", "main_collision") groups=["player"]]
 collision_mask = 6
@@ -284,8 +285,11 @@ shape = SubResource("CircleShape2D_bttlw")
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="BulletHitter"]
 stream = ExtResource("5_dhwaf")
 
+[node name="AudioHitBig" type="AudioStreamPlayer2D" parent="BulletHitter"]
+stream = ExtResource("9_2nxwy")
+
 [node name="AudioSwing" type="AudioStreamPlayer2D" parent="BulletHitter"]
-stream = ExtResource("6_7b0us")
+stream = ExtResource("10_msd6i")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="BulletHitter"]
 modulate = Color(1, 1, 1, 0.619608)

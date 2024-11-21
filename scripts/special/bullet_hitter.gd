@@ -4,6 +4,7 @@ extends Area2D
 @onready var hit_sprite : AnimatedSprite2D = $SpriteHitSmall
 @onready var hit_sprite_large : AnimatedSprite2D = $SpriteHitLarge
 @onready var audio_hit : AudioStreamPlayer2D = $AudioHit
+@onready var audio_hit_big : AudioStreamPlayer2D = $AudioHitBig
 @onready var audio_swing : AudioStreamPlayer2D = $AudioSwing
 @onready var progress_bar : TextureProgressBar = $TextureProgressBar
 @onready var bar_hit_range : TextureProgressBar = $HitRange
@@ -95,12 +96,14 @@ func do_hit() -> void:
 	
 	var hit_count = entity_hittable_list.size()
 	if hit_count > 0: # HIT BULLET
-		audio_hit.play()
 		if is_max_charge() and hit_count >= combo_threshold: # Combo Effect
+			audio_hit_big.play()
 			var popup := TextPopup.create_popup("COMBO: " + str(hit_count), get_parent().global_position)
 			popup.modulate = Color.YELLOW
 			GameUtils.freeze_frame(0.2, 0.3)
 			GameUtils.get_game_view().get_parent().cur_shake_strength = 20.0
+		else:
+			audio_hit.play()
 		for entity : Entity in entity_hittable_list: # Bullet Changes
 			var direction = (entity.position - get_parent().position).normalized()
 			entity.velocity = direction * hit_velocity * (charge_time + 1)
@@ -154,5 +157,4 @@ func _on_area_entered(area: Area2D) -> void:
 		entity_in_area.add_entity(area)
 
 func _on_area_exited(area: Area2D) -> void:
-	if area_can_parry(area):
-		entity_in_area.remove_entity(area)
+	entity_in_area.remove_entity(area)
