@@ -53,7 +53,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if is_instance_valid(boss):
-		boss.position = lerp(boss.position, boss_target_position, delta * 2)
+		boss.position = MathUtils.expDecay(boss.position, boss_target_position, 2, delta)
 		if boss.hp < 0 and not doing_end:
 			timer1.start(0.1)
 			doing_end = true

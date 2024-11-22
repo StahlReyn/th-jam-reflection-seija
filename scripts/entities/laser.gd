@@ -44,12 +44,12 @@ func _physics_process(delta: float) -> void:
 		State.STATIC:
 			# WIDTH is THICKNESS, due to Positive X axis as forward and sprite rotated 90deg clockwise
 			laser_collision.disabled = false
-			laser_collision.shape.size.y = lerp(laser_collision.shape.size.y, target_size.y, lerp_speed * delta)
+			laser_collision.shape.size.y = MathUtils.expDecay(laser_collision.shape.size.y, target_size.y, lerp_speed, delta)
 			var target_scale = target_size.y / base_size.x
-			main_sprite.scale.x = lerp(main_sprite.scale.x, target_scale, lerp_speed * delta)
+			main_sprite.scale.x = MathUtils.expDecay(main_sprite.scale.x, target_scale, lerp_speed, delta)
 		State.END:		
-			laser_collision.shape.size.y = lerp(laser_collision.shape.size.y, 0.0, lerp_speed * delta)
-			main_sprite.scale.x = lerp(main_sprite.scale.x, 0.0, lerp_speed * delta)
+			laser_collision.shape.size.y = MathUtils.expDecay(laser_collision.shape.size.y, 0.0, lerp_speed, delta)
+			main_sprite.scale.x = MathUtils.expDecay(main_sprite.scale.x, 0.0, lerp_speed, delta)
 			if laser_collision.shape.size.y < width_remove:
 				switch_state(State.REMOVE, 100.0)
 		State.REMOVE:

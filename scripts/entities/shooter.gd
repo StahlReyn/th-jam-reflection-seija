@@ -48,7 +48,7 @@ func reset_cooldown() -> void:
 	cooldown_time = get_cooldown()
 
 func process_position(delta) -> void:
-	position = lerp(position, get_target_pos(), delta * position_speed)
+	position = MathUtils.expDecay(position, get_target_pos(), position_speed, delta)
 
 func get_cur_layout() -> ShooterLayout:
 	var cur_highest_layout : ShooterLayout = layouts[0]

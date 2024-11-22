@@ -26,9 +26,9 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("bomb"):
 			option_return()
 		
-		modulate.a = lerp(modulate.a, 1.0, delta * 100)
+		modulate.a = MathUtils.expDecay(modulate.a, 1.0, 100, delta)
 	else:
-		modulate.a = lerp(modulate.a, 0.0, delta * 100)
+		modulate.a = MathUtils.expDecay(modulate.a, 0.0, 100, delta)
 
 func option_return():
 	print("> Option Return")
