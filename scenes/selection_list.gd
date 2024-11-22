@@ -46,14 +46,14 @@ func _physics_process(delta: float) -> void:
 			cur_margin = child.get_theme_constant("margin_left")
 			extra_margin = margin_increment * margin_index
 			if margin_index == cur_selection:
-				child.modulate = MathUtils.expDecay(child.modulate, modulate_select, margin_speed, delta)
+				child.modulate = MathUtils.lerp_smooth(child.modulate, modulate_select, margin_speed, delta)
 				child.add_theme_constant_override("margin_left", 
-					int(MathUtils.expDecay(cur_margin, margin_select + extra_margin, margin_speed, delta))
+					int(MathUtils.lerp_smooth(cur_margin, margin_select + extra_margin, margin_speed, delta))
 				)
 			else:
-				child.modulate = MathUtils.expDecay(child.modulate, modulate_deselect, margin_speed, delta)
+				child.modulate = MathUtils.lerp_smooth(child.modulate, modulate_deselect, margin_speed, delta)
 				child.add_theme_constant_override("margin_left", 
-					int(MathUtils.expDecay(cur_margin, margin_deselect + extra_margin, margin_speed, delta))
+					int(MathUtils.lerp_smooth(cur_margin, margin_deselect + extra_margin, margin_speed, delta))
 				)
 			margin_index += 1
 		

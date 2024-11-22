@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	process_state()
 	if is_instance_valid(boss):
 		#print(boss_target_position)
-		boss.position = MathUtils.expDecay(boss.position, boss_target_position, 2, delta)
+		boss.position = MathUtils.lerp_smooth(boss.position, boss_target_position, 2, delta)
 		if boss.hp < 0 and can_switch_end():
 			switch_state(State.ENDING, 2.0)
 	if time_active >= duration and can_switch_end():

@@ -90,5 +90,5 @@ func set_face_anim(anim_name: String) -> void:
 	sprite_face.play(anim_name)
 
 func process_position(delta: float) -> void:
-	global_position = MathUtils.expDecay(global_position, pos_target, pos_move_speed, delta)
-	set_modulate(MathUtils.expDecay(get_modulate(), mod_target, mod_speed, delta))
+	global_position = MathUtils.lerp_smooth(global_position, pos_target, pos_move_speed, delta)
+	set_modulate(MathUtils.lerp_smooth(get_modulate(), mod_target, mod_speed, delta))

@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 		if parent != null and cur_target_enemy != null:
 			var target_angle = parent.global_position.angle_to_point(cur_target_enemy.global_position)
 			var prev_angle = parent.velocity.angle()
-			var result_angle = MathUtils.expDecayAngle(prev_angle, target_angle, rotation_speed, delta)
+			var result_angle = MathUtils.lerp_angle_smooth(prev_angle, target_angle, rotation_speed, delta)
 			parent.velocity = Vector2.from_angle(result_angle) * bullet_speed
 
 func physics_process_active(delta: float) -> void:

@@ -40,7 +40,9 @@ var bullet_base_speed : float = 350
 var line_count : int = 16
 var spin_time : float = 2.5
 var spawn_time : float = 1.0
-var spin_speed : float = 0.385 # This is more of multiplier. Speed is also depend on distance
+var rotate_angle : float = PI/8
+var magical_time_compensation_constant : float = 0.008
+var reverse_spin : bool = false
 
 func _ready() -> void:
 	super()
@@ -66,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	process_state()
 	if is_instance_valid(boss):
 		#print(boss_target_position)
-		boss.position = MathUtils.expDecay(boss.position, boss_target_position, 2, delta)
+		boss.position = MathUtils.lerp_smooth(boss.position, boss_target_position, 2, delta)
 		if boss.hp <= 0 and can_switch_end():
 			switch_state(State.ENDING, 2.0)
 	if time_active >= duration and can_switch_end():
@@ -144,22 +146,17 @@ func process_state() -> void:
 			State.ENDING:
 				switch_state(State.ENDED, 5.0)
 
-static func bullet_change_path(position, spin_speed, circ_times):
-	return func f(entity:Entity):
-		var distance = entity.position.distance_to(position)
-		var rotation = 0.4 * PI
-		if circ_times % 2 == 1:
-			rotation *= -1
-		var direction = entity.position.direction_to(position).rotated(rotation)
-		return direction * spin_speed * distance
-
 func change_path() -> void:
 	print("CHIMERA - Change Path")
-	var center_pos
-	var circle_count
-	var new_bullet
-	var distance
-	var direction
+	var center_pos : Vector2
+	var circle_count : int
+	var new_bullet : Entity
+	var angle_to_rotate : float
+	
+	var displacement : Vector2
+	var start_point : Vector2
+	var target_point : Vector2
+	var frequency : float
 	for bullet in GameUtils.get_bullet_list():
 		center_pos = bullet.get_meta("center_pos")
 		circle_count = bullet.get_meta("circle_count")
@@ -170,18 +167,25 @@ func change_path() -> void:
 		new_bullet.set_meta("circle_count", circle_count)
 		set_bullet_style(new_bullet)
 		
-		distance = new_bullet.position.distance_to(center_pos)
-		if circle_count % 2 == 0:
-			direction = new_bullet.position.direction_to(center_pos).rotated(0.4*PI)
-		else:
-			direction = new_bullet.position.direction_to(center_pos).rotated(-0.4*PI)
+		start_point = new_bullet.position
+		angle_to_rotate = rotate_angle
+		if reverse_spin:
+			angle_to_rotate *= -1
+		if circle_count % 2 == 1:
+			angle_to_rotate *= -1
+		target_point = MathUtils.rotate_around_point(start_point, center_pos, angle_to_rotate)
+		displacement = target_point - start_point
+		frequency = TAU / (spin_time + magical_time_compensation_constant)
 		
-		new_bullet.set_meta("main_velocity", direction * spin_speed * distance)
 		new_bullet.add_behavior_func(
 			func f(bullet: Bullet):
-				bullet.velocity += bullet.get_meta("main_velocity") * bullet.dt * sin(bullet.active_time*TAU/spin_time)
+				bullet.velocity += (
+					displacement
+					* sin(bullet.active_time * frequency)
+					* bullet.dt	
+				)
 		)
-		# new_bullet.velocity = direction * spin_speed * distance
+	reverse_spin = not reverse_spin
 
 func continue_bullets() -> void:
 	print("CHIMERA - Continue Bullet")

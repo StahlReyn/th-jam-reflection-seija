@@ -25,7 +25,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if boss != null:
-		boss.position = MathUtils.expDecay(boss.position, dialogue_set.target_position, 2, delta)
+		boss.position = MathUtils.lerp_smooth(boss.position, dialogue_set.target_position, 2, delta)
 
 func start_section() -> void:
 	super()

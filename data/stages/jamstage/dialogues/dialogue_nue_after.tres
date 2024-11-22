@@ -71,3 +71,6 @@ text = "NUE_13"
 [resource]
 script = ExtResource("2_v3igx")
 dialogue_actions = Array[ExtResource("1_tnneb")]([SubResource("Resource_flqrv"), SubResource("Resource_q5ggg"), SubResource("Resource_tyshf"), SubResource("Resource_tnx5o"), SubResource("Resource_l8xcg"), SubResource("Resource_0wfht")])
+start_delay = 0.0
+spawn_position = Vector2(385, -50)
+target_position = Vector2(385, 300)

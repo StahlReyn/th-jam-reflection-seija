@@ -47,8 +47,8 @@ func process_timer_display(delta: float) -> void:
 			target_color.a = 1
 			target_pos = timer_pos_spell
 	
-	label_timer.set_modulate(MathUtils.expDecay(cur_color, target_color, timer_lerp_speed, delta))
-	label_timer.position = MathUtils.expDecay(cur_pos, target_pos, timer_lerp_speed, delta)
+	label_timer.set_modulate(MathUtils.lerp_smooth(cur_color, target_color, timer_lerp_speed, delta))
+	label_timer.position = MathUtils.lerp_smooth(cur_pos, target_pos, timer_lerp_speed, delta)
 
 func reset_anim() -> void:
 	animation_node.play(&"RESET")

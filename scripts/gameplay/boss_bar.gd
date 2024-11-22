@@ -19,8 +19,8 @@ func end_display():
 	target_alpha = 0.0
 
 func update_value(delta):
-	modulate.a = MathUtils.expDecay(modulate.a, target_alpha, 20, delta)
-	display_value = MathUtils.expDecay(display_value, float(parent.hp), 5, delta)
+	modulate.a = MathUtils.lerp_smooth(modulate.a, target_alpha, 20, delta)
+	display_value = MathUtils.lerp_smooth(display_value, float(parent.hp), 5, delta)
 	set_min(0)
 	set_max(parent.mhp)
 	set_value(display_value)
