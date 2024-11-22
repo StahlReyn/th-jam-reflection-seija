@@ -1,5 +1,4 @@
 class_name MathUtils
-extends Node
 
 static func expDecay(a, b, decay, dt):
 	return lerp(a, b, 1 - exp(-decay * dt))
