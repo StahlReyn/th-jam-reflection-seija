@@ -49,9 +49,12 @@ func do_death():
 func _on_area_entered(area: Area2D) -> void:
 	if area is Bullet:
 		hit.emit()
-		take_damage(area.damage)
-		area.on_hit()
+		var damage_taken = min(area.damage, self.hp)
+		take_damage(damage_taken)
+		area.do_damage_loss(damage_taken)
+		area.on_hit(self)
 	elif area is Character:
 		hit.emit()
-		take_damage(area.collision_damage)
-		area.on_hit()
+		var damage_taken = min(area.collision_damage, self.hp)
+		take_damage(damage_taken)
+		area.on_hit(self)

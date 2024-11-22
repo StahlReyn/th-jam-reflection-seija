@@ -12,14 +12,6 @@
 [ext_resource type="Script" path="res://resources/stage_action_dialogue.gd" id="9_kqxls"]
 [ext_resource type="Resource" uid="uid://3wrtknycht6e" path="res://data/stages/test_new/dialogues/dialogue_nue.tres" id="10_qfhoa"]
 
-[sub_resource type="Resource" id="Resource_0e0ai"]
-script = ExtResource("9_kqxls")
-dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("10_qfhoa")])
-
-[sub_resource type="Resource" id="Resource_6hckk"]
-script = ExtResource("3_iuw4r")
-script_data = Array[GDScript]([ExtResource("7_l5fjw")])
-
 [sub_resource type="Resource" id="Resource_v5li2"]
 script = ExtResource("9_kqxls")
 dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("4_klw34")])
@@ -28,8 +20,16 @@ dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("4_klw34")])
 script = ExtResource("3_iuw4r")
 script_data = Array[GDScript]([ExtResource("4_w3rn1"), ExtResource("5_iip8u"), ExtResource("6_c5cl7")])
 
+[sub_resource type="Resource" id="Resource_0e0ai"]
+script = ExtResource("9_kqxls")
+dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("10_qfhoa")])
+
+[sub_resource type="Resource" id="Resource_6hckk"]
+script = ExtResource("3_iuw4r")
+script_data = Array[GDScript]([ExtResource("7_l5fjw")])
+
 [resource]
 script = ExtResource("1_qsp84")
 stage_number = 0
 stage_difficulty = 0
-stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_0e0ai"), SubResource("Resource_6hckk"), SubResource("Resource_v5li2"), SubResource("Resource_ksmro")])
+stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_0e0ai"), SubResource("Resource_6hckk")])

@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 			print("Preemptive Laser End")
 			switch_state(State.END, 100.0)
 
-func on_hit():
+func on_hit(entity : Entity) -> void:
 	if bullet_hit_effect_scene:
 		AfterEffect.add_effect(bullet_hit_effect_scene, global_position)
 	#call_deferred("queue_free")

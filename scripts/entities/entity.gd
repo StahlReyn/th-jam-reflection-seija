@@ -20,7 +20,6 @@ var speed_multiplier = 1.0
 
 var total_time : float = 0.0
 var active_time : float = 0.0
-var hit_count : int = 0
 var in_wall : bool = false
 var despawn_padding : float = 100
 
@@ -40,7 +39,8 @@ func _init() -> void:
 		add_child(script_handler)
 
 func _ready() -> void:
-	pass
+	if rotation_based_on_velocity and velocity != Vector2.ZERO:
+		rotation = velocity.angle()
 
 func _physics_process(delta: float) -> void:
 	dt = delta
@@ -93,15 +93,14 @@ func is_in_wall_area() -> bool:
 			or position.y < 0)
 
 func is_in_despawn_area() -> bool:
-	return position.distance_squared_to(despawn_center) > despawn_radius
-	#return (position.x > GameUtils.game_area.x + despawn_padding
-			#or position.x < - despawn_padding
-			#or position.y > GameUtils.game_area.y + despawn_padding
-			#or position.y < - despawn_padding)
+	# return position.distance_squared_to(despawn_center) > (despawn_radius + despawn_padding)
+	return (position.x > GameUtils.game_area.x + despawn_padding
+			or position.x < - despawn_padding
+			or position.y > GameUtils.game_area.y + despawn_padding
+			or position.y < - despawn_padding)
 
-func on_hit():
+func on_hit(entity : Entity) -> void:
 	hit.emit()
-	hit_count += 1
 
 # in base entity do_remove isnt called automatically, let the child class or external handle it
 func do_remove(remove_effect : bool = false):

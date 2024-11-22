@@ -29,6 +29,7 @@ static func create_popup(display_text: String, pos: Vector2) -> TextPopup:
 	var offset = display.get_size() * 0.5
 	display.pivot_offset = offset
 	display.top_level = true
+	display.z_index = 10
 	display.global_position = pos - offset
 	display.set_text(display_text)
 	GameUtils.get_effect_container().add_child(display)

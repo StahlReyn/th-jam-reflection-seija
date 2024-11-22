@@ -5,28 +5,46 @@ static var bullet_hit_effect : PackedScene = preload("res://data/after_effects/b
 static var bullet_remove_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
 static var bullet_spawn_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
 
+static var DISPLAY_DAMAGE = true
+
 @export_group("Visuals")
 @export var main_sprite : Sprite2D
 @export var bullet_hit_effect_scene : PackedScene
 @export_group("Gameplay")
 @export var damage : int = 1
-@export var penetration : int = 1
+@export var damage_loss_mult : float = 1.0 ## 1 is usual, 0 is damage is never lost
+
+var do_spawn_effect : bool = true ## This will make bullet do slight fade and scale-in transition
+var prev_scale : Vector2
+var prev_alpha : float
 
 func _init() -> void:
 	super()
 	
 func _ready() -> void:
 	super()
-	# Placeholder spawn effect
-	# AfterEffect.add_effect(bullet_spawn_effect, global_position)
+	prev_alpha = main_sprite.modulate.a
+	prev_scale = main_sprite.scale
+	if do_spawn_effect:
+		main_sprite.modulate.a = 0
+		main_sprite.scale = prev_scale * 2.0
 
-#func _physics_process(delta: float) -> void:
-	#super(delta)
+func _physics_process(delta: float) -> void:
+	super(delta)
+	if do_spawn_effect:
+		main_sprite.modulate.a = MathUtils.lerp_smooth(main_sprite.modulate.a, prev_alpha, 10.0, delta)
+		main_sprite.scale = MathUtils.lerp_smooth(main_sprite.scale, prev_scale, 10.0, delta)
 
-func on_hit():
-	super()
+func do_damage_loss(value : int) -> void:
+	self.damage -= value * damage_loss_mult
+	if DISPLAY_DAMAGE and value != 0:
+		var popup := TextPopup.create_popup(str(value), global_position)
+		popup.modulate = Color.RED
+	
+func on_hit(entity : Entity) -> void:
+	super(entity)
 	AfterEffect.add_effect(bullet_hit_effect, global_position)
-	if hit_count >= penetration:
+	if damage <= 0: # Damage is reduced from Character side
 		do_remove()
 
 func do_remove(remove_effect : bool = false) -> void:

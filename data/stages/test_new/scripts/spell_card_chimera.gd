@@ -133,6 +133,7 @@ func set_bullet_style(bullet: Entity) -> void:
 	bullet.despawn_padding = 300  # increase padding as rotate move offscreen far
 	bullet.material = blend_add
 	bullet.set_color(SGBasicBullet.ColorType.BLUE)
+	bullet.do_spawn_effect = false
 
 func process_state() -> void:
 	if state_timer < 0:
@@ -173,6 +174,7 @@ func change_path() -> void:
 			angle_to_rotate *= -1
 		if circle_count % 2 == 1:
 			angle_to_rotate *= -1
+		
 		target_point = MathUtils.rotate_around_point(start_point, center_pos, angle_to_rotate)
 		displacement = target_point - start_point
 		frequency = TAU / (spin_time + magical_time_compensation_constant)
