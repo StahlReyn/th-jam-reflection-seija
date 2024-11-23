@@ -1,9 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://y1ht13i0dqug"]
+[gd_scene load_steps=8 format=3 uid="uid://y1ht13i0dqug"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_l2u5d"]
 [ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_bj5kv"]
+[ext_resource type="Script" path="res://resources/enemy_drops.gd" id="2_nvxi6"]
 [ext_resource type="Texture2D" uid="uid://dd8tet8s1inyg" path="res://assets/img/enemies/lesser_fairy.png" id="3_wcuc6"]
 [ext_resource type="Script" path="res://data/enemies/common/sprite_group_fairy.gd" id="4_364e6"]
+
+[sub_resource type="Resource" id="Resource_7olgw"]
+script = ExtResource("2_nvxi6")
+spawn_speed = 1000.0
+spawn_time = 0.1
+power = 3
+point = 0
+power_big = 0
+power_full = 0
+bomb = 0
+life = 0
+bomb_piece = 0
+life_piece = 0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t7bub"]
 radius = 31.0161
@@ -12,8 +26,7 @@ radius = 31.0161
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("1_l2u5d")
-drop_power = 2
-drop_point = 2
+drops = SubResource("Resource_7olgw")
 main_sprite = NodePath("SpriteFairy")
 main_collision = NodePath("CollisionShape2D")
 death_effect_scene = ExtResource("2_bj5kv")

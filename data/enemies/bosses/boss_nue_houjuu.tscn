@@ -52,8 +52,6 @@ collision_layer = 2
 collision_mask = 8
 script = ExtResource("1_1seqm")
 health_bar = NodePath("BossBar")
-drop_power = 40
-drop_point = 40
 mhp = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

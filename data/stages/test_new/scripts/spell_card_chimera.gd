@@ -29,6 +29,8 @@ var state_timer : float = 3.0
 
 var boss_target_position : Vector2 = Vector2(385, 385)
 
+var drop_boss := EnemyDrops.new(40, 0)
+
 var shot_count_1 : int = 0
 var angle_offset : float = 0
 
@@ -45,6 +47,9 @@ var magical_time_compensation_constant : float = 0.008
 var reverse_spin : bool = false
 
 func _ready() -> void:
+	drop_boss.power = 40
+	drop_boss.point = 40
+	drop_boss.life_piece = 3
 	super()
 	start_section()
 	timer_spawn = timer_setup(timer_spawn_timeout)
@@ -55,10 +60,8 @@ func _ready() -> void:
 	else:
 		boss = spawn_enemy(enemy_boss, Vector2(385,-50))
 	boss.stop_all_despawn()
+	boss.drops = drop_boss
 	boss.mhp = 1000;
-	boss.drop_power = 40
-	boss.drop_point = 40
-	boss.drop_life_piece = 3
 	boss.reset_hp()
 	boss.set_active()
 

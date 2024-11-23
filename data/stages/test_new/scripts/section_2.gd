@@ -4,8 +4,11 @@ extends SectionScript
 
 static var material_additive = preload("res://data/canvas_material/blend_additive.tres")
 
-var timer1 : Timer = Timer.new()
+var timer1 := Timer.new()
 var timer1_count : int = 0
+
+var drop_fairy_power := EnemyDrops.new(10, 0)
+var drop_fairy_point := EnemyDrops.new(0, 10)
 
 func _init() -> void:
 	timer1 = timer_setup(timeout_1)
@@ -42,8 +45,7 @@ func spawn_circle_shot_fairy(position):
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.main_sprite.set_type(SGFairy.Type.GREEN)
 	enemy.velocity = velocity
-	enemy.drop_power = 0
-	enemy.drop_point = 15
+	enemy.drops = drop_fairy_point
 	enemy.mhp = 20
 	enemy.reset_hp()
 	enemy.add_velocity_func(en_accel(acceleration))
@@ -55,8 +57,7 @@ func spawn_big_shot_fairy(position):
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.main_sprite.set_type(SGFairy.Type.RED)
 	enemy.velocity = velocity
-	enemy.drop_power = 15
-	enemy.drop_point = 0
+	enemy.drops = drop_fairy_power
 	enemy.mhp = 100
 	enemy.reset_hp()
 	enemy.add_velocity_func(en_accel(acceleration))

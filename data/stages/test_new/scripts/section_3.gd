@@ -7,6 +7,9 @@ static var material_additive = preload("res://data/canvas_material/blend_additiv
 var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
 
+var drop_fairy_power := EnemyDrops.new(5, 0)
+var drop_fairy_point := EnemyDrops.new(0, 8)
+
 func _init() -> void:
 	timer1 = timer_setup(timeout_1)
 
@@ -79,8 +82,7 @@ func spawn_weeping_fairy_set(inverted : bool = false):
 func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
-	enemy.drop_power = 0
-	enemy.drop_point = 8
+	enemy.drops = drop_fairy_point
 	enemy.main_sprite.set_type(SGFairy.Type.BLUE)
 	enemy.add_velocity_func(en_accel(acceleration))
 	enemy.add_behavior_func(weeping_shooter)
@@ -101,8 +103,7 @@ static func weeping_shooter(entity:Entity):
 func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
-	enemy.drop_power = 5
-	enemy.drop_point = 0
+	enemy.drops = drop_fairy_power
 	enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
 	enemy.add_velocity_func(en_accel(acceleration))
 	enemy.add_behavior_func(shoot_arc_triangle)
