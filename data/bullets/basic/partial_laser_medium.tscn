@@ -12,6 +12,7 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_771uw")
 main_sprite = NodePath("Sprite")
+damage = 3
 rotation_based_on_velocity = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

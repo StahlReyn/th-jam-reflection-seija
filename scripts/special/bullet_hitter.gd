@@ -98,7 +98,7 @@ func do_hit() -> void:
 	if hit_count > 0: # HIT BULLET
 		if is_max_charge() and hit_count >= combo_threshold: # Combo Effect
 			audio_hit_big.play()
-			var popup := TextPopup.create_popup("COMBO: " + str(hit_count), get_parent().global_position)
+			var popup := TextPopup.create_popup_shake("COMBO: " + str(hit_count), get_parent().global_position)
 			popup.modulate = Color.YELLOW
 			GameUtils.freeze_frame(0.2, 0.3)
 			GameUtils.get_game_view().get_parent().cur_shake_strength = 20.0
@@ -118,7 +118,7 @@ func do_hit() -> void:
 				AfterEffect.add_effect(hit_effect, entity.global_position)
 	else: # WHIFFED - NO BULLET
 		audio_swing.play()
-		var popup := TextPopup.create_popup("WHIFFED", get_parent().global_position)
+		var popup := TextPopup.create_popup_shake("WHIFFED", get_parent().global_position)
 		popup.modulate = Color.LIGHT_CORAL
 		disable_time = whiff_disable_time
 
