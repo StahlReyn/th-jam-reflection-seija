@@ -22,6 +22,12 @@ func physics_process_active(delta: float) -> void:
 func is_active() -> bool:
 	return enabled
 
+func get_existing_boss(create_scene : PackedScene, index : int = 0) -> EnemyBoss:
+	var bosses = get_tree().get_nodes_in_group("enemy_boss")
+	if bosses.size() > index:
+		return bosses[index]
+	return spawn_enemy(create_scene, Vector2(385,-50))
+
 static func get_container_for_entity(entity: Entity):
 	if entity is Enemy:
 		return GameUtils.get_enemy_container()

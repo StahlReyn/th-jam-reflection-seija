@@ -18,6 +18,10 @@ var do_spawn_effect : bool = true ## This will make bullet do slight fade and sc
 var prev_scale : Vector2
 var prev_alpha : float
 
+const INIT_SPAWN_SCALE := 3.0
+const SPAWN_SCALE_SPEED := 20.0
+const SPAWN_OPACITY_SPEED := 5.0
+
 func _init() -> void:
 	super()
 	
@@ -27,13 +31,13 @@ func _ready() -> void:
 	prev_scale = main_sprite.scale
 	if do_spawn_effect:
 		main_sprite.modulate.a = 0
-		main_sprite.scale = prev_scale * 2.0
+		main_sprite.scale = prev_scale * INIT_SPAWN_SCALE
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if do_spawn_effect:
-		main_sprite.modulate.a = MathUtils.lerp_smooth(main_sprite.modulate.a, prev_alpha, 10.0, delta)
-		main_sprite.scale = MathUtils.lerp_smooth(main_sprite.scale, prev_scale, 10.0, delta)
+		main_sprite.modulate.a = MathUtils.lerp_smooth(main_sprite.modulate.a, prev_alpha, SPAWN_OPACITY_SPEED, delta)
+		main_sprite.scale = MathUtils.lerp_smooth(main_sprite.scale, prev_scale, SPAWN_SCALE_SPEED, delta)
 
 func do_damage_loss(value : int) -> void:
 	self.damage -= value * damage_loss_mult

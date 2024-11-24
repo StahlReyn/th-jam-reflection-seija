@@ -47,30 +47,18 @@ var magical_time_compensation_constant : float = 0.008
 var reverse_spin : bool = false
 
 func _ready() -> void:
-	drop_boss.power = 40
-	drop_boss.point = 40
-	drop_boss.life_piece = 3
 	super()
 	start_section()
 	timer_spawn = timer_setup(timer_spawn_timeout)
 	switch_state(State.IDLE, 3.0)
-	var bosses = get_tree().get_nodes_in_group("enemy_boss")
-	if bosses.size() > 0:
-		boss = bosses[0]
-	else:
-		boss = spawn_enemy(enemy_boss, Vector2(385,-50))
-	boss.stop_all_despawn()
-	boss.drops = drop_boss
-	boss.mhp = 1000;
-	boss.reset_hp()
-	boss.set_active()
+	boss = get_existing_boss(enemy_boss, 0)
+	boss.setup_for_section(drop_boss, 1000)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	state_timer -= delta
 	process_state()
 	if is_instance_valid(boss):
-		#print(boss_target_position)
 		boss.position = MathUtils.lerp_smooth(boss.position, boss_target_position, 2, delta)
 		if boss.hp <= 0 and can_switch_end():
 			switch_state(State.ENDING, 2.0)

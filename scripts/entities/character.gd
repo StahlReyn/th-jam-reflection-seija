@@ -33,6 +33,11 @@ func update_animation() -> void:
 func reset_hp():
 	hp = mhp
 
+func set_mhp(value : int, restore : bool = true):
+	mhp = value
+	if restore:
+		hp = value
+
 func take_damage(dmg : int):
 	hp -= dmg
 	check_death()
