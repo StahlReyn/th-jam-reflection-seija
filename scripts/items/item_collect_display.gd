@@ -22,3 +22,13 @@ func _physics_process(delta: float) -> void:
 
 func set_maximum_style() -> void:
 	modulate.b = 0; # Set Yellow
+
+static func create_display(pos: Vector2, point : int, is_maximum : bool = false):
+	var display : ItemCollectDisplay = ItemCollectDisplay.item_scene.instantiate()
+	var container : EffectContainer = GameUtils.get_effect_container()
+	display.top_level = true
+	display.global_position = pos
+	container.add_child(display)
+	display.set_text(str(point))
+	if is_maximum:
+		display.set_maximum_style()

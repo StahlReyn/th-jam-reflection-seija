@@ -39,9 +39,9 @@ func _physics_process(delta: float) -> void:
 		rotation = sin(total_time * rotate_shake_speed) * rotate_shake_amount
 	
 	if type == Type.BIG_DAMAGE:
-		modulate.g = main_mod.g + sin(total_time * 30.0)
+		modulate.g = main_mod.g + sin(total_time * 50.0) * 0.4
 	elif type == Type.SUPER_DAMAGE:
-		modulate.g = main_mod.g + sin(total_time * 40.0)
+		modulate.g = main_mod.g + sin(total_time * 50.0) * 0.4
 	
 	if modulate.a <= 0:
 		call_deferred("queue_free")
@@ -76,7 +76,7 @@ static func create_popup_damage(value : int, pos: Vector2) -> TextPopup:
 		popup.type = Type.BIG_DAMAGE
 		popup.rotate_shake_speed = 30.0
 		popup.rotate_shake_amount = 0.15
-		popup.modulate = Color.RED
+		popup.modulate = Color.CRIMSON
 		popup.label_settings = label_setting_style_big
 		popup.z_index += 1
 	else:

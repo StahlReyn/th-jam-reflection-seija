@@ -8,8 +8,8 @@
 
 [sub_resource type="Resource" id="Resource_7olgw"]
 script = ExtResource("2_nvxi6")
-spawn_speed = 1000.0
-spawn_time = 0.1
+spawn_speed = 400.0
+spawn_time = 0.3
 power = 3
 point = 0
 power_big = 0

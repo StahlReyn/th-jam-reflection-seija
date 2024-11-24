@@ -2,8 +2,8 @@ class_name EnemyDrops
 extends Resource
 
 @export_group("Spawning")
-@export var spawn_speed : float = 1000.0
-@export var spawn_time : float = 0.1
+@export var spawn_speed : float = 400.0
+@export var spawn_time : float = 0.3
 @export_group("Drops")
 @export var power : int = 0
 @export var point : int = 0

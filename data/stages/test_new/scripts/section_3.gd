@@ -7,8 +7,8 @@ static var material_additive = preload("res://data/canvas_material/blend_additiv
 var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
 
-var drop_fairy_power := EnemyDrops.new(5, 0)
-var drop_fairy_point := EnemyDrops.new(0, 8)
+var drop_fairy_power := EnemyDrops.new(3, 0)
+var drop_fairy_point := EnemyDrops.new(0, 5)
 
 func _init() -> void:
 	timer1 = timer_setup(timeout_1)

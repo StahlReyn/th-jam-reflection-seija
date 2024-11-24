@@ -7,6 +7,8 @@ var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
 var timer1_set_count : int = 0
 
+var drop_fairy_power := EnemyDrops.new(2, 0)
+
 func _init() -> void:
 	timer1 = timer_setup(timeout_1)
 
@@ -47,6 +49,7 @@ func timeout_1():
 		var enemy = spawn_side_fairy(position, velocity, acceleration)
 		enemy.main_sprite.set_type(count % 3)
 		enemy.delay_time = count * 0.05
+		enemy.drops = drop_fairy_power
 		count += 1
 	
 	if timer1_count % 5 == 4:

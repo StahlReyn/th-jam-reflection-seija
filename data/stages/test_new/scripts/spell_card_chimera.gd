@@ -52,7 +52,7 @@ func _ready() -> void:
 	timer_spawn = timer_setup(timer_spawn_timeout)
 	switch_state(State.IDLE, 3.0)
 	boss = get_existing_boss(enemy_boss, 0)
-	boss.setup_for_section(drop_boss, 1000)
+	boss.setup_for_section(drop_boss, 1600)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
