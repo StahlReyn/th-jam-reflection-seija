@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_bj5kv"]
 [ext_resource type="Script" path="res://resources/enemy_drops.gd" id="2_nvxi6"]
 [ext_resource type="Texture2D" uid="uid://dd8tet8s1inyg" path="res://assets/img/enemies/lesser_fairy.png" id="3_wcuc6"]
-[ext_resource type="Script" path="res://data/enemies/common/sprite_group_fairy.gd" id="4_364e6"]
+[ext_resource type="Script" path="res://scripts/sprite_effects/sprite_group.gd" id="5_idwsu"]
 
 [sub_resource type="Resource" id="Resource_7olgw"]
 script = ExtResource("2_nvxi6")
@@ -19,8 +19,8 @@ life = 0
 bomb_piece = 0
 life_piece = 0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_t7bub"]
-radius = 31.0161
+[sub_resource type="CircleShape2D" id="CircleShape2D_xtpx2"]
+radius = 30.0
 
 [node name="EnemyLesserFairy" type="Area2D" node_paths=PackedStringArray("main_sprite", "main_collision") groups=["enemy"]]
 collision_layer = 0
@@ -33,13 +33,13 @@ death_effect_scene = ExtResource("2_bj5kv")
 mhp = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_t7bub")
+shape = SubResource("CircleShape2D_xtpx2")
 
 [node name="SpriteFairy" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("3_wcuc6")
 hframes = 9
 vframes = 4
-script = ExtResource("4_364e6")
+script = ExtResource("5_idwsu")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

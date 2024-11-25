@@ -83,7 +83,7 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
 	enemy.drops = drop_fairy_point
-	enemy.main_sprite.set_type(SGFairy.Type.BLUE)
+	enemy.main_sprite.set_type("blue")
 	enemy.add_velocity_func(en_accel(acceleration))
 	enemy.add_behavior_func(weeping_shooter)
 	return enemy
@@ -104,7 +104,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
 	enemy.drops = drop_fairy_power
-	enemy.main_sprite.set_type(SGFairy.Type.YELLOW)
+	enemy.main_sprite.set_type("yellow")
 	enemy.add_velocity_func(en_accel(acceleration))
 	enemy.add_behavior_func(shoot_arc_triangle)
 	return enemy

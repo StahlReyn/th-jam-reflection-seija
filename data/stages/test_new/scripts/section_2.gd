@@ -1,6 +1,7 @@
 extends SectionScript
 
 @onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+@onready var enemy_sunflower : PackedScene = EnemyUtils.scene_dict["sunflower_fairy"]
 
 static var material_additive = preload("res://data/canvas_material/blend_additive.tres")
 
@@ -51,7 +52,7 @@ func timeout_1():
 
 func spawn_circle_shot_fairy(position: Vector2):
 	var enemy = spawn_enemy(enemy_fairy, position)
-	enemy.main_sprite.set_type(SGFairy.Type.GREEN)
+	enemy.main_sprite.set_type("green")
 	enemy.velocity = Vector2(0, 320)
 	enemy.drops = drop_fairy_point
 	enemy.set_mhp(15)
@@ -60,7 +61,7 @@ func spawn_circle_shot_fairy(position: Vector2):
 
 func spawn_line_shot_fairy(position: Vector2):
 	var enemy = spawn_enemy(enemy_fairy, position)
-	enemy.main_sprite.set_type(SGFairy.Type.BLUE)
+	enemy.main_sprite.set_type("blue")
 	enemy.velocity = Vector2(0, 270)
 	enemy.drops = drop_fairy_point
 	enemy.set_mhp(20)
@@ -68,11 +69,11 @@ func spawn_line_shot_fairy(position: Vector2):
 	enemy.add_behavior_func(shoot_line)
 
 func spawn_big_shot_fairy(position: Vector2):
-	var enemy = spawn_enemy(enemy_fairy, position)
-	enemy.main_sprite.set_type(SGFairy.Type.RED)
+	var enemy = spawn_enemy(enemy_sunflower, position)
+	enemy.main_sprite.set_type("red")
 	enemy.velocity = Vector2(0, 380)
 	enemy.drops = drop_fairy_power
-	enemy.set_mhp(100)
+	enemy.set_mhp(120)
 	enemy.add_velocity_func(en_accel(Vector2(0, -120)))
 	enemy.add_behavior_func(shoot_circle_group)
 

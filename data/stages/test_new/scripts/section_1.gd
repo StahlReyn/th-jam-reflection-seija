@@ -47,7 +47,7 @@ func timeout_1():
 			position.x = mirror_x(position.x)
 		
 		var enemy = spawn_side_fairy(position, velocity, acceleration)
-		enemy.main_sprite.set_type(count % 3)
+		enemy.main_sprite.set_row(count % 3)
 		enemy.delay_time = count * 0.05
 		enemy.drops = drop_fairy_power
 		count += 1
