@@ -14,6 +14,8 @@ signal death
 @export var collision_damage : int = 10
 @export var can_be_parried : bool = false
 
+static var DISPLAY_DAMAGE = true
+
 var hp : int
 var is_dead : bool = false
 	
@@ -58,6 +60,12 @@ func _on_area_entered(area: Area2D) -> void:
 		take_damage(damage_taken)
 		area.do_damage_loss(damage_taken)
 		area.on_hit(self)
+		
+		if DISPLAY_DAMAGE and damage_taken > 0:
+			if area is Laser:
+				TextPopup.create_popup_damage(damage_taken, self.global_position)
+			else:
+				TextPopup.create_popup_damage(damage_taken, area.global_position)
 	elif area is Character:
 		hit.emit()
 		var damage_taken = min(area.collision_damage, self.hp)

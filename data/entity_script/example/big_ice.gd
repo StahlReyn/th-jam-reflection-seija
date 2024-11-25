@@ -3,12 +3,12 @@ extends EntityScript
 ## Spawns 4 curvy lasers (stream of bullets)
 ## Many Circle bullets accelerating upwards (opposite) spread side
 
-@onready var laser = BulletUtils.scene_dict["laser_basic"]
-@onready var bullet = BulletUtils.scene_dict["circle_medium"]
-@onready var stream = BulletUtils.scene_dict["partial_laser_small"]
+static var laser = BulletUtils.scene_dict["laser_basic"]
+static var bullet_circle = BulletUtils.scene_dict["circle_medium"]
+static var stream = BulletUtils.scene_dict["partial_laser_small"]
 
-@onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
-@onready var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
+static var blend_add = preload("res://data/canvas_material/blend_additive.tres")
+static var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
 
 @export var remove_on_hit_wall = true
 
@@ -22,8 +22,7 @@ func _physics_process(delta: float) -> void:
 func setup() -> void:
 	parent.connect("hit_wall", _on_hit_wall)
 	if parent is Bullet: # Main bullet
-		parent.damage = 100
-		parent.penetration = 100
+		parent.damage = 200
 
 func _on_hit_wall() -> void:
 	# The direction of bullets, Default up (as if hit bottom)
@@ -52,9 +51,9 @@ func part_laser(angle_rotated : float) -> void:
 	var cur_laser = spawn_laser(laser, parent.position)
 	basic_copy(cur_laser, parent)
 	set_bullet_style(cur_laser)
-	cur_laser.damage = 50
+	cur_laser.damage = 100
 	cur_laser.rotation = angle_rotated - PI/2 #target_direction.angle()
-	cur_laser.target_size.y = 20
+	cur_laser.target_size.y = 25
 	cur_laser.delay_time = 0.0
 	cur_laser.laser_active_time = 0.5
 	cur_laser.switch_state(Laser.State.STATIC, 0.5)
@@ -77,10 +76,7 @@ func part_stream(angle_rotated : float) -> void:
 			set_bullet_style(bullet)
 			bullet.modulate.a = alpha_value
 			bullet.delay_time = i * 0.02 + 0.1
-			var acceleration = bullet.velocity * 4
-			bullet.add_script_node(
-				MSAcceleration.new(acceleration)
-			)
+			bullet.add_velocity_func(en_accel(bullet.velocity * 4))
 
 func part_spray(angle_rotated : float) -> void:
 	# Initial is UP, then rotated. Calculated outside to avoid rotating per every bullet
@@ -89,21 +85,19 @@ func part_spray(angle_rotated : float) -> void:
 	var spray_accel = Vector2(0, -100).rotated(angle_rotated)
 	
 	for i in range(20):
-		var cur_bullet = spawn_bullet(bullet, parent.position)
+		var cur_bullet = spawn_bullet(bullet_circle, parent.position)
 		basic_copy(cur_bullet, parent)
 		set_bullet_style(cur_bullet)
 		cur_bullet.delay_time = i * 0.02
 		cur_bullet.velocity.y = randf_range(spray_min.x, spray_max.x)
 		cur_bullet.velocity.x = randf_range(spray_min.y, spray_max.y)
-		cur_bullet.add_script_node(
-			MSAcceleration.new(spray_accel)
-		)
+		cur_bullet.add_velocity_func(en_accel(spray_accel))
 
 func basic_copy(to_copy: Entity, base: Entity) -> void:
 	to_copy.collision_layer = base.collision_layer
 	to_copy.collision_mask = base.collision_mask
 	to_copy.modulate = base.modulate
 
-func set_bullet_style(bullet: Entity) -> void:
+static func set_bullet_style(bullet: Entity) -> void:
 	bullet.material = blend_add
 	bullet.set_color(SGBasicBullet.ColorType.BLUE)

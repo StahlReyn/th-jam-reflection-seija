@@ -28,6 +28,7 @@ var had_follow : bool = false
 
 func _ready() -> void:
 	super()
+	do_spawn_effect = false
 	laser_collision.disabled = true
 	laser_collision.shape.size.x = target_size.x # Length
 	laser_collision.shape.size.y = 1 # Width
@@ -70,8 +71,11 @@ func _physics_process(delta: float) -> void:
 func on_hit(entity : Entity) -> void:
 	if bullet_hit_effect_scene:
 		AfterEffect.add_effect(bullet_hit_effect_scene, global_position)
-	#call_deferred("queue_free")
 
+func do_damage_loss(value : int) -> void:
+	# self.damage -= value * damage_loss_mult
+	pass
+		
 func process_state() -> void:
 	if state_timer < 0:
 		match state:

@@ -41,8 +41,6 @@ func _physics_process(delta: float) -> void:
 
 func do_damage_loss(value : int) -> void:
 	self.damage -= value * damage_loss_mult
-	if DISPLAY_DAMAGE and value != 0:
-		TextPopup.create_popup_damage(value, global_position)
 	
 func on_hit(entity : Entity) -> void:
 	super(entity)

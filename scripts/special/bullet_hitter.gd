@@ -136,7 +136,7 @@ func hit_entity_property(entity):
 	elif entity is Character:
 		entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
 		entity.collision_mask = BulletUtils.CollisionMask.TARGET_PLAYER
-		entity.collision_damage = floori(charge_time * total_mult * 2)
+		entity.collision_damage *= floori(charge_time * total_mult)
 		if is_max_charge():
 			entity.collision_damage *= 2
 		GameVariables.point_value += entity.collision_damage
