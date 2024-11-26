@@ -30,17 +30,22 @@ func _ready() -> void:
 
 func physics_process_active(delta: float) -> void:
 	state_timer -= delta
-	if state == State.SPAWNING:
+	velocity = Vector2.ZERO # Always reset velocity to respond to input
+	if state == State.DEAD_DELAY:
+		pass
+	elif state == State.SPAWNING:
 		position += Vector2.UP * 600 * delta
-	elif state != State.DEAD_DELAY:
+	else:
+		process_movement_input()
+		process_shoot_input()
 		position = position.clamp(Vector2.ZERO, GameUtils.game_area)
-	process_movement_input()
-	process_shoot_input()
-	process_state()
+
+	if state != State.NORMAL and state_timer < 0:
+		process_state()
+	
 	process_iframe()
 	
 func process_movement_input() -> void:
-	velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
 		velocity.x = get_speed()
 	if Input.is_action_pressed("move_left"):
@@ -56,15 +61,14 @@ func process_shoot_input() -> void:
 	#	audio_shoot.play()
 
 func process_state() -> void:
-	if state != State.NORMAL and state_timer < 0:
-		match state:
-			State.DEAD_DELAY: # When finish switch to spawn
-				switch_state(State.SPAWNING, 0.4)
-				is_dead = false
-			State.SPAWNING:
-				switch_state(State.GRACE, 3.0)
-			State.GRACE:
-				switch_state(State.NORMAL, 0.0)
+	match state:
+		State.DEAD_DELAY: # When finish switch to spawn
+			switch_state(State.SPAWNING, 0.4)
+			is_dead = false
+		State.SPAWNING:
+			switch_state(State.GRACE, 2.0)
+		State.GRACE:
+			switch_state(State.NORMAL, 0.0)
 	
 func process_iframe() -> void:
 	if is_invincible():

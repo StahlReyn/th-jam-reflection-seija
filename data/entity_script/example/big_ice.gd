@@ -76,6 +76,7 @@ func part_stream(angle_rotated : float) -> void:
 			set_bullet_style(bullet)
 			bullet.modulate.a = alpha_value
 			bullet.delay_time = i * 0.02 + 0.1
+			bullet.do_spawn_effect = false
 			bullet.add_velocity_func(en_accel(bullet.velocity * 4))
 
 func part_spray(angle_rotated : float) -> void:

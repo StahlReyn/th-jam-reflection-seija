@@ -22,12 +22,16 @@ enum Type {
 var type : int = Type.NORMAL
 var do_flash : bool = false
 var main_mod : Color
+var main_scale : Vector2
 
 var total_time = 0.0
+var init_spawn_scale = 1.2
+var spawn_scale_speed := 20.0
 
 func _ready() -> void:
 	main_mod = self.modulate
-	pass # Replace with function body.
+	main_scale = self.scale
+	scale = main_scale * init_spawn_scale
 
 func _physics_process(delta: float) -> void:
 	total_time += delta
@@ -35,13 +39,15 @@ func _physics_process(delta: float) -> void:
 	position.y -= y_vel * delta
 	y_vel += y_acc * delta
 	
+	scale = MathUtils.lerp_smooth(scale, main_scale, spawn_scale_speed, delta)
+	
 	if rotate_shake_amount != 0.0:
 		rotation = sin(total_time * rotate_shake_speed) * rotate_shake_amount
 	
 	if type == Type.BIG_DAMAGE:
 		modulate.g = main_mod.g + sin(total_time * 50.0) * 0.4
 	elif type == Type.SUPER_DAMAGE:
-		modulate.g = main_mod.g + sin(total_time * 50.0) * 0.4
+		modulate.b = main_mod.b + sin(total_time * 50.0) * 0.4
 	
 	if modulate.a <= 0:
 		call_deferred("queue_free")
@@ -68,20 +74,20 @@ static func create_popup_damage(value : int, pos: Vector2) -> TextPopup:
 	if value >= 100:
 		popup.type = Type.SUPER_DAMAGE
 		popup.rotate_shake_speed = 30.0
-		popup.rotate_shake_amount = 0.20
+		popup.rotate_shake_amount = 0.18
 		popup.modulate = Color.AQUA
 		popup.label_settings = label_setting_style_super
 		popup.z_index += 2
 	elif value >= 10:
 		popup.type = Type.BIG_DAMAGE
 		popup.rotate_shake_speed = 30.0
-		popup.rotate_shake_amount = 0.15
+		popup.rotate_shake_amount = 0.12
 		popup.modulate = Color.CRIMSON
 		popup.label_settings = label_setting_style_big
 		popup.z_index += 1
 	else:
 		popup.type = Type.NORMAL
 		popup.rotate_shake_speed = 30.0
-		popup.rotate_shake_amount = 0.10
+		popup.rotate_shake_amount = 0.08
 		popup.modulate = Color.RED
 	return popup

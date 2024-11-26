@@ -60,7 +60,6 @@ func _on_area_entered(area: Area2D) -> void:
 		take_damage(damage_taken)
 		area.do_damage_loss(damage_taken)
 		area.on_hit(self)
-		
 		if DISPLAY_DAMAGE and damage_taken > 0:
 			if area is Laser:
 				TextPopup.create_popup_damage(damage_taken, self.global_position)
@@ -71,3 +70,5 @@ func _on_area_entered(area: Area2D) -> void:
 		var damage_taken = min(area.collision_damage, self.hp)
 		take_damage(damage_taken)
 		area.on_hit(self)
+		if DISPLAY_DAMAGE and damage_taken > 0:
+			TextPopup.create_popup_damage(damage_taken, area.global_position)
