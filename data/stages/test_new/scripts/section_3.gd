@@ -84,8 +84,8 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.velocity = velocity
 	enemy.drops = drop_fairy_point
 	enemy.main_sprite.set_type("blue")
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(weeping_shooter)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", weeping_shooter)
 	return enemy
 
 static func weeping_shooter(entity:Entity):
@@ -95,7 +95,7 @@ static func weeping_shooter(entity:Entity):
 		)
 		bullet.velocity = Vector2.from_angle(randf_range(-3 * PI/4, -PI/4)) * 100
 		bullet.set_color(SGBasicBullet.ColorType.BLUE)
-		bullet.add_velocity_func(en_accel(Vector2(0, 200)))
+		LF.accel(bullet, Vector2(0, 200))
 		bullet.material = material_additive
 
 # ================ TRIANGLE SHOT FAIRY ================
@@ -105,8 +105,8 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.velocity = velocity
 	enemy.drops = drop_fairy_power
 	enemy.main_sprite.set_type("yellow")
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(shoot_arc_triangle)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_arc_triangle)
 	return enemy
 
 static func shoot_arc_triangle(entity:Entity):

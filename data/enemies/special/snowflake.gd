@@ -38,7 +38,7 @@ func part_splinter(angle_rotated : float) -> void:
 	var mid = floor(count/2)
 	var angle_interval = TAU/6
 	if parent is Enemy:
-		var multiplier = parent.collision_damage / parent.mhp
+		var multiplier = 1 + 0.2 * (parent.collision_damage / parent.mhp)
 		for i in range(6):
 			var angle = ((i-mid) * angle_interval) + angle_rotated
 			var bullet_list = BulletUtils.spawn_arc_arrow(bullet_splinter, parent.position, 300, 6, TAU/240, angle, 0.2)

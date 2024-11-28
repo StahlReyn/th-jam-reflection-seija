@@ -27,14 +27,17 @@ var state : int = 0
 var had_follow : bool = false
 
 func _ready() -> void:
-	super()
 	do_spawn_effect = false
+	super()
 	laser_collision.disabled = true
 	laser_collision.shape.size.x = target_size.x # Length
 	laser_collision.shape.size.y = 1 # Width
 	main_sprite.scale.x = 0.1 # Width due to rotate
 	main_sprite.scale.y = target_size.x / base_size.y # Length due to rotate
-	switch_state(State.PRE, delay_time)
+	if delay_time > 0.0:
+		switch_state(State.PRE, delay_time)
+	else:
+		switch_state(State.STATIC, laser_active_time)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -56,6 +59,7 @@ func _physics_process(delta: float) -> void:
 		State.REMOVE:
 			laser_collision.disabled = true
 			call_deferred("queue_free")
+	
 	# Make sprite align to left, where laser starts. Remember sprite is rotated
 	var cur_length = base_size.y * main_sprite.scale.y
 	main_sprite.position.x = cur_length * 0.5

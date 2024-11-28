@@ -62,8 +62,8 @@ func timeout_1():
 func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(shoot_arc_triangle())
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_arc_triangle())
 	return enemy
 
 static func shoot_arc_triangle() -> Callable:

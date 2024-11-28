@@ -27,8 +27,6 @@ var boss : EnemyBoss
 var state : int = State.IDLE
 var state_timer : float = 3.0
 
-var boss_target_position : Vector2 = Vector2(385, 385)
-
 var drop_boss := EnemyDrops.new(40, 0)
 
 var shot_count_1 : int = 0
@@ -53,13 +51,14 @@ func _ready() -> void:
 	switch_state(State.IDLE, 3.0)
 	boss = get_existing_boss(enemy_boss, 0)
 	boss.setup_for_section(drop_boss, 1600)
+	
+	LF.smooth_pos(boss, Vector2(385, 285), 2.0)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	state_timer -= delta
 	process_state()
 	if is_instance_valid(boss):
-		boss.position = MathUtils.lerp_smooth(boss.position, boss_target_position, 2, delta)
 		if boss.hp <= 0 and can_switch_end():
 			switch_state(State.ENDING, 2.0)
 	if time_active >= duration and can_switch_end():
@@ -88,10 +87,7 @@ func start_section():
 	update_displayer()
 
 func move_boss_random():
-	boss_target_position = Vector2(
-		randf_range(200,600),
-		randf_range(160,260)
-	)
+	LF.smooth_pos(boss, Vector2(randf_range(200,600), randf_range(160,260)), 2.0)
 
 func timer_spawn_timeout():
 	var bullet_list = BulletUtils.spawn_circle(
@@ -171,6 +167,7 @@ func change_path() -> void:
 		frequency = TAU / (spin_time + magical_time_compensation_constant)
 		
 		new_bullet.add_behavior_func(
+			"chimera_movement",
 			func f(bullet: Bullet):
 				bullet.velocity += (
 					displacement
@@ -208,7 +205,7 @@ func switch_state(state: int, state_timer: float):
 func on_state_change(state: int):
 	match state:
 		State.SPAWNING:
-			boss.position = boss_target_position
+			LF.teleport_smooth_pos(boss)
 			continue_bullets()
 			spawn_bullet_line()
 			AudioManager.play_audio(audio_laser)
@@ -218,6 +215,6 @@ func on_state_change(state: int):
 			timer_spawn.paused = true
 			if is_instance_valid(boss):
 				boss.do_check_despawn = true
-			boss_target_position = Vector2(385,-200)
+			LF.smooth_pos(boss, Vector2(385, -200), 2.0)
 			enabled = false
 			clear_bullets()

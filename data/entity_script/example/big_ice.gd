@@ -9,6 +9,7 @@ static var stream = BulletUtils.scene_dict["partial_laser_small"]
 
 static var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 static var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
+static var audio_laser : AudioStream = preload("res://assets/audio/sfx/laser_modified.wav")
 
 @export var remove_on_hit_wall = true
 
@@ -56,13 +57,10 @@ func part_laser(angle_rotated : float) -> void:
 	cur_laser.target_size.y = 25
 	cur_laser.delay_time = 0.0
 	cur_laser.laser_active_time = 0.5
-	cur_laser.switch_state(Laser.State.STATIC, 0.5)
 	
 	# Audio node to laser
-	var audio_node = AudioStreamPlayer2D.new()
-	audio_node.set_stream(hit_sound)
-	cur_laser.add_child(audio_node)
-	audio_node.play()
+	AudioManager.play_audio_2d(hit_sound, parent.global_position)
+	AudioManager.play_audio_2d(audio_laser, parent.global_position)
 	
 func part_stream(angle_rotated : float) -> void:
 	var alpha_value = 0.3 * parent.modulate.a
@@ -77,7 +75,7 @@ func part_stream(angle_rotated : float) -> void:
 			bullet.modulate.a = alpha_value
 			bullet.delay_time = i * 0.02 + 0.1
 			bullet.do_spawn_effect = false
-			bullet.add_velocity_func(en_accel(bullet.velocity * 4))
+			LF.accel(bullet, bullet.velocity * 4)
 
 func part_spray(angle_rotated : float) -> void:
 	# Initial is UP, then rotated. Calculated outside to avoid rotating per every bullet
@@ -92,7 +90,7 @@ func part_spray(angle_rotated : float) -> void:
 		cur_bullet.delay_time = i * 0.02
 		cur_bullet.velocity.y = randf_range(spray_min.x, spray_max.x)
 		cur_bullet.velocity.x = randf_range(spray_min.y, spray_max.y)
-		cur_bullet.add_velocity_func(en_accel(spray_accel))
+		LF.accel(cur_bullet, spray_accel)
 
 func basic_copy(to_copy: Entity, base: Entity) -> void:
 	to_copy.collision_layer = base.collision_layer

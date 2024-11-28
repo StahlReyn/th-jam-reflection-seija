@@ -56,8 +56,8 @@ func spawn_circle_shot_fairy(position: Vector2):
 	enemy.velocity = Vector2(0, 320)
 	enemy.drops = drop_fairy_point
 	enemy.set_mhp(15)
-	enemy.add_velocity_func(en_accel(Vector2(0, -100)))
-	enemy.add_behavior_func(shoot_circle)
+	LF.accel(enemy, Vector2(0, -100))
+	enemy.add_behavior_func("shooter", shoot_circle)
 
 func spawn_line_shot_fairy(position: Vector2):
 	var enemy = spawn_enemy(enemy_fairy, position)
@@ -65,8 +65,8 @@ func spawn_line_shot_fairy(position: Vector2):
 	enemy.velocity = Vector2(0, 270)
 	enemy.drops = drop_fairy_point
 	enemy.set_mhp(20)
-	enemy.add_velocity_func(en_accel(Vector2(0, -100)))
-	enemy.add_behavior_func(shoot_line)
+	LF.accel(enemy, Vector2(0, -100))
+	enemy.add_behavior_func("shooter", shoot_line)
 
 func spawn_big_shot_fairy(position: Vector2):
 	var enemy = spawn_enemy(enemy_sunflower, position)
@@ -74,8 +74,8 @@ func spawn_big_shot_fairy(position: Vector2):
 	enemy.velocity = Vector2(0, 380)
 	enemy.drops = drop_fairy_power
 	enemy.set_mhp(120)
-	enemy.add_velocity_func(en_accel(Vector2(0, -120)))
-	enemy.add_behavior_func(shoot_circle_group)
+	LF.accel(enemy, Vector2(0, -120))
+	enemy.add_behavior_func("shooter", shoot_circle_group)
 
 static func shoot_line(entity:Entity):
 	if entity.just_time_passed(1.0):

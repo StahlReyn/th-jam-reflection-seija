@@ -96,8 +96,8 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.drops = drop_fairy_big
 	enemy.set_mhp(200)
 	enemy.main_sprite.set_type("blue")
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(shoot_big_ice)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_big_ice)
 	return enemy
 
 static func shoot_big_ice(entity:Entity):
@@ -106,7 +106,7 @@ static func shoot_big_ice(entity:Entity):
 		var direction = GameUtils.get_direction_to_player(entity)
 		var bullet := spawn_bullet(bullet_big_ice, entity.position)
 		bullet.velocity = direction * 200
-		bullet.add_velocity_func(en_accel(Vector2(0, 100)))
+		LF.accel(bullet, Vector2(0, 100))
 		
 # ================ ACCEL ARROW FAIRY ================
 
@@ -116,9 +116,9 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.drops = drop_fairy_power
 	enemy.set_mhp(30)
 	enemy.main_sprite.set_type("green")
-	enemy.add_velocity_func(en_accel(acceleration))
+	LF.accel(enemy, acceleration)
 	enemy.set_meta("alternate_shot", false)
-	enemy.add_behavior_func(shoot_accel_arrow)
+	enemy.add_behavior_func("shooter", shoot_accel_arrow)
 	return enemy
 
 static func shoot_accel_arrow(entity:Entity):
@@ -141,7 +141,7 @@ static func shoot_accel_arrow(entity:Entity):
 		)
 		for bullet : Bullet in bullet_list:
 			bullet.set_color(SGBasicBullet.ColorType.TEAL)
-			bullet.add_velocity_func(en_accel(bullet.velocity * 50))
+			LF.accel(bullet, bullet.velocity * 50)
 
 # ================ RAIN ICE FAIRY ================
 
@@ -151,15 +151,15 @@ func spawn_rain_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.drops = drop_fairy_point
 	enemy.set_mhp(3)
 	enemy.main_sprite.set_type("yellow")
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(shoot_falling)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_falling)
 	return enemy
 
 static func shoot_falling(entity:Entity):
 	if entity.just_time_passed_every(0.3):
 		var bullet := spawn_bullet(bullet_crystal, entity.position)
 		bullet.velocity = Vector2(randf_range(-10, 10), 20)
-		bullet.add_velocity_func(en_accel(Vector2(0, 250)))
+		LF.accel(bullet, Vector2(0, 250))
 		bullet.set_color(SGBasicBullet.ColorType.BLUE)
 
 static func mirror_x(x: float) -> float:

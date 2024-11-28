@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="DialogueSet" load_steps=20 format=3 uid="uid://dvj0i7xk63t50"]
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=21 format=3 uid="uid://dvj0i7xk63t50"]
 
+[ext_resource type="PackedScene" uid="uid://dcd8d7umir7nd" path="res://data/enemies/bosses/boss_letty_whiterock.tscn" id="1_54d3v"]
 [ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_vywn8"]
 [ext_resource type="PackedScene" uid="uid://djahhl372822n" path="res://data/portraits/letty_whiterock/portrait_set_letty_whiterock.tscn" id="2_d5w0t"]
 [ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_w4o05"]
@@ -151,3 +152,7 @@ text = "LETTY_13"
 [resource]
 script = ExtResource("5_jsle0")
 dialogue_actions = Array[ExtResource("1_vywn8")]([SubResource("Resource_i3uk3"), SubResource("Resource_presx"), SubResource("Resource_qmk4c"), SubResource("Resource_u1yhq"), SubResource("Resource_cx528"), SubResource("Resource_y54x8"), SubResource("Resource_gqddp"), SubResource("Resource_runy3"), SubResource("Resource_phwss"), SubResource("Resource_rt8tw"), SubResource("Resource_tq620"), SubResource("Resource_efhx0"), SubResource("Resource_jh6he"), SubResource("Resource_sjguw")])
+start_delay = 0.0
+boss_spawn = ExtResource("1_54d3v")
+spawn_position = Vector2(385, -50)
+target_position = Vector2(385, 300)

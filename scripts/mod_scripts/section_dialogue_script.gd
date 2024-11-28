@@ -18,14 +18,12 @@ func _ready() -> void:
 	# Dialogue should not trigger chapter by default
 	do_chapter_end = false
 	total_bonus = 0
+	print("+ !!!! Dialogue spawned Boss", dialogue_set.boss_spawn)
 	if dialogue_set.boss_spawn != null:
+		print("+ Dialogue spawned Boss")
 		boss = spawn_enemy_boss(dialogue_set.boss_spawn, dialogue_set.spawn_position)
+		LF.smooth_pos(boss, boss_target_position, 2.0)
 	start_section()
-
-func _physics_process(delta: float) -> void:
-	super(delta)
-	if boss != null:
-		boss.position = MathUtils.lerp_smooth(boss.position, dialogue_set.target_position, 2, delta)
 
 func start_section() -> void:
 	super()

@@ -92,13 +92,25 @@ static func spawn_title_card(scene : PackedScene, pos : Vector2 = Vector2(0,0)) 
 	return image
 
 # Common Lambda Function
-func wait(seconds: float) -> void:
-	await get_tree().create_timer(seconds).timeout
+class LF:
+	static func accel(entity: Entity, accel : Vector2):
+		entity.add_behavior_func("accel", 
+			func f(e : Entity):
+				e.velocity += e.dt * accel
+		)
 
-static func en_accel(accel : Vector2):
-	return func f(entity : Entity):
-		return entity.velocity + (entity.dt * accel)
-
-static func en_circ(freq, amp, shift = 0.0):
-	return func f(entity : Entity):
-		return entity.velocity + entity.dt * Vector2.from_angle(entity.total_time * freq + shift) * amp
+	static func circle(entity: Entity, freq: float, amp: float, shift: float = 0.0):
+		entity.add_behavior_func("circle", 
+			func f(e : Entity):
+				e.velocity += e.dt * Vector2.from_angle(e.total_time * freq + shift) * amp
+		)
+	
+	static func teleport_smooth_pos(e : Entity):
+		e.position = e.get_meta("smooth_pos")
+	
+	static func smooth_pos(entity: Entity, pos: Vector2, rate : float = 1.0):
+		entity.set_meta("smooth_pos", pos)
+		entity.add_behavior_func("smooth_pos", 
+			func f(e : Entity):
+				e.position = MathUtils.lerp_smooth(e.position, e.get_meta("smooth_pos"), rate, e.dt)
+		)

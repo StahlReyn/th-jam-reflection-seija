@@ -83,8 +83,8 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.velocity = velocity
 	enemy.drops = drop_fairy_point
 	enemy.main_sprite.set_type("blue")
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(shoot_falling)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_falling)
 	return enemy
 
 static func shoot_falling(entity:Entity):
@@ -92,9 +92,7 @@ static func shoot_falling(entity:Entity):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)
 		var bullet := spawn_enemy(enemy_ice, entity.position)
-		bullet.add_velocity_func(
-			en_accel(Vector2(0, 500))
-		)
+		LF.accel(bullet, Vector2(0, 500))
 
 # ================ TRIANGLE SHOT FAIRY ================
 
@@ -103,8 +101,8 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.velocity = velocity
 	enemy.drops = drop_fairy_power
 	enemy.main_sprite.set_type("yellow")
-	enemy.add_velocity_func(en_accel(acceleration))
-	enemy.add_behavior_func(shoot_circle_group)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_circle_group)
 	return enemy
 	
 static func shoot_circle_group(entity:Entity):
@@ -118,9 +116,7 @@ static func shoot_circle_group(entity:Entity):
 		)
 		for bullet : Bullet in bullet_list:
 			bullet.set_color(SGBasicBullet.ColorType.TEAL)
-			bullet.add_velocity_func(
-				en_accel(Vector2(randi_range(-200,200), randi_range(-200,200)))
-			)
+			LF.accel(bullet, Vector2(randi_range(-200,200), randi_range(-200,200)))
 	
 static func mirror_x(x: float) -> float:
 	return -(x - GameUtils.game_area.x)
