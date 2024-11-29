@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StageData" load_steps=31 format=3 uid="uid://b6org8ginbbsr"]
+[gd_resource type="Resource" script_class="StageData" load_steps=37 format=3 uid="uid://b6org8ginbbsr"]
 
 [ext_resource type="Script" path="res://resources/stage_data.gd" id="1_qsp84"]
 [ext_resource type="Script" path="res://resources/stage_action.gd" id="2_obigo"]
@@ -20,6 +20,9 @@
 [ext_resource type="Script" path="res://data/stages/test_new/scripts/section_6.gd" id="18_kccn1"]
 [ext_resource type="Script" path="res://data/stages/test_new/scripts/section_7.gd" id="19_1v55b"]
 [ext_resource type="Script" path="res://data/stages/test_new/scripts/section_8.gd" id="20_p3uoq"]
+[ext_resource type="Resource" uid="uid://p7unvqpauw6y" path="res://data/stages/test_new/dialogues/dialogue_junko.tres" id="21_qgtku"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/spell_card_junko_pong.gd" id="22_gf44q"]
+[ext_resource type="Resource" uid="uid://d3ufqy1huplcb" path="res://data/stages/test_new/dialogues/dialogue_junko_after.tres" id="23_gutw5"]
 
 [sub_resource type="Resource" id="Resource_v5li2"]
 script = ExtResource("9_kqxls")
@@ -61,9 +64,22 @@ dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("17_3ks61")])
 script = ExtResource("3_iuw4r")
 script_data = Array[GDScript]([ExtResource("18_kccn1"), ExtResource("19_1v55b"), ExtResource("20_p3uoq")])
 
+[sub_resource type="Resource" id="Resource_5i74i"]
+script = ExtResource("9_kqxls")
+dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("21_qgtku")])
+
+[sub_resource type="Resource" id="Resource_1fu3v"]
+script = ExtResource("3_iuw4r")
+script_data = Array[GDScript]([ExtResource("22_gf44q")])
+
+[sub_resource type="Resource" id="Resource_bcct6"]
+script = ExtResource("9_kqxls")
+dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("23_gutw5")])
+
 [resource]
 script = ExtResource("1_qsp84")
 stage_number = 0
 stage_difficulty = 0
-start_index = 9
-stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_0e0ai"), SubResource("Resource_6hckk"), SubResource("Resource_h1ymj"), SubResource("Resource_ctx8p"), SubResource("Resource_8kkcu"), SubResource("Resource_2w2wi"), SubResource("Resource_o7wp2"), SubResource("Resource_v4icj")])
+start_index = 10
+start_power = 400
+stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_0e0ai"), SubResource("Resource_6hckk"), SubResource("Resource_h1ymj"), SubResource("Resource_ctx8p"), SubResource("Resource_8kkcu"), SubResource("Resource_2w2wi"), SubResource("Resource_o7wp2"), SubResource("Resource_v4icj"), SubResource("Resource_5i74i"), SubResource("Resource_1fu3v"), SubResource("Resource_bcct6")])

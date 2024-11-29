@@ -106,11 +106,13 @@ func do_hit() -> void:
 			audio_hit.play()
 		for entity : Entity in entity_hittable_list: # Bullet Changes
 			var direction = (entity.position - get_parent().position).normalized()
-			entity.velocity = direction * hit_velocity * (charge_time + 1)
+			entity.velocity = direction * hit_velocity * (charge_time + 1) * entity.hit_velocity_mult
 			# Hitted Entity change attributes
 			entity.modulate.a = 0.3
 			entity.z_index = -10
-			hit_entity_property(entity)
+			# Prevents damage stacking
+			if entity.collision_layer == BulletUtils.CollisionMask.TARGET_PLAYER:
+				hit_entity_property_damage(entity)
 			if is_max_charge():
 				entity.velocity *= 2
 				AfterEffect.add_effect(hit_effect_big, entity.global_position)
@@ -122,10 +124,10 @@ func do_hit() -> void:
 		popup.modulate = Color.LIGHT_CORAL
 		disable_time = whiff_disable_time
 
-func hit_entity_property(entity):
-	var power_mult = (GameVariables.power / 100) + 1
-	var charge_mult = charge_time + 1
-	var total_mult = charge_mult * power_mult
+func hit_entity_property_damage(entity):
+	var power_mult = float(GameVariables.power) * 0.005 + 1.0
+	var charge_mult = charge_time + 1.0
+	var total_mult = charge_mult * power_mult 
 	
 	if entity is Bullet:
 		entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
@@ -136,7 +138,7 @@ func hit_entity_property(entity):
 	elif entity is Character:
 		entity.collision_layer = BulletUtils.CollisionMask.TARGET_ENEMY
 		entity.collision_mask = BulletUtils.CollisionMask.TARGET_PLAYER
-		entity.collision_damage *= floori(charge_time * total_mult)
+		entity.collision_damage = floori(entity.collision_damage * total_mult)
 		if is_max_charge():
 			entity.collision_damage *= 2
 		GameVariables.point_value += entity.collision_damage

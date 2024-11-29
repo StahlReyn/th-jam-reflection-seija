@@ -3,19 +3,18 @@ extends EntityScript
 ## Spawns 4 curvy lasers (stream of bullets)
 ## Many Circle bullets accelerating upwards (opposite) spread side
 
-@onready var laser = BulletUtils.scene_dict["laser_basic"]
-@onready var bullet = BulletUtils.scene_dict["circle_medium"]
-@onready var stream = BulletUtils.scene_dict["partial_laser_medium_subtle"]
+static var laser = BulletUtils.scene_dict["laser_basic"]
+static var bullet = BulletUtils.scene_dict["circle_medium"]
+static var stream = BulletUtils.scene_dict["partial_laser_small"]
 
-@onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
-@onready var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
-
-@export var remove_on_hit_wall = false
+static var blend_add = preload("res://data/canvas_material/blend_additive.tres")
+static var hit_sound = preload("res://assets/audio/sfx/bullet_big_noisy.wav")
+static var audio_laser : AudioStream = preload("res://assets/audio/sfx/laser_modified.wav")
+static var remove_on_hit_wall = false
 
 func _ready() -> void:
 	super()
 	call_deferred("setup")
-	print("READY LILY")
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -24,24 +23,21 @@ func _physics_process(delta: float) -> void:
 func setup() -> void:
 	parent.connect("hit_wall", _on_hit_wall)
 	if parent is Bullet: # Main bullet
-		parent.damage = 100
-		parent.penetration = 100
+		parent.damage = 30
 
 func _on_hit_wall() -> void:
-	print("Lily Hit Wall")
 	# The direction of bullets, Default up (as if hit bottom)
 	var init_direction = Vector2.UP
-	var target_direction = get_target_direction()
-	var angle_rotated = init_direction.angle_to(target_direction)
+	var angle_rotated = init_direction.angle_to(get_target_direction())
 	# Major components
 	part_laser(angle_rotated)
 	part_stream(angle_rotated)
 	part_spray(angle_rotated)
 	
-	var reflect_line = Vector2.DOWN # Vertical
-	if parent.position.y < 0 or parent.position.y > GameUtils.game_area.y:
-		reflect_line = Vector2.RIGHT
-	parent.velocity = parent.velocity.reflect(reflect_line)
+	if parent.position.x < 0 or parent.position.x > GameUtils.game_area.x: # SIDE WALLS
+		parent.velocity = parent.velocity.reflect(Vector2.DOWN)
+	if parent.position.y < 0 or parent.position.y > GameUtils.game_area.y: # TOP BOTTOM WALLS
+		parent.velocity = parent.velocity.reflect(Vector2.RIGHT)
 	
 	# Remove self
 	if remove_on_hit_wall:
@@ -61,24 +57,20 @@ func part_laser(angle_rotated : float) -> void:
 	var cur_laser = spawn_laser(laser, parent.position)
 	basic_copy(cur_laser, parent)
 	set_bullet_style(cur_laser)
-	cur_laser.damage = 150
-	cur_laser.rotation = angle_rotated - PI/2 #target_direction.angle()
-	cur_laser.target_size.y = 20
+	cur_laser.damage = parent.damage * 0.75
+	cur_laser.rotation = angle_rotated - PI/2
+	cur_laser.target_size.y = 30
 	cur_laser.delay_time = 0.0
-	cur_laser.laser_active_time = 1.0
-	cur_laser.switch_state(Laser.State.STATIC, 1.0)
+	cur_laser.laser_active_time = 0.8
 	
 	# Audio node to laser
-	var audio_node = AudioStreamPlayer2D.new()
-	audio_node.set_stream(hit_sound)
-	cur_laser.add_child(audio_node)
-	audio_node.play()
+	AudioManager.play_audio_2d(audio_laser, parent.global_position)
 	
 func part_stream(angle_rotated : float) -> void:
 	var stream_count : int = 4
 	var mid : int = stream_count / 2 # ASSUME Even number, get higher index (4 gives 2)
 	for stream_num in range(stream_count):
-		var base_amp = 300
+		var base_amp = 100
 		var side_velocity = 80
 		var forward_velocity = -600
 		var stream_from_center = stream_num - mid
@@ -97,13 +89,14 @@ func part_stream(angle_rotated : float) -> void:
 			var cur_bullet = spawn_bullet(stream, parent.position)
 			basic_copy(cur_bullet, parent)
 			set_bullet_style(cur_bullet)
-			cur_bullet.modulate.a = 0.3
+			#cur_bullet.modulate.a = 0.3
+			cur_bullet.damage = parent.damage * 0.02
 			cur_bullet.delay_time = i * 0.05 + 0.1
-			
-			cur_bullet.add_script_node(
-				MSVelocitySine.new(
-					frequency, amplitude, phase_offset, base_velocity
-				)
+			cur_bullet.velocity = base_velocity
+			cur_bullet.add_behavior_func("wave_move",
+				func f(e: Entity, delta: float):
+					e.velocity.x += sin(e.active_time * frequency.x + phase_offset.x) * amplitude.x
+					e.velocity.y += sin(e.active_time * frequency.y + phase_offset.y) * amplitude.y
 			)
 
 func part_spray(angle_rotated : float) -> void:
@@ -116,12 +109,11 @@ func part_spray(angle_rotated : float) -> void:
 		var cur_bullet = spawn_bullet(bullet, parent.position)
 		basic_copy(cur_bullet, parent)
 		set_bullet_style(cur_bullet)
+		cur_bullet.damage = parent.damage * 0.02
 		cur_bullet.delay_time = i * 0.03
 		cur_bullet.velocity.y = randf_range(spray_min.x, spray_max.x)
 		cur_bullet.velocity.x = randf_range(spray_min.y, spray_max.y)
-		cur_bullet.add_script_node(
-			MSAcceleration.new(spray_accel)
-		)
+		LF.accel(cur_bullet, spray_accel)
 
 func basic_copy(to_copy: Entity, base: Entity) -> void:
 	to_copy.collision_layer = base.collision_layer

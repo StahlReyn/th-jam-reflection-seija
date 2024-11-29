@@ -13,6 +13,7 @@ var section_delay_timer : Timer
 func _init(stage_data : StageData) -> void:
 	self.stage_data = stage_data
 	stage_action_index = stage_data.start_index
+	GameVariables.power = stage_data.start_power
 	section_delay_timer = Timer.new()
 	section_delay_timer.one_shot = true
 	add_child(section_delay_timer)

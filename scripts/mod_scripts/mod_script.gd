@@ -33,6 +33,7 @@ func timer_setup(wait_time: float, function: Callable) -> Timer:
 	timer.wait_time = wait_time
 	timer.connect("timeout", function)
 	add_child(timer)
+	timer.start(wait_time)
 	return timer
 
 static func get_container_for_entity(entity: Entity):

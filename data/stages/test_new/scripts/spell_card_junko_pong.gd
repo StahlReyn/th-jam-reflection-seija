@@ -12,20 +12,22 @@ extends SpellCard
 @onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 
 var pong_bullet_list : EntityList = EntityList.new()
+var junko_hit_damage : int = 50
+var junko_hit_speed : int = 2000
+var junko_hit_radius : int = 150
 
 var boss : Enemy
-var boss_target_position : Vector2 = Vector2(385, 200)
 
 var charge_particle : GPUParticles2D
 
-var timer_movement : Timer = Timer.new()
-var timer_spawn_pong : Timer = Timer.new()
-var timer_hit_cooldown : Timer = Timer.new()
+var timer_movement : Timer
+var timer_spawn_pong : Timer
+var timer_hit_cooldown : Timer
+var timer_pong_count : Timer
+var timer_star : Timer
+var timer_end : Timer
 
-var timer_pong_count : Timer = Timer.new()
-var timer_star : Timer = Timer.new()
-
-var timer_end : Timer = Timer.new()
+var drop_boss := EnemyDrops.new(40, 0)
 
 var can_hit = true
 var doing_end : bool = false
@@ -36,15 +38,10 @@ var total_pong_count : int = 1
 func _ready() -> void:
 	super()
 	start_section()
-	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
-	boss.do_check_despawn = false
-	boss.remove_on_death = false
-	boss.remove_on_chapter_change = false
-	boss.mhp = 3600
-	boss.reset_hp()
-	boss.drop_power = 40
-	boss.drop_point = 40
-	boss.drop_life_piece = 3
+	
+	boss = get_existing_boss(enemy_boss, 0)
+	boss.setup_for_section(drop_boss, 4000)
+	LF.smooth_pos(boss, Vector2(385, 200), 2.0)
 	
 	# This is a placeholder way to get particle but lol
 	for child in boss.get_children():
@@ -52,29 +49,16 @@ func _ready() -> void:
 			charge_particle = child
 			break
 	
-	add_child(timer_movement)
-	timer_movement.connect("timeout", timeout_movement)
-	timer_movement.start(5.0)
-	add_child(timer_spawn_pong)
-	timer_spawn_pong.connect("timeout", timeout_spawn_pong)
-	timer_spawn_pong.start(1.0)
-	add_child(timer_hit_cooldown)
-	timer_hit_cooldown.connect("timeout", timeout_hit_cooldown)
-	timer_hit_cooldown.start(3.0)
-	add_child(timer_pong_count)
-	timer_pong_count.connect("timeout", timeout_pong_count)
-	timer_pong_count.start(40.0)
-	add_child(timer_star)
-	timer_star.connect("timeout", timeout_star)
-	timer_star.start(20.0)
-	add_child(timer_end)
-	timer_end.connect("timeout", timeout_end)
-	timer_end.start(100.0)
+	timer_movement = timer_setup(2.5, timeout_movement)
+	timer_spawn_pong = timer_setup(1.0, timeout_spawn_pong)
+	timer_hit_cooldown = timer_setup(3.0, timeout_hit_cooldown)
+	timer_pong_count = timer_setup(40.0, timeout_pong_count)
+	timer_star = timer_setup(20.0, timeout_star)
+	timer_end = timer_setup(100.0, timeout_end)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if is_instance_valid(boss):
-		boss.position = MathUtils.lerp_smooth(boss.position, boss_target_position, 2, delta)
 		if boss.hp <= 0 and not doing_end:
 			special_setup_end()
 	if time_active >= duration and not doing_end:
@@ -84,7 +68,7 @@ func special_setup_end():
 	doing_end = true
 	if is_instance_valid(boss):
 		boss.do_check_despawn = true
-	boss_target_position = Vector2(385,-200)
+	LF.smooth_pos(boss, Vector2(385,-200), 2.0)
 	enabled = false
 	clear_bullets()
 		
@@ -107,8 +91,8 @@ func end_section() -> void:
 	
 func start_section():
 	super()
-	section_name = "\"Pong of Muderous Intent\""
-	total_bonus = 25000000
+	section_name = "Pong of Murderous Intent"
+	total_bonus = 10000000
 	duration = 100.0
 	update_displayer()
 
@@ -119,32 +103,30 @@ func timeout_spawn_pong():
 	pong_bullet_list.clean_list()
 	if pong_bullet_list.entity_count() < total_pong_count:
 		spawn_pong_bullet()
-		timer_spawn_pong.start(1.0)
-	else:
-		timer_spawn_pong.start(1.0)
+	timer_spawn_pong.start(1.0)
 
 func timeout_hit_cooldown():
 	var did_hit = false
 	pong_bullet_list.clean_list()
 	for bullet in pong_bullet_list:
 		if bullet is Bullet:
-			if bullet.position.distance_to(boss.position) < 150:
+			if bullet.position.distance_to(boss.position) <= junko_hit_radius:
 				did_hit = do_hit(bullet)
 	
 	if did_hit:
-		AudioManager.play_audio(audio_hit, -1)
+		AudioManager.play_audio_2d(audio_hit, boss.position, -1.0)
 		charge_particle.emitting = false
 		timer_hit_cooldown.start(2.5)
 	else:
 		charge_particle.emitting = true
-		timer_hit_cooldown.start(0.05)
+		timer_hit_cooldown.start(0.1)
 
 func timeout_pong_count():
 	total_pong_count += 1
 	timer_pong_count.start(40.0)
 
 func timeout_star():
-	var bullets = BulletUtils.spawn_circle(bullet_circle, boss.position, 300, 32)
+	var bullets = BulletUtils.spawn_circle(bullet_circle, boss.position, 300, 48)
 	for bullet : Bullet in bullets:
 		bullet.material = blend_add
 		bullet.set_color(SGBasicBullet.ColorType.BLUE)
@@ -157,41 +139,36 @@ func timeout_star():
 		timer_star.start(4.0)
 
 func move_boss_random():
-	boss_target_position = Vector2(
-		randf_range(200,600),
-		randf_range(160,260)
-	)
+	LF.smooth_pos(boss, Vector2(randf_range(200,600), randf_range(160,260)), 2.0)
 
 func spawn_pong_bullet():
 	print("Spawned Junko Pong")
 	var bullet = spawn_bullet(bullet_pong, boss.position)
-	bullet.velocity = 1200 * bullet.position.direction_to(GameUtils.get_player().position)
-	bullet.speed_multiplier = 0.3
+	var direction = bullet.position.direction_to(GameUtils.get_player().position)
+	bullet.velocity = 300 * direction * (1 + min(time_active * 0.004, 2.0))
+	bullet.position += bullet.velocity * 0.1 # Move a little bit from center
+	bullet.hit_velocity_mult = 0.2 + min(time_active * 0.002, 0.8)
+	bullet.damage = junko_hit_damage
 	pong_bullet_list.add_entity(bullet)
 
 func do_hit(entity : Bullet) -> bool:
-	#if entity.collision_layer == BulletUtils.CollisionMask.TARGET_PLAYER:
-		#return false
-	
 	var center_pos = boss.position
 	var distance_vector = entity.position - center_pos
 	var hit_angle = PI
-	# If out of arc length, consider it out of range and skip
-	# DOWN, opposite of player
+	# If out of arc length, consider it out of range and skip; DOWN Vector, opposite of player
 	var angle_to_center = abs(Vector2.DOWN.angle_to(distance_vector))
 	if angle_to_center > hit_angle:
 		return false
 
-	entity.velocity = distance_vector.normalized() * max(entity.velocity.length(), 300)
+	entity.velocity = distance_vector.normalized() * junko_hit_speed * entity.hit_velocity_mult
 	
 	# Fancy hit change attributes
-	entity.velocity.y = abs(entity.velocity.y) # Go DOWNward
+	entity.velocity.y = abs(entity.velocity.y) # Go DOWN-wards
 	entity.modulate.a = 1.0
 	entity.z_index = 10
 	
 	entity.collision_layer = BulletUtils.CollisionMask.TARGET_PLAYER
-	entity.damage = 100
-	entity.penetration = 100
+	entity.damage = junko_hit_damage
 	
-	entity.speed_multiplier += 0.01
+	entity.hit_velocity_mult += 0.01
 	return true

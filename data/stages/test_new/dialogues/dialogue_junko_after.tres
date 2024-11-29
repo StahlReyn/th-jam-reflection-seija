@@ -91,3 +91,6 @@ text = "JUNKO_14"
 [resource]
 script = ExtResource("5_nae2c")
 dialogue_actions = Array[ExtResource("1_8h6n1")]([SubResource("Resource_ocqt5"), SubResource("Resource_smvod"), SubResource("Resource_dq7r2"), SubResource("Resource_dm6ol"), SubResource("Resource_x5ujs"), SubResource("Resource_6mtfh"), SubResource("Resource_x73hx"), SubResource("Resource_y6hu5")])
+start_delay = 0.0
+spawn_position = Vector2(385, -50)
+target_position = Vector2(385, 300)

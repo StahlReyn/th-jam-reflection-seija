@@ -6,6 +6,8 @@ static var label_setting_style_big := preload("res://assets/resources/label_sett
 static var label_setting_style_super := preload("res://assets/resources/label_settings/label_text_popup_super.tres")
 static var label_scene := preload("res://scripts/items/text_popup.tscn")
 
+static var audio_hit_big_damage : AudioStream = preload("res://assets/audio/sfx/metal_hit.mp3")
+
 var y_vel : float = 200.0
 var y_acc : float = -500.0
 
@@ -78,6 +80,7 @@ static func create_popup_damage(value : int, pos: Vector2) -> TextPopup:
 		popup.modulate = Color.AQUA
 		popup.label_settings = label_setting_style_super
 		popup.z_index += 2
+		AudioManager.play_audio_2d(audio_hit_big_damage, pos, 2.0)
 	elif value >= 10:
 		popup.type = Type.BIG_DAMAGE
 		popup.rotate_shake_speed = 30.0

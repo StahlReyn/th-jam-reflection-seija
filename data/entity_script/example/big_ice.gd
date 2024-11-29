@@ -59,7 +59,6 @@ func part_laser(angle_rotated : float) -> void:
 	cur_laser.laser_active_time = 0.5
 	
 	# Audio node to laser
-	AudioManager.play_audio_2d(hit_sound, parent.global_position)
 	AudioManager.play_audio_2d(audio_laser, parent.global_position)
 	
 func part_stream(angle_rotated : float) -> void:

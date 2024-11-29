@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="DialogueSet" load_steps=14 format=3 uid="uid://p7unvqpauw6y"]
+[gd_resource type="Resource" script_class="DialogueSet" load_steps=15 format=3 uid="uid://p7unvqpauw6y"]
 
+[ext_resource type="PackedScene" uid="uid://cmdcfgoopd355" path="res://data/enemies/bosses/boss_junko.tscn" id="1_4wgs6"]
 [ext_resource type="Script" path="res://resources/dialogue_action.gd" id="1_yrwst"]
 [ext_resource type="PackedScene" uid="uid://dysnc27pd05m4" path="res://data/portraits/seija_kijin/portrait_set_seija_kijin.tscn" id="2_mmjwx"]
 [ext_resource type="Script" path="res://resources/dialogue_line.gd" id="3_knq0w"]
@@ -91,3 +92,7 @@ text = "JUNKO_7"
 [resource]
 script = ExtResource("5_5xg32")
 dialogue_actions = Array[ExtResource("1_yrwst")]([SubResource("Resource_smvod"), SubResource("Resource_ocqt5"), SubResource("Resource_7o71f"), SubResource("Resource_k37k2"), SubResource("Resource_xqoco"), SubResource("Resource_0y8w8"), SubResource("Resource_igdsc"), SubResource("Resource_e4ok5")])
+start_delay = 1.0
+boss_spawn = ExtResource("1_4wgs6")
+spawn_position = Vector2(385, -50)
+target_position = Vector2(385, 300)

@@ -16,7 +16,7 @@ signal exit_wall
 
 static var default_remove_effect : PackedScene = preload("res://data/after_effects/bullet_remove.tscn")
 
-var speed_multiplier = 1.0
+var hit_velocity_mult = 1.0 # This is unique to Seija reflection mechanic
 
 var total_time : float = 0.0
 var active_time : float = 0.0
