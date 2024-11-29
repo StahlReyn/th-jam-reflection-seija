@@ -70,7 +70,7 @@ func part_stream(angle_rotated : float) -> void:
 	var stream_count : int = 4
 	var mid : int = stream_count / 2 # ASSUME Even number, get higher index (4 gives 2)
 	for stream_num in range(stream_count):
-		var base_amp = 100
+		var base_amp = 5000
 		var side_velocity = 80
 		var forward_velocity = -600
 		var stream_from_center = stream_num - mid
@@ -95,8 +95,8 @@ func part_stream(angle_rotated : float) -> void:
 			cur_bullet.velocity = base_velocity
 			cur_bullet.add_behavior_func("wave_move",
 				func f(e: Entity, delta: float):
-					e.velocity.x += sin(e.active_time * frequency.x + phase_offset.x) * amplitude.x
-					e.velocity.y += sin(e.active_time * frequency.y + phase_offset.y) * amplitude.y
+					e.velocity.x += sin(e.active_time * frequency.x + phase_offset.x) * amplitude.x * delta
+					e.velocity.y += sin(e.active_time * frequency.y + phase_offset.y) * amplitude.y * delta
 			)
 
 func part_spray(angle_rotated : float) -> void:
