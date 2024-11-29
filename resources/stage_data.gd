@@ -3,6 +3,5 @@ extends Resource
 
 @export var stage_number : int
 @export_enum("EASY","NORMAL","HARD","LUNATIC") var stage_difficulty : int
+@export var start_index : int = 0 ## THIS IS FOR DEBUGGING PURPOSES
 @export var stage_actions : Array[StageAction]
-
-#"EASY","NORMAL","HARD","LUNATIC"

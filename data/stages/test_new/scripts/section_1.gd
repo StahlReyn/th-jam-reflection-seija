@@ -67,7 +67,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	return enemy
 
 static func shoot_arc_triangle() -> Callable:
-	return func f(entity:Entity):
+	return func f(entity: Entity, delta: float):
 		if entity.just_time_passed_every(2.0):
 			AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 			var angle = entity.position.angle_to_point(GameUtils.get_player().position)

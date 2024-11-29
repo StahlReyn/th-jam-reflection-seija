@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://cmdcfgoopd355"]
+[gd_scene load_steps=17 format=3 uid="uid://cmdcfgoopd355"]
 
-[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jq3ru"]
-[ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_c0whv"]
+[ext_resource type="Script" path="res://scripts/entities/enemy_boss.gd" id="1_skd08"]
 [ext_resource type="Texture2D" uid="uid://tdatpcgsoqa6" path="res://assets/img/enemies/boss_junko.png" id="3_sd8qb"]
 [ext_resource type="Script" path="res://scripts/sprite_effects/sprite_boss_simple.gd" id="4_lmsoi"]
 [ext_resource type="PackedScene" uid="uid://w54qs2iq7b0n" path="res://scripts/gameplay/boss_bar.tscn" id="5_p7dpo"]
@@ -79,14 +78,11 @@ damping_min = 70.0
 damping_max = 70.0
 alpha_curve = SubResource("CurveTexture_x56n6")
 
-[node name="BossJunko" type="Area2D" node_paths=PackedStringArray("main_collision") groups=["enemy"]]
+[node name="BossJunko" type="Area2D" node_paths=PackedStringArray("health_bar") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 8
-script = ExtResource("1_jq3ru")
-drop_power = 40
-drop_point = 40
-main_collision = NodePath("CollisionShape2D")
-death_effect_scene = ExtResource("2_c0whv")
+script = ExtResource("1_skd08")
+health_bar = NodePath("BossBar")
 mhp = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -97,7 +93,8 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_u1hvr")
 script = ExtResource("4_lmsoi")
 
-[node name="BossBar" parent="." instance=ExtResource("5_p7dpo")]
+[node name="BossBar" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_p7dpo")]
+parent = NodePath("..")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = ExtResource("6_i4rfl")

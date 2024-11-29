@@ -23,12 +23,10 @@ var active_time : float = 0.0
 var in_wall : bool = false
 var despawn_padding : float = 100
 
-var dt : float
+var prev_active_time : float
+var prev_position : Vector2
 
 var lambda_dict : Dictionary = {}
-
-var despawn_center = GameUtils.game_area * 0.5
-var despawn_radius = 700 ** 2
 
 func _init() -> void:
 	# Auto create Movement Handler
@@ -42,23 +40,20 @@ func _ready() -> void:
 		rotation = velocity.angle()
 
 func _physics_process(delta: float) -> void:
-	dt = delta
 	total_time += delta
 	
 	# Performance heavy in main process because GDScript have Really Bad Overhead
 	if is_active():
+		prev_active_time = active_time
+		prev_position = position
 		active_time += delta
-
 		for key : String in lambda_dict:
-			lambda_dict[key].call(self)
-		
+			lambda_dict[key].call(self, delta)
 		position += velocity * delta
-		
 		if rotation_based_on_velocity and velocity != Vector2.ZERO:
 			rotation = velocity.angle()
 		
 		physics_process_active(delta)
-		
 		check_hit_wall()
 		if do_check_despawn and is_in_despawn_area():
 			do_remove()
@@ -88,7 +83,6 @@ func is_in_wall_area() -> bool:
 			or position.y < 0)
 
 func is_in_despawn_area() -> bool:
-	# return position.distance_squared_to(despawn_center) > (despawn_radius + despawn_padding)
 	return (position.x > GameUtils.game_area.x + despawn_padding
 			or position.x < - despawn_padding
 			or position.y > GameUtils.game_area.y + despawn_padding
@@ -115,7 +109,7 @@ func add_script_node(node : EntityScript) -> void:
 	script_handler.add_child(node)
 
 func just_time_passed(time : float):
-	return active_time < time and time < active_time + dt
+	return prev_active_time < time and time < active_time
 
 func just_time_passed_every(time : float):
-	return fmod(active_time, time) < dt
+	return fmod(active_time, time) < active_time - prev_active_time

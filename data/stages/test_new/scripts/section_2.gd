@@ -77,7 +77,7 @@ func spawn_big_shot_fairy(position: Vector2):
 	LF.accel(enemy, Vector2(0, -120))
 	enemy.add_behavior_func("shooter", shoot_circle_group)
 
-static func shoot_line(entity:Entity):
+static func shoot_line(entity: Entity, delta: float):
 	if entity.just_time_passed(1.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)
@@ -98,7 +98,7 @@ static func shoot_line(entity:Entity):
 			bullet.position -= pos_offset
 			bullet.set_color(SGBasicBullet.ColorType.BLUE)
 
-static func shoot_circle(entity:Entity):
+static func shoot_circle(entity: Entity, delta: float):
 	if entity.just_time_passed_every(1.3):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var bullet_list = BulletUtils.spawn_circle(
@@ -111,7 +111,7 @@ static func shoot_circle(entity:Entity):
 		for bullet : Bullet in bullet_list:
 			bullet.set_color(SGBasicBullet.ColorType.GREEN)
 
-static func shoot_circle_group(entity:Entity):
+static func shoot_circle_group(entity: Entity, delta: float):
 	if entity.just_time_passed(3.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)

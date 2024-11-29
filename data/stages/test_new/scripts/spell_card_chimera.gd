@@ -51,7 +51,6 @@ func _ready() -> void:
 	switch_state(State.IDLE, 3.0)
 	boss = get_existing_boss(enemy_boss, 0)
 	boss.setup_for_section(drop_boss, 1600)
-	
 	LF.smooth_pos(boss, Vector2(385, 285), 2.0)
 
 func _physics_process(delta: float) -> void:
@@ -82,7 +81,7 @@ func end_section() -> void:
 func start_section():
 	super()
 	section_name = "Nue Sign \"Danmaku Chimera\""
-	total_bonus = 20000000
+	total_bonus = 3000000
 	duration = 50.0
 	update_displayer()
 
@@ -168,11 +167,11 @@ func change_path() -> void:
 		
 		new_bullet.add_behavior_func(
 			"chimera_movement",
-			func f(bullet: Bullet):
+			func f(bullet: Bullet, delta: float):
 				bullet.velocity += (
 					displacement
 					* sin(bullet.active_time * frequency)
-					* bullet.dt	
+					* delta
 				)
 		)
 	reverse_spin = not reverse_spin

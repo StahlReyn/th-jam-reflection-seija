@@ -87,7 +87,7 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.add_behavior_func("shooter", shoot_falling)
 	return enemy
 
-static func shoot_falling(entity:Entity):
+static func shoot_falling(entity: Entity, delta: float):
 	if entity.just_time_passed(2.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)
@@ -105,7 +105,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.add_behavior_func("shooter", shoot_circle_group)
 	return enemy
 	
-static func shoot_circle_group(entity:Entity):
+static func shoot_circle_group(entity: Entity, delta: float):
 	if entity.just_time_passed(2.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)

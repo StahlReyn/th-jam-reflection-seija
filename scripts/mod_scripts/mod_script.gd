@@ -94,23 +94,34 @@ static func spawn_title_card(scene : PackedScene, pos : Vector2 = Vector2(0,0)) 
 # Common Lambda Function
 class LF:
 	static func accel(entity: Entity, accel : Vector2):
-		entity.add_behavior_func("accel", 
-			func f(e : Entity):
-				e.velocity += e.dt * accel
-		)
+		entity.set_meta("accel", accel)
+		entity.add_behavior_func("accel", Processor.accel)
 
 	static func circle(entity: Entity, freq: float, amp: float, shift: float = 0.0):
-		entity.add_behavior_func("circle", 
-			func f(e : Entity):
-				e.velocity += e.dt * Vector2.from_angle(e.total_time * freq + shift) * amp
-		)
+		entity.set_meta("circle_movement", {
+			"freq": freq,
+			"amp": amp,
+			"shift": shift
+		})
+		entity.add_behavior_func("circle", Processor.circle)
 	
 	static func teleport_smooth_pos(e : Entity):
 		e.position = e.get_meta("smooth_pos")
 	
 	static func smooth_pos(entity: Entity, pos: Vector2, rate : float = 1.0):
 		entity.set_meta("smooth_pos", pos)
-		entity.add_behavior_func("smooth_pos", 
-			func f(e : Entity):
-				e.position = MathUtils.lerp_smooth(e.position, e.get_meta("smooth_pos"), rate, e.dt)
-		)
+		entity.set_meta("smooth_rate", rate)
+		entity.add_behavior_func("smooth_pos", Processor.smooth_pos)
+
+# Static func so it all can share, avoid having unique for each entities
+class Processor:
+	static func accel(e : Entity, delta: float):
+		e.velocity += delta * e.get_meta("accel")
+	
+	static func circle(e : Entity, delta: float):
+		var params = e.get_meta("circle")
+		e.velocity += delta * Vector2.from_angle(e.active_time * params.freq + params.shift) * params.amp
+	
+	static func smooth_pos(e : Entity, delta: float):
+		e.position = MathUtils.lerp_smooth(e.position, e.get_meta("smooth_pos"), e.get_meta("smooth_rate"), delta)
+		

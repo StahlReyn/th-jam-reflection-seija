@@ -19,7 +19,7 @@ var chimera_list_1 : EntityList = EntityList.new()
 var chimera_list_2 : EntityList = EntityList.new()
 
 var boss : Enemy
-var boss_target_position : Vector2 = Vector2(385, 200)
+var drop_boss := EnemyDrops.new(40, 0)
 
 var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
@@ -36,15 +36,9 @@ var spin_speed : float = 0.19 # This is more of multiplier. Speed is also depend
 func _ready() -> void:
 	super()
 	start_section()
-	boss = spawn_enemy(enemy_boss, Vector2(385,-50))
-	boss.do_check_despawn = false
-	boss.remove_on_death = false
-	boss.remove_on_chapter_change = false
-	boss.mhp = 700;
-	boss.reset_hp()
-	boss.drop_power = 40
-	boss.drop_point = 20
-	boss.drop_life_piece = 3
+	boss = get_existing_boss(enemy_boss, 0)
+	boss.setup_for_section(drop_boss, 1200)
+	LF.smooth_pos(boss, Vector2(385, 200), 2.0)
 	
 	add_child(timer1)
 	timer1.connect("timeout", timeout_1)
@@ -53,7 +47,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if is_instance_valid(boss):
-		boss.position = MathUtils.lerp_smooth(boss.position, boss_target_position, 2, delta)
 		if boss.hp < 0 and not doing_end:
 			timer1.start(0.1)
 			doing_end = true
@@ -71,7 +64,7 @@ func end_section() -> void:
 func start_section():
 	super()
 	section_name = "Winter Sign \"Cold Front\""
-	total_bonus = 20000000
+	total_bonus = 5000000
 	duration = 50.0
 	update_displayer()
 			
@@ -88,7 +81,7 @@ func timeout_1():
 		timer1.start(2.0)
 		if is_instance_valid(boss):
 			boss.do_check_despawn = true
-		boss_target_position = Vector2(385,-200)
+		LF.smooth_pos(boss, Vector2(385, -200), 2.0)
 		enabled = false
 		clear_bullets()
 		return
@@ -110,32 +103,24 @@ func timeout_1():
 	timer1_count += 1
 
 func move_boss_random():
-	boss_target_position = Vector2(
-		randf_range(200,600),
-		randf_range(160,260)
-	)
+	LF.smooth_pos(boss, Vector2(randf_range(200,600), randf_range(160,260)), 2.0)
 
 func spawn_ice_wall():
 	# Remember ice is enemy
 	var enemy : Enemy
 	for i in range(10):
 		enemy = ModScript.spawn_enemy(enemy_ice, Vector2(i * 75 + 40, 5))
-		enemy.velocity = Vector2.ZERO
+		enemy.velocity = Vector2.DOWN
 		enemy.rotation += i * 0.1
-		enemy.add_script_node(
-			MSAcceleration.new(Vector2(0, 300))
-		)
+		LF.accel(enemy, Vector2(0, 300))
 	AudioManager.play_audio(audio_shoot)
 
 func spawn_ice_shards(x_offset : float):
-	# Remember ice is enemy
 	var bullet : Bullet
 	for i in range(50):
 		bullet = ModScript.spawn_bullet(bullet_shard, Vector2(i * 20 + x_offset, 5))
-		bullet.velocity = Vector2.ZERO
+		bullet.velocity = Vector2.DOWN
 		bullet.set_color(SGBasicBullet.ColorType.TEAL)
-		bullet.add_script_node(
-			MSAcceleration.new(Vector2(0, 200))
-		)
+		LF.accel(bullet, Vector2(0, 200))
 	AudioManager.play_audio(audio_shoot)
 	

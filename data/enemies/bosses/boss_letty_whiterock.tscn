@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcd8d7umir7nd"]
+[gd_scene load_steps=10 format=3 uid="uid://dcd8d7umir7nd"]
 
-[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_xyka8"]
-[ext_resource type="PackedScene" uid="uid://clkj0kllal1wy" path="res://data/after_effects/enemy_death_basic.tscn" id="2_ugbna"]
+[ext_resource type="Script" path="res://scripts/entities/enemy_boss.gd" id="1_wxaxe"]
 [ext_resource type="Texture2D" uid="uid://bt2ys5s2cj73e" path="res://assets/img/enemies/boss_letty_whiterock.png" id="3_fw0af"]
 [ext_resource type="Script" path="res://scripts/sprite_effects/sprite_boss_simple.gd" id="4_qws14"]
 [ext_resource type="PackedScene" uid="uid://w54qs2iq7b0n" path="res://scripts/gameplay/boss_bar.tscn" id="5_3g11l"]
@@ -48,12 +47,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BossLettyWhiterock" type="Area2D" node_paths=PackedStringArray("main_collision") groups=["enemy"]]
+[node name="BossLettyWhiterock" type="Area2D" node_paths=PackedStringArray("health_bar") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 8
-script = ExtResource("1_xyka8")
-main_collision = NodePath("CollisionShape2D")
-death_effect_scene = ExtResource("2_ugbna")
+script = ExtResource("1_wxaxe")
+health_bar = NodePath("BossBar")
 mhp = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -65,6 +63,7 @@ sprite_frames = SubResource("SpriteFrames_ee4b3")
 animation = &"right"
 script = ExtResource("4_qws14")
 
-[node name="BossBar" parent="." instance=ExtResource("5_3g11l")]
+[node name="BossBar" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_3g11l")]
+parent = NodePath("..")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

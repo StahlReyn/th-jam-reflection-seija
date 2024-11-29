@@ -88,7 +88,7 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.add_behavior_func("shooter", weeping_shooter)
 	return enemy
 
-static func weeping_shooter(entity:Entity):
+static func weeping_shooter(entity: Entity, delta: float):
 	if entity.just_time_passed_every(0.2):
 		var bullet = ModScript.spawn_entity(
 			BulletUtils.scene_dict["circle_medium"], entity.position
@@ -109,7 +109,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.add_behavior_func("shooter", shoot_arc_triangle)
 	return enemy
 
-static func shoot_arc_triangle(entity:Entity):
+static func shoot_arc_triangle(entity: Entity, delta: float):
 	if entity.just_time_passed_every(1.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var angle = entity.position.angle_to_point(GameUtils.get_player().position)

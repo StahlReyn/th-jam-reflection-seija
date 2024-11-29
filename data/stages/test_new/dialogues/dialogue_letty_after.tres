@@ -101,3 +101,6 @@ text = "LETTY_21"
 [resource]
 script = ExtResource("5_3k8so")
 dialogue_actions = Array[ExtResource("1_qatay")]([SubResource("Resource_hscxn"), SubResource("Resource_j2qxn"), SubResource("Resource_itbh8"), SubResource("Resource_ktd6k"), SubResource("Resource_qx8en"), SubResource("Resource_esuri"), SubResource("Resource_0x251"), SubResource("Resource_umqlf"), SubResource("Resource_ubqxa")])
+start_delay = 0.0
+spawn_position = Vector2(385, -50)
+target_position = Vector2(385, 300)

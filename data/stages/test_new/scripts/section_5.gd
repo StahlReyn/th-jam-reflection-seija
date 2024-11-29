@@ -100,7 +100,7 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 	enemy.add_behavior_func("shooter", shoot_big_ice)
 	return enemy
 
-static func shoot_big_ice(entity:Entity):
+static func shoot_big_ice(entity: Entity, delta: float):
 	if entity.just_time_passed(3.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)
@@ -121,7 +121,7 @@ func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.add_behavior_func("shooter", shoot_accel_arrow)
 	return enemy
 
-static func shoot_accel_arrow(entity:Entity):
+static func shoot_accel_arrow(entity: Entity, delta: float):
 	if entity.just_time_passed_every(1.0):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var direction = GameUtils.get_direction_to_player(entity)
@@ -155,7 +155,7 @@ func spawn_rain_fairy(position: Vector2, velocity: Vector2, acceleration: Vector
 	enemy.add_behavior_func("shooter", shoot_falling)
 	return enemy
 
-static func shoot_falling(entity:Entity):
+static func shoot_falling(entity: Entity, delta: float):
 	if entity.just_time_passed_every(0.3):
 		var bullet := spawn_bullet(bullet_crystal, entity.position)
 		bullet.velocity = Vector2(randf_range(-10, 10), 20)
