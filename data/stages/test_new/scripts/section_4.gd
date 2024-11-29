@@ -21,13 +21,6 @@ var timer1_count : int = 0
 func _init() -> void:
 	timer1 = timer_setup(2.0, timeout_1)
 
-func timer_setup(wait_time: float, function: Callable) -> Timer:
-	var timer = Timer.new()
-	timer.wait_time = wait_time
-	timer.connect("timeout", function)
-	add_child(timer)
-	return timer
-
 func _ready() -> void:
 	super()
 	duration = 25.0

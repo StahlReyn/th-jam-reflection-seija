@@ -47,7 +47,7 @@ var reverse_spin : bool = false
 func _ready() -> void:
 	super()
 	start_section()
-	timer_spawn = timer_setup(timer_spawn_timeout)
+	timer_spawn = timer_setup(0.07, timer_spawn_timeout)
 	switch_state(State.IDLE, 3.0)
 	boss = get_existing_boss(enemy_boss, 0)
 	boss.setup_for_section(drop_boss, 1600)
@@ -62,12 +62,6 @@ func _physics_process(delta: float) -> void:
 			switch_state(State.ENDING, 2.0)
 	if time_active >= duration and can_switch_end():
 		switch_state(State.ENDING, 2.0)
-
-func timer_setup(function: Callable) -> Timer:
-	var timer = Timer.new()
-	timer.connect("timeout", function)
-	add_child(timer)
-	return timer
 	
 func end_condition() -> bool:
 	return state == State.ENDED

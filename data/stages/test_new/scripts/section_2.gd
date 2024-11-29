@@ -12,13 +12,7 @@ var drop_fairy_power := EnemyDrops.new(10, 0)
 var drop_fairy_point := EnemyDrops.new(0, 8)
 
 func _init() -> void:
-	timer1 = timer_setup(timeout_1)
-
-func timer_setup(function: Callable) -> Timer:
-	var timer = Timer.new()
-	timer.connect("timeout", function)
-	add_child(timer)
-	return timer
+	timer1 = timer_setup(0.5, timeout_1)
 
 func _ready() -> void:
 	super()

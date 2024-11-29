@@ -58,6 +58,9 @@ func _physics_process(delta: float) -> void:
 		if do_check_despawn and is_in_despawn_area():
 			do_remove()
 
+func step_time(delta: float) -> void:
+	_physics_process(delta)
+
 func physics_process_active(delta: float) -> void:
 	pass
 

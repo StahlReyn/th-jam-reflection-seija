@@ -1,8 +1,9 @@
 extends SectionScript
 
 static var material_additive = preload("res://data/canvas_material/blend_additive.tres")
-@onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
-@onready var bullet_scene : PackedScene = BulletUtils.scene_dict["bullet"]
+static var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+static var bullet_scene : PackedScene = BulletUtils.scene_dict["bullet"]
+static var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
 
 var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
@@ -11,13 +12,7 @@ static var drop_fairy_power := EnemyDrops.new(3, 0)
 static var drop_fairy_point := EnemyDrops.new(0, 5)
 
 func _init() -> void:
-	timer1 = timer_setup(timeout_1)
-
-func timer_setup(function: Callable) -> Timer:
-	var timer = Timer.new()
-	timer.connect("timeout", function)
-	add_child(timer)
-	return timer
+	timer1 = timer_setup(0.8, timeout_1)
 
 func _ready() -> void:
 	super()
@@ -90,9 +85,7 @@ func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vec
 
 static func weeping_shooter(entity: Entity, delta: float):
 	if entity.just_time_passed_every(0.2):
-		var bullet = ModScript.spawn_entity(
-			BulletUtils.scene_dict["circle_medium"], entity.position
-		)
+		var bullet = ModScript.spawn_entity(bullet_circle, entity.position)
 		bullet.velocity = Vector2.from_angle(randf_range(-3 * PI/4, -PI/4)) * 100
 		bullet.set_color(SGBasicBullet.ColorType.BLUE)
 		LF.accel(bullet, Vector2(0, 200))
@@ -114,7 +107,7 @@ static func shoot_arc_triangle(entity: Entity, delta: float):
 		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
 		var angle = entity.position.angle_to_point(GameUtils.get_player().position)
 		var bullet_list = BulletUtils.spawn_arc_triangle(
-			BulletUtils.scene_dict["bullet"], # Bullet to spawn
+			bullet_scene, # Bullet to spawn
 			entity.position, # Position
 			550, # Speed
 			4, # Count

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StageData" load_steps=27 format=3 uid="uid://b6org8ginbbsr"]
+[gd_resource type="Resource" script_class="StageData" load_steps=31 format=3 uid="uid://b6org8ginbbsr"]
 
 [ext_resource type="Script" path="res://resources/stage_data.gd" id="1_qsp84"]
 [ext_resource type="Script" path="res://resources/stage_action.gd" id="2_obigo"]
@@ -17,6 +17,9 @@
 [ext_resource type="Resource" uid="uid://dvj0i7xk63t50" path="res://data/stages/test_new/dialogues/dialogue_letty.tres" id="15_xdvat"]
 [ext_resource type="Script" path="res://data/stages/test_new/scripts/spell_card_hailstorm.gd" id="16_w2a2t"]
 [ext_resource type="Resource" uid="uid://3rf8bxkny5l4" path="res://data/stages/test_new/dialogues/dialogue_letty_after.tres" id="17_3ks61"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/section_6.gd" id="18_kccn1"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/section_7.gd" id="19_1v55b"]
+[ext_resource type="Script" path="res://data/stages/test_new/scripts/section_8.gd" id="20_p3uoq"]
 
 [sub_resource type="Resource" id="Resource_v5li2"]
 script = ExtResource("9_kqxls")
@@ -54,9 +57,13 @@ script_data = Array[GDScript]([ExtResource("16_w2a2t")])
 script = ExtResource("9_kqxls")
 dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("17_3ks61")])
 
+[sub_resource type="Resource" id="Resource_v4icj"]
+script = ExtResource("3_iuw4r")
+script_data = Array[GDScript]([ExtResource("18_kccn1"), ExtResource("19_1v55b"), ExtResource("20_p3uoq")])
+
 [resource]
 script = ExtResource("1_qsp84")
 stage_number = 0
 stage_difficulty = 0
-start_index = 6
-stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_0e0ai"), SubResource("Resource_6hckk"), SubResource("Resource_h1ymj"), SubResource("Resource_ctx8p"), SubResource("Resource_8kkcu"), SubResource("Resource_2w2wi"), SubResource("Resource_o7wp2")])
+start_index = 9
+stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_0e0ai"), SubResource("Resource_6hckk"), SubResource("Resource_h1ymj"), SubResource("Resource_ctx8p"), SubResource("Resource_8kkcu"), SubResource("Resource_2w2wi"), SubResource("Resource_o7wp2"), SubResource("Resource_v4icj")])

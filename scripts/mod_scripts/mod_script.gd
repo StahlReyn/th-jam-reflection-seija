@@ -28,13 +28,20 @@ func get_existing_boss(create_scene : PackedScene, index : int = 0) -> EnemyBoss
 		return bosses[index]
 	return spawn_enemy(create_scene, Vector2(385,-50))
 
+func timer_setup(wait_time: float, function: Callable) -> Timer:
+	var timer = Timer.new()
+	timer.wait_time = wait_time
+	timer.connect("timeout", function)
+	add_child(timer)
+	return timer
+
 static func get_container_for_entity(entity: Entity):
 	if entity is Enemy:
 		return GameUtils.get_enemy_container()
 	elif entity is Bullet or entity is Laser:
 		return GameUtils.get_bullet_container()
 	printerr("Get container for entity gets non specified container")
-	return null
+	return GameUtils.get_bullet_container()
 
 static func spawn_entity(scene : PackedScene, pos : Vector2 = Vector2(0,0)) -> Entity:
 	var entity : Entity = scene.instantiate()
@@ -112,11 +119,18 @@ class LF:
 		entity.set_meta("smooth_pos", pos)
 		entity.set_meta("smooth_rate", rate)
 		entity.add_behavior_func("smooth_pos", Processor.smooth_pos)
+	
+	static func rot_vel(entity: Entity, speed: float):
+		entity.set_meta("rot_vel", speed)
+		entity.add_behavior_func("rot_vel", Processor.rot_vel)
 
 # Static func so it all can share, avoid having unique for each entities
 class Processor:
 	static func accel(e : Entity, delta: float):
 		e.velocity += delta * e.get_meta("accel")
+	
+	static func rot_vel(e : Entity, delta: float):
+		e.rotation += delta * e.get_meta("rot_vel")
 	
 	static func circle(e : Entity, delta: float):
 		var params = e.get_meta("circle")

@@ -10,17 +10,11 @@ var timer1_set_count : int = 0
 var drop_fairy_power := EnemyDrops.new(2, 0)
 
 func _init() -> void:
-	timer1 = timer_setup(timeout_1)
-
-func timer_setup(function: Callable) -> Timer:
-	var timer = Timer.new()
-	timer.connect("timeout", function)
-	add_child(timer)
-	return timer
+	timer1 = timer_setup(1.0, timeout_1)
 
 func _ready() -> void:
 	super()
-	duration = 16.0
+	duration = 20.0
 	timer1.start(1.0)
 
 func _physics_process(delta: float) -> void:

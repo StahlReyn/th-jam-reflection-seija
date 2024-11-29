@@ -15,8 +15,8 @@ script = ExtResource("1_srh06")
 self_update_anim = false
 main_sprite = NodePath("Sprite")
 main_collision = NodePath("CollisionShape2D")
-mhp = 30
-collision_damage = 30
+mhp = 50
+collision_damage = 50
 can_be_parried = true
 velocity = Vector2(0, -200)
 

@@ -1,8 +1,17 @@
 extends SectionScript
 
 static var material_additive = preload("res://data/canvas_material/blend_additive.tres")
-@onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
-@onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
+static var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+static var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
+
+static var drop_fairy_power := EnemyDrops.new(3, 0)
+static var drop_fairy_point := EnemyDrops.new(0, 3)
+
+static var spawn_positions : PackedVector2Array = [
+	Vector2(850, -40),
+	Vector2(800, -60),
+	Vector2(750, -80)
+]
 
 var timer1 : Timer = Timer.new()
 var timer1_count : int = 0
@@ -10,16 +19,9 @@ var timer1_count : int = 0
 func _init() -> void:
 	timer1 = timer_setup(3.0, timeout_1)
 
-func timer_setup(wait_time: float, function: Callable) -> Timer:
-	var timer = Timer.new()
-	timer.wait_time = wait_time
-	timer.connect("timeout", function)
-	add_child(timer)
-	return timer
-
 func _ready() -> void:
 	super()
-	duration = 25.0
+	duration = 30.0
 	timer1.start()
 
 func _physics_process(delta: float) -> void:
@@ -37,38 +39,28 @@ func timeout_1():
 		
 	timer1_count += 1
 
-func spawn_side_fairy_set(inverted : bool = false):
-	var positions : PackedVector2Array = [
-		Vector2(850, -40),
-		Vector2(800, -60),
-		Vector2(750, -80)
-	]
+static func spawn_side_fairy_set(inverted : bool = false):
 	var count = 0
 	var velocity = Vector2(-240, 320)
 	var acceleration = Vector2(0, -120)
 	if inverted:
 		velocity.x = -velocity.x
 		acceleration.x = -acceleration.x
-	for position in positions:
+	for position in spawn_positions:
 		if inverted:
 			position.x = mirror_x(position.x)
 		var enemy = spawn_side_fairy(position, velocity, acceleration)
 		enemy.delay_time = count * 0.1
 		count += 1
 
-func spawn_weeping_fairy_set(inverted : bool = false):
-	var positions : PackedVector2Array = [
-		Vector2(850, -40),
-		Vector2(800, -60),
-		Vector2(750, -80)
-	]
+static func spawn_weeping_fairy_set(inverted : bool = false):
 	var count = 0
 	var velocity = Vector2(-190, 120)
 	var acceleration = Vector2(0, -40)
 	if inverted:
 		velocity.x = -velocity.x
 		acceleration.x = -acceleration.x
-	for position in positions:
+	for position in spawn_positions:
 		if inverted:
 			position.x = mirror_x(position.x)
 		var enemy = spawn_weeping_fairy(position, velocity, acceleration)
@@ -77,52 +69,48 @@ func spawn_weeping_fairy_set(inverted : bool = false):
 
 # ================ WEEPING RAINING FAIRY ================
 
-func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
+static func spawn_weeping_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
-	enemy.drop_power = 0
-	enemy.drop_point = 8
+	enemy.drops = drop_fairy_point
 	enemy.main_sprite.set_type("blue")
-	enemy.add_script_node(
-		MSAcceleration.new(acceleration)
-	)
-	
-	var shoot_script = MSShootRandomAngle.new(0.2, 100, -3 * PI/8, -PI/8)
-	shoot_script.bullet_function = bullet_weeping_style
-	enemy.add_script_node(shoot_script)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", weeping_shooter)
 	return enemy
 
-static func bullet_weeping_style(bullet):
-	bullet.set_color(SGBasicBullet.ColorType.BLUE)
-	bullet.add_script_node(
-		MSAcceleration.new(Vector2(0, 200))
-	)
-	bullet.material = material_additive
+static func weeping_shooter(entity: Entity, delta: float):
+	if entity.just_time_passed_every(0.2):
+		var bullet = ModScript.spawn_entity(bullet_circle, entity.position)
+		bullet.velocity = Vector2.from_angle(randf_range(-3 * PI/4, -PI/4)) * 100
+		bullet.set_color(SGBasicBullet.ColorType.BLUE)
+		LF.accel(bullet, Vector2(0, 200))
+		bullet.material = material_additive
 
 # ================ TRIANGLE SHOT FAIRY ================
 
-func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
+static func spawn_side_fairy(position: Vector2, velocity: Vector2, acceleration: Vector2) -> Enemy:
 	var enemy = spawn_enemy(enemy_fairy, position)
 	enemy.velocity = velocity
-	enemy.drop_power = 5
-	enemy.drop_point = 0
+	enemy.drops = drop_fairy_power
 	enemy.main_sprite.set_type("red")
-	enemy.add_script_node(
-		MSAcceleration.new(acceleration)
-	)
-	
-	var shoot_script = MSShootCircle.new(1.8, 100, 16, 0, bullet_circle)
-	shoot_script.bullet_list_function = bullet_shot_style
-	enemy.add_script_node(shoot_script)
+	LF.accel(enemy, acceleration)
+	enemy.add_behavior_func("shooter", shoot_implode_circle)
 	return enemy
 
-static func bullet_shot_style(bullet_list):
-	for bullet : Bullet in bullet_list:
-		bullet.set_color(SGBasicBullet.ColorType.RED)
-		bullet.material = material_additive
-		bullet.add_script_node(
-			MSAcceleration.new(bullet.velocity * -0.8)
+static func shoot_implode_circle(entity: Entity, delta: float):
+	if entity.just_time_passed(1.8):
+		AudioManager.play_audio_2d(AudioManager.audio_shoot_default, entity.position)
+		var bullet_list := BulletUtils.spawn_circle(
+			bullet_circle, # Bullet to spawn
+			entity.position, # Position
+			100, # Speed
+			16, # Count
+			0, # Offset rad
 		)
+		for bullet : Bullet in bullet_list:
+			bullet.set_color(SGBasicBullet.ColorType.RED)
+			bullet.material = material_additive
+			LF.accel(bullet, bullet.velocity * -0.8)
 
 static func mirror_x(x: float) -> float:
 	return -(x - GameUtils.game_area.x)
