@@ -38,6 +38,7 @@ var prev_enemy_spawned : int = 0
 var prev_shoot_down : int = 0
 
 func reset_variables() -> void:
+	print("==== RESET GAME VARIABLES ====")
 	game_time = 0.0
 	score = 0
 	graze = 0

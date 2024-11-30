@@ -17,6 +17,8 @@ func _ready() -> void:
 	# Scene Handler need to update if it's reloaded 
 	# as previous is considered freed, breaking stuff
 	SceneHandler.current_scene = self
+	# PLACEHOLDER - there's no continuous stage yet so it's fine to reset
+	GameVariables.reset_variables()
 	start_stage.emit(default_stage)
 	
 func _physics_process(delta: float) -> void:
@@ -48,5 +50,4 @@ func _on_pause_menu_retry() -> void:
 	changing_scene.emit()
 	await get_tree().create_timer(0.3).timeout
 	get_tree().paused = false
-	GameVariables.reset_variables()
 	SceneHandler.reload_current_scene()
