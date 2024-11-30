@@ -46,7 +46,7 @@ dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("12_eonak")])
 
 [sub_resource type="Resource" id="Resource_ctx8p"]
 script = ExtResource("3_iuw4r")
-script_data = Array[GDScript]([ExtResource("14_msu5l"), ExtResource("13_2rvw2")])
+script_data = Array[GDScript]([ExtResource("13_2rvw2"), ExtResource("14_msu5l")])
 
 [sub_resource type="Resource" id="Resource_8kkcu"]
 script = ExtResource("9_kqxls")
@@ -80,6 +80,6 @@ dialogue_data = Array[ExtResource("8_wm3v4")]([ExtResource("23_gutw5")])
 script = ExtResource("1_qsp84")
 stage_number = 0
 stage_difficulty = 0
-start_index = 10
-start_power = 400
+start_index = 0
+start_power = 0
 stage_actions = Array[ExtResource("2_obigo")]([SubResource("Resource_v5li2"), SubResource("Resource_ksmro"), SubResource("Resource_0e0ai"), SubResource("Resource_6hckk"), SubResource("Resource_h1ymj"), SubResource("Resource_ctx8p"), SubResource("Resource_8kkcu"), SubResource("Resource_2w2wi"), SubResource("Resource_o7wp2"), SubResource("Resource_v4icj"), SubResource("Resource_5i74i"), SubResource("Resource_1fu3v"), SubResource("Resource_bcct6")])

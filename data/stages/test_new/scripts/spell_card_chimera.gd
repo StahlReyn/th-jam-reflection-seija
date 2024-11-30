@@ -14,14 +14,11 @@ enum State {
 	ENDED,
 }
 
-@onready var enemy_boss : PackedScene = preload("res://data/enemies/bosses/boss_nue_houjuu.tscn")
-
-@onready var bullet_line : PackedScene = BulletUtils.scene_dict["partial_laser_small"]
-@onready var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
-
-@onready var audio_laser : AudioStream = preload("res://assets/audio/sfx/laser_modified.wav")
-
-@onready var blend_add = preload("res://data/canvas_material/blend_additive.tres")
+static var enemy_boss : PackedScene = preload("res://data/enemies/bosses/boss_nue_houjuu.tscn")
+static var bullet_line : PackedScene = BulletUtils.scene_dict["partial_laser_small"]
+static var bullet_circle : PackedScene = BulletUtils.scene_dict["circle_medium"]
+static var audio_laser : AudioStream = preload("res://assets/audio/sfx/laser_modified.wav")
+static var blend_add = preload("res://data/canvas_material/blend_additive.tres")
 
 var boss : EnemyBoss
 var state : int = State.IDLE
@@ -48,6 +45,7 @@ func _ready() -> void:
 	super()
 	start_section()
 	timer_spawn = timer_setup(0.07, timer_spawn_timeout)
+	timer_spawn.paused = true
 	switch_state(State.IDLE, 3.0)
 	boss = get_existing_boss(enemy_boss, 0)
 	boss.setup_for_section(drop_boss, 1600)
@@ -209,5 +207,4 @@ func on_state_change(state: int):
 			if is_instance_valid(boss):
 				boss.do_check_despawn = true
 			LF.smooth_pos(boss, Vector2(385, -200), 2.0)
-			enabled = false
 			clear_bullets()

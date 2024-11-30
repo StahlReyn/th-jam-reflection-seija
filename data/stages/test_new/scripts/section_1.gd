@@ -14,7 +14,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	super()
-	duration = 20.0
+	duration = 18.0
 	timer1.start(1.0)
 
 func _physics_process(delta: float) -> void:

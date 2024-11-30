@@ -1,6 +1,7 @@
 extends SectionScript
 
 static var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+static var enemy_sunflower : PackedScene = EnemyUtils.scene_dict["sunflower_fairy"]
 
 static var material_additive = preload("res://data/canvas_material/blend_additive.tres")
 static var bullet_star = BulletUtils.scene_dict["star_small"]
@@ -59,7 +60,7 @@ static func shoot_slow_circle(entity: Entity, delta: float):
 			bullet.material = material_additive
 	
 static func spawn_star_fairy(position):
-	var enemy = spawn_enemy(enemy_fairy, position)
+	var enemy = spawn_enemy(enemy_sunflower, position)
 	enemy.main_sprite.set_type("yellow")
 	enemy.velocity = Vector2(0, 320)
 	enemy.drops = drop_fairy_power

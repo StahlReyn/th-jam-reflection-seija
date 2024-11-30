@@ -1,7 +1,7 @@
 extends SectionScript
 
-@onready var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
-@onready var enemy_sunflower : PackedScene = EnemyUtils.scene_dict["sunflower_fairy"]
+static var enemy_fairy : PackedScene = EnemyUtils.scene_dict["lesser_fairy"]
+static var enemy_sunflower : PackedScene = EnemyUtils.scene_dict["sunflower_fairy"]
 
 static var material_additive = preload("res://data/canvas_material/blend_additive.tres")
 
@@ -98,8 +98,8 @@ static func shoot_circle(entity: Entity, delta: float):
 		var bullet_list = BulletUtils.spawn_circle(
 			BulletUtils.scene_dict["spike"], # Bullet to spawn
 			entity.position, # Position
-			360, # Speed
-			24, # Count
+			320, # Speed
+			16, # Count
 			0, # Offset rad
 		)
 		for bullet : Bullet in bullet_list:

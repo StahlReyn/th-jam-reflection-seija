@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scenes/screen_wipe.gd" id="3_a3loy"]
 [ext_resource type="PackedScene" uid="uid://bhxpmmfn0rxv" path="res://scenes/gameplay/pop_ups.tscn" id="6_h5sjb"]
 [ext_resource type="PackedScene" uid="uid://fuxvcjrqr0fg" path="res://scenes/gameplay/pause_menu.tscn" id="8_uh2lw"]
-[ext_resource type="PackedScene" path="res://scenes/background/stage_torifune.tscn" id="10_muvou"]
+[ext_resource type="PackedScene" uid="uid://c24hs4wwoitwp" path="res://scenes/background/stage_torifune.tscn" id="10_muvou"]
 [ext_resource type="AudioStream" uid="uid://c2a1nbhne0osk" path="res://assets/audio/bgm/reflection_jam_seija.mp3" id="11_fqbm5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_su4a2"]

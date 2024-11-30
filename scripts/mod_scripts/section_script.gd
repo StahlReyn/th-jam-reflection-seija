@@ -34,7 +34,6 @@ func check_end_deferred():
 func end_section() -> void:
 	prints("END SECTION", end_condition(), ended_already)
 	ended_already = true
-	enabled = false
 	if do_chapter_end:
 		call_deferred("end_chapter")
 	if stage_parent:

@@ -6,21 +6,15 @@ extends Node
 var time_elapsed : float = 0.0 ## Timer since script is on_ready
 var time_active : float = 0.0 ## Timer that ticks only when active
 
-@export var enabled : bool = true ## Is enabled
-
 func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
 	time_elapsed += delta
-	if is_active():
-		physics_process_active(delta)
+	physics_process_active(delta)
 		
 func physics_process_active(delta: float) -> void:
 	time_active += delta
-	
-func is_active() -> bool:
-	return enabled
 
 func get_existing_boss(create_scene : PackedScene, index : int = 0) -> EnemyBoss:
 	var bosses = get_tree().get_nodes_in_group("enemy_boss")

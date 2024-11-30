@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b2416reix6xak"]
+[gd_scene load_steps=27 format=3 uid="uid://c24hs4wwoitwp"]
 
 [ext_resource type="Material" uid="uid://ca2dw4uenl2uh" path="res://assets/resources/materials/torifune_wall.tres" id="1_3fsat"]
 [ext_resource type="Material" uid="uid://b64c32mrtssee" path="res://assets/resources/materials/torifune_floor.tres" id="1_ej3qv"]
@@ -65,7 +65,7 @@ buffer = PackedFloat32Array(0.0934075, 0, -0.000332998, -0.349683, 0, 0.093408, 
 
 [sub_resource type="Curve3D" id="Curve3D_yey3p"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0.350035, 0, 0, 0, 0, 0, 0, 0, -0.0164019, 0.279705, -7.75046, 0, 0, 0, 0, 0, 0, 0.117865, 0.126636, -21.0003),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0.350035, 0, 0, 0, 0, 0, 0, 0, -0.0164019, 0.279705, -7.75046, 0, 0, 0, 0, 0, 0, 0.117865, 0.126636, -28.2286),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -181,10 +181,10 @@ mesh = SubResource("PlaneMesh_wtggt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.990904, 1.30252)
 curve = SubResource("Curve3D_yey3p")
 script = ExtResource("2_jkih6")
-speed = 0.05
+speed = 0.04
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.999974, -1.9202e-05, 0.00211609, -9.09473e-13, 0.999929, 0.00907364, -0.00211619, -0.00907362, 0.999927, 0, 0.350035, 0)
+transform = Transform3D(0.999968, -1.92019e-05, 0.00211608, -9.09467e-13, 0.999923, 0.00907359, -0.00211618, -0.00907356, 0.999921, 0, 0.350035, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D"]
 transform = Transform3D(1.00002, 0.00119734, 0.000384525, -0.00120413, 0.823468, 0.567414, 0.000362735, -0.567414, 0.823468, 0, 0, 0)
