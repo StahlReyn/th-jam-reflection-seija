@@ -2,13 +2,13 @@ extends ColorRect
 
 signal closed
 
-var cur_percent : float = 1
+var cur_percent : float = 1.0
 var closing : bool = false
 var signal_closed : bool = false
 var time_closed : float = 0.0
 
 func _ready() -> void:
-	pass 
+	material.set_shader_parameter("percentage", cur_percent)
 
 func _physics_process(delta: float) -> void:
 	if closing:

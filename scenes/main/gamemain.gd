@@ -2,6 +2,7 @@ class_name GameMain
 extends Control
 
 signal start_stage
+signal changing_scene
 
 @export var default_stage : StageData
 @onready var popup : PopUps = $PopUps
@@ -29,3 +30,23 @@ func get_noise_offset(delta: float, speed: float, strength: float) -> Vector2:
 		noise.get_noise_2d(1, noise_i) * strength,
 		noise.get_noise_2d(100, noise_i) * strength
 	)
+
+func _on_gameview_ending_stage() -> void:
+	print("==== GAME VIEW END STAGE - PLACEHOLDER END ====")
+	changing_scene.emit()
+	await get_tree().create_timer(0.3).timeout
+	get_tree().paused = false
+	SceneHandler.goto_scene(SceneHandler.scene_end)
+
+func _on_pause_menu_quit() -> void:
+	changing_scene.emit()
+	await get_tree().create_timer(0.3).timeout
+	get_tree().paused = false
+	SceneHandler.goto_scene(SceneHandler.scene_menu)
+
+func _on_pause_menu_retry() -> void:
+	changing_scene.emit()
+	await get_tree().create_timer(0.3).timeout
+	get_tree().paused = false
+	GameVariables.reset_variables()
+	SceneHandler.reload_current_scene()

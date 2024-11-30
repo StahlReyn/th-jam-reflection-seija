@@ -55,3 +55,4 @@ script = ExtResource("6_0wgp6")
 
 [connection signal="game_start" from="." to="AreaCollection" method="_on_gameview_game_start"]
 [connection signal="start_stage" from="." to="StageHandler" method="_on_gameview_start_stage"]
+[connection signal="ending_stage" from="StageHandler" to="." method="_on_stage_handler_ending_stage"]

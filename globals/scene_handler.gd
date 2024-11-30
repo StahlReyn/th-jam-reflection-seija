@@ -4,6 +4,7 @@ var current_scene = null
 
 static var scene_game = "res://scenes/main/gamemain.tscn"
 static var scene_menu = "res://scenes/main/menu.tscn"
+static var scene_end = "res://scenes/main/end_scene.tscn"
 
 func _ready():
 	var root = get_tree().root

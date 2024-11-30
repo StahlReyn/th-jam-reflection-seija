@@ -32,7 +32,6 @@ func check_end_deferred():
 
 ## This ends the section. Can also be called externally, like Boss HP condition
 func end_section() -> void:
-	prints("END SECTION", end_condition(), ended_already)
 	ended_already = true
 	if do_chapter_end:
 		call_deferred("end_chapter")

@@ -1,6 +1,8 @@
 class_name StageHandler
 extends Node
 
+signal ending_stage
+
 var cur_stage_script : StageScript
 
 var cd1 = 1.0
@@ -16,8 +18,12 @@ func add_stage_script_from_data(data : StageData) -> StageScript:
 	var inst := StageScript.new(data)
 	add_child(inst)
 	cur_stage_script = inst
+	inst.connect("ending_stage", end_stage)
 	print("Add Stage Script")
 	return inst
+
+func end_stage() -> void:
+	ending_stage.emit()
 
 func check_finished_sections() -> void:
 	for node in get_tree().get_nodes_in_group("stage_script"):

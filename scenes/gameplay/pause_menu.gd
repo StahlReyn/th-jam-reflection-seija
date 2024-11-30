@@ -1,6 +1,8 @@
 extends Control
 
+signal changing_scene
 signal retry
+signal quit
 
 @export var selection_list : SelectionList
 
@@ -37,16 +39,10 @@ func option_return():
 func option_retry():
 	print("> Option Retry")
 	retry.emit()
-
+	
 func option_quit():
 	print("> Option Quit")
-	get_tree().paused = false
-	SceneHandler.goto_scene(SceneHandler.scene_menu)
+	quit.emit()
 
 func do_pause():
 	get_tree().paused = true
-
-func _on_screen_wipe_closed() -> void:
-	get_tree().paused = false
-	GameVariables.reset_variables()
-	SceneHandler.reload_current_scene()

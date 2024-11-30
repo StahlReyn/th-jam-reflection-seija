@@ -2,6 +2,8 @@ class_name StageScript
 extends ModScript
 ## StageScripts manages a list of Sections and Spellcards
 
+signal ending_stage
+
 var stage_data : StageData
 var stage_action_index : int = 0
 var section_index : int = 0
@@ -54,6 +56,11 @@ func do_next_stage_action() -> void:
 		do_next_action()
 	else:
 		print_rich("[color=yellow]> End Stage Action[/color]")
+		do_end_stage()
+
+func do_end_stage() -> void:
+	print_rich("[color=green]======== ENDING STAGE ========[/color]")
+	ending_stage.emit()
 
 func do_next_action() -> void:
 	if cur_stage_action is StageActionDialogue:

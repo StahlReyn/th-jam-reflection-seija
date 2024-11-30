@@ -32,7 +32,8 @@ script = ExtResource("1_4fphm")
 process_mode = 3
 z_index = 200
 material = SubResource("ShaderMaterial_3gp7d")
-offset_right = 1280.0
+offset_left = -1.0
+offset_right = 1279.0
 offset_bottom = 960.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("3_6a7ab")
@@ -80,10 +81,10 @@ texture = ExtResource("7_wm87h")
 centered = false
 
 [node name="Label" type="Label" parent="."]
-offset_left = 506.0
-offset_top = 459.0
-offset_right = 801.0
-offset_bottom = 754.0
+offset_left = 487.0
+offset_top = 457.0
+offset_right = 782.0
+offset_bottom = 752.0
 text = "Z - Confirm
 X - Back
 Ctrl - Skip Dialouge
@@ -91,11 +92,22 @@ Shift - Volume x10
 
 Z (Hold) - Charge
 Z (Release) - Hit
-Up Down Left Right Arrow - Move
+Arrow Keys - Move
 
 No control options currently.
 Still working on Framework :("
 label_settings = SubResource("LabelSettings_73ojy")
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(1, 1, 0.505882, 1)
+offset_left = 439.0
+offset_top = 787.0
+offset_right = 781.0
+offset_bottom = 839.0
+text = "Reflection Direction is same as Pong!!!
+(Relative position to Player)"
+label_settings = SubResource("LabelSettings_73ojy")
+horizontal_alignment = 1
 
 [connection signal="closed" from="ScreenWipe" to="StartMenu" method="_on_screen_wipe_closed"]
 [connection signal="start_game" from="StartMenu" to="ScreenWipe" method="_do_close"]

@@ -32,6 +32,7 @@ audio_start = NodePath("BulletHit")
 
 [node name="BulletHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_74mmg")
+volume_db = -4.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 amount = 100

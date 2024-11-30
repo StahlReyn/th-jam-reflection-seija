@@ -13,7 +13,7 @@ func simple():
 	player = GameUtils.get_player()
 	text = (
 		"FPS: " + str(Engine.get_frames_per_second()  ) + "\n" +
-		"Time: " + ("%.3f" % GameVariables.game_time) + "\n" +
+		"Time: " + ("%.2f" % GameVariables.game_time) + "\n" +
 		"Bullet: " + str(GameUtils.get_bullet_count()) + "\n" +
 		"Enemy: " + str(GameUtils.get_enemy_count()) + "\n" +
 		"Item: " + str(GameUtils.get_item_count())

@@ -2,6 +2,9 @@ class_name SelectionList
 extends VBoxContainer
 ## Styled container, all children should be Margin Container
 
+static var audio_move : AudioStream = preload("res://assets/audio/sfx/click_collect.wav")
+static var audio_select : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
+
 static var margin_deselect : int = 0
 static var margin_select : int = 20
 static var margin_pressed : int = 30
@@ -28,14 +31,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("move_up"):
 		cur_selection -= 1
 		cur_selection = wrapi(cur_selection, 0, get_option_count())
+		AudioManager.play_audio(audio_move)
 	elif Input.is_action_just_pressed("move_down"):
 		cur_selection += 1
 		cur_selection = wrapi(cur_selection, 0, get_option_count())
+		AudioManager.play_audio(audio_move)
 	
 	if Input.is_action_just_pressed("shoot"):
 		var node = get_children()[cur_selection]
 		node.modulate = modulate_pressed
 		node.add_theme_constant_override("margin_left", margin_pressed)
+		AudioManager.play_audio(audio_select, -1.0)
 	
 	# Update Display
 	var margin_index : int = 0

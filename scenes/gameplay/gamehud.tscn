@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://chg817g0wf0ij"]
+[gd_scene load_steps=21 format=3 uid="uid://chg817g0wf0ij"]
 
 [ext_resource type="Texture2D" uid="uid://c7cx5yj4h5drb" path="res://assets/img/system/hud-test.png" id="1_tnihf"]
 [ext_resource type="Script" path="res://scenes/gameplay/gamehud.gd" id="1_xgt62"]
 [ext_resource type="FontFile" uid="uid://cgat1phnbct83" path="res://assets/fonts/Seagull-Bold.otf" id="2_avfm3"]
 [ext_resource type="Script" path="res://scenes/gameplay/debug-label.gd" id="2_hgmoc"]
+[ext_resource type="FontFile" uid="uid://bb1qlsmay1voc" path="res://assets/fonts/RusselSquareOpti.otf" id="4_uix07"]
 [ext_resource type="LabelSettings" uid="uid://bkay61kan2hfv" path="res://assets/resources/label_settings/label_score.tres" id="4_w0ro3"]
 [ext_resource type="Texture2D" uid="uid://ba2ttc5hf8t30" path="res://assets/img/system/divider_stat.png" id="5_7bs50"]
 [ext_resource type="LabelSettings" uid="uid://buvvmef2syqrg" path="res://assets/resources/label_settings/label_score_title.tres" id="5_tyrlp"]
@@ -24,8 +25,11 @@ font_size = 70
 outline_size = 30
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_k5vxq"]
-font_size = 14
+[sub_resource type="LabelSettings" id="LabelSettings_opysw"]
+font = ExtResource("4_uix07")
+font_size = 12
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Gamehud" type="Control"]
 z_index = 20
@@ -55,13 +59,13 @@ centered = false
 [node name="DebugLabel" type="Label" parent="."]
 z_index = 20
 layout_mode = 2
-offset_left = 868.0
-offset_top = 604.0
-offset_right = 1236.0
-offset_bottom = 811.0
+offset_left = 66.0
+offset_top = 34.0
+offset_right = 434.0
+offset_bottom = 241.0
 text = "DEBUG TEXT
 "
-label_settings = SubResource("LabelSettings_k5vxq")
+label_settings = SubResource("LabelSettings_opysw")
 script = ExtResource("2_hgmoc")
 
 [node name="Stats" type="VBoxContainer" parent="."]

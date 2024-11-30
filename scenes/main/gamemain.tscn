@@ -73,10 +73,14 @@ render_target_update_mode = 4
 [node name="StageTorifune" parent="ViewportBackground/SubViewport" instance=ExtResource("10_muvou")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 4
 stream = ExtResource("11_fqbm5")
 volume_db = 2.5
 autoplay = true
 parameters/looping = true
 
+[connection signal="changing_scene" from="." to="Gamehud/ScreenWipe" method="_do_close"]
 [connection signal="start_stage" from="." to="Gameview" method="_on_gamemain_start_stage"]
+[connection signal="changing_scene" from="Gamehud/PauseMenu" to="Gamehud/ScreenWipe" method="_do_close"]
+[connection signal="quit" from="Gamehud/PauseMenu" to="." method="_on_pause_menu_quit"]
+[connection signal="retry" from="Gamehud/PauseMenu" to="." method="_on_pause_menu_retry"]
+[connection signal="ending_stage" from="Gameview" to="." method="_on_gameview_ending_stage"]

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
+static var audio_shoot : AudioStream = preload("res://assets/audio/sfx/hit_noise_fade.wav")
 @onready var label_volume = $SelectionList/Options/Label
 
 signal start_game
@@ -35,7 +35,6 @@ func _physics_process(delta: float) -> void:
 func set_volume(num : float) -> void:
 	var cur_bus = AudioServer.get_bus_index("Master")
 	AudioServer.set_bus_volume_db(cur_bus, num)
-	# AudioManager.play_audio(audio_shoot)
 	label_volume.text = "VOLUME: " + ("%.2f" % num) + " dB"
 
 func add_volume(num : float) -> void:
@@ -43,7 +42,6 @@ func add_volume(num : float) -> void:
 	var cur_volume = AudioServer.get_bus_volume_db(cur_bus)
 	var new_volume = clamp(cur_volume + num, -20, 10)
 	AudioServer.set_bus_volume_db(cur_bus, new_volume)
-	AudioManager.play_audio(audio_shoot)
 	label_volume.text = "VOLUME: " + ("%.2f" % new_volume) + " dB"
 
 func option_start():
