@@ -10,6 +10,7 @@ func _ready() -> void:
 		"Score: " + GameVariables.get_score_display() +
 		"\nPoint Value: " + GameVariables.get_point_value_display() +
 		"\nPower: " + GameVariables.get_power_display() +
+		"\nGraze: " + GameVariables.get_graze_display() + 
 		"\nDeaths: " + str(GameVariables.deaths) + 
 		"\nShoot Down: " + str(GameVariables.shoot_down)
 	)
